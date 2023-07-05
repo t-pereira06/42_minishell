@@ -16,6 +16,7 @@ After that, a prompt will be presented:
 ## Rules Of The Project
 Your shell should:
 * Display a prompt when waiting for a new command.
+
 * Have a working history.
 
 * Search and launch the right executable (based on the PATH variable or using a
@@ -48,7 +49,7 @@ should expand to their values.
 * Handle $? which should expand to the exit status of the most recently executed
 foreground pipeline.
 
-* Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
+* Handle ```ctrl-C```, ```ctrl-D``` and ```ctrl-\``` which should behave like in bash.
 
 * In interactive mode:
   * ```ctrl-C``` displays a new prompt on a new line.
