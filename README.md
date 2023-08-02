@@ -62,5 +62,9 @@ foreground pipeline.
   * ```pwd``` with no options
   * ```export``` with no options
   * ```unset``` with no options
+
   * ```env``` with no options or arguments
   * ```exit``` with no options
+
+# Grade:
+![Screenshot from 2023-08-02 09-29-29](https://github.com/t-pereira06/42_minishell/assets/118270669/ed729df1-e6f6-495c-8950-d2199b4551a6)
