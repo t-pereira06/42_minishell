@@ -1,0 +1,1 @@
+verificar como comporta o export quando export abc (declare -x abc) em vez de ficar (declare -x abc="")

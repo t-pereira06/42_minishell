@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 10:53:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:18:15 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,9 @@ void	handler_sigint(int sig)
 	}
 }
 
-/*Check signal while prompt is "waiting"*/
 void	signal_handling(void)
 {
-	struct sigaction	sa;
-
-	sa.sa_flags = SA_RESTART;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = &handler;
-	sigaddset(&sa.sa_mask, SIGINT);
-	sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 
