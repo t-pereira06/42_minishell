@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 11:37:47 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:26:17 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int	main(int ac, char **av, char **env)
 				break;
 			//execute(&ms);
 		}
-		return (free_all(ms),
-			ft_putstr("exit\n"), 0);
+		return (free_all(ms), ft_putstr("exit\n"), 0);
 	}
 	return (0);
 }

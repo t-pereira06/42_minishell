@@ -6,13 +6,13 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 10:40:03 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:24:10 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-/** 
+/**
  * The function initializes the t_minishell structure with the provided input.
  *
  * @param ms    A pointer to the minishell structure.
@@ -80,10 +80,10 @@ int	read_input(t_minishell *ms)
 	if (!ms->prompt)
 		ms->prompt = ft_strdup("user> ");
 	ms->input = readline(ms->prompt);
-	/* free(ms->prompt);
+	free(ms->prompt);
 	if (!ms->input)
 		return (-1);
-	if (ft_strlen(ms->input))
+	/*if (ft_strlen(ms->input))
 		add_history(ms->input);
 	trimmed = ft_strtrim(ms->input, " ");
 	free(ms->input);
