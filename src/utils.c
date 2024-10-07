@@ -13,24 +13,6 @@
 #include "../headers/minishell.h"
 
 /**
- * Updates the current state of quotation marks in a string.
- *
- * @param c The current character being evaluated.
- * @param quote The current state of quotation marks.
- *
- * @return Returns the updated state of quotation marks based on the
- * character evaluation.
- */
-char	get_quote(char c, char quote)
-{
-	if (ft_strrchr("\"\'", c) && !quote)
-		return (c);
-	else if (ft_strrchr("\"\'", c) && quote == c)
-		return (0);
-	return (quote);
-}
-
-/**
  * Retrieves the information associated with a given environment variable name.
  *
  * @param env  A pointer to the pointer of the linked list containing

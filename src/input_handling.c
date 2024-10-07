@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 14:24:10 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:11:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param ms    A pointer to the minishell structure.
  * @param input The input string containing the oommand query line.
  */
-/* static void	ms_init(t_minishell *ms, char *input)
+static void	ms_init(t_minishell *ms, char *input)
 {
 	ms->heredoc = false;
 	ms->n_cmd = ft_wordcounter(input, '|');
@@ -30,38 +30,6 @@
 	ms->pid = ft_calloc(ms->n_cmd, sizeof(pid_t));
 	ms->paths = ft_split(get_env_info(&ms->env, "PATH"), ':');
 	ms->query = 0;
-} */
-
-/**
- * Checks if quotes in the given input string are properly balanced.
- *
- * @param input A pointer to the input string to be checked.
- * @return Returns 0 if quotes are balanced or absent, 1 if there is
- * an unclosed quote.
- */
-int	check_quotes(char *input)
-{
-	char	quote;
-
-	quote = 0;
-	while (*input && !quote)
-	{
-		if (ft_strrchr("\"\'", *input))
-			quote = *input;
-		input++;
-	}
-	while (*input && quote)
-	{
-		if (*input && *input == quote)
-			quote = 0;
-		input++;
-	}
-	if (*input)
-		return (check_quotes(input));
-	else if (!quote)
-		return (0);
-	else
-		return (1);
 }
 
 /**
@@ -74,7 +42,7 @@ int	check_quotes(char *input)
  */
 int	read_input(t_minishell *ms)
 {
-	//char	*trimmed;
+	char	*trimmed;
 
 	ms->prompt = get_prompt(ms, 0, 0);
 	if (!ms->prompt)
@@ -83,7 +51,7 @@ int	read_input(t_minishell *ms)
 	free(ms->prompt);
 	if (!ms->input)
 		return (-1);
-	/*if (ft_strlen(ms->input))
+	if (ft_strlen(ms->input))
 		add_history(ms->input);
 	trimmed = ft_strtrim(ms->input, " ");
 	free(ms->input);
@@ -96,6 +64,6 @@ int	read_input(t_minishell *ms)
 		return (0);
 	}
 	ms_init(ms, trimmed);
-	free(trimmed); */
+	free(trimmed);
 	return (1);
 }

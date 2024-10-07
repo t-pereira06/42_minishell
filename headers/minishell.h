@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 15:40:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:11:25 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,21 @@ t_env	*ft_create_data(char *info);
 char	*get_name(char *info);
 char	**ft_envcpy(t_list *env);
 
-//input_handling.c
+//input_errors.c
+int		check_invalid_syntax(char *input);
+int		check_supported_op(char *input);
 int		check_quotes(char *input);
+int		check_valid_input(char *input);
+
+//input_handling.c
 int		read_input(t_minishell *ms);
+
+//input_utils.c
+char	get_quote(char c, char quote);
+int		error_operator(char *error, char *operator);
+int		error_token(char *error, char metachar, int dup);
+int		unexpected_tokens(char *input);
+int		unexpected_redirect(char *input, int *i);
 
 //prompt.c
 char	*get_prompt(t_minishell *ms, int i, int j);
@@ -96,7 +108,6 @@ int		ft_wordlen(char *str, char c);
 char	**splitter(char *s, char c);
 
 //utils.c
-char	get_quote(char c, char quote);
 char	*get_env_info(t_list **env, char *name);
 char	*add_whitespaces(char *str);
 size_t	ft_cmdlen(char *str);
