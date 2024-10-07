@@ -1,7 +1,7 @@
 ## minishell
 This project is about creating a simple shell. You will learn a lot about processes and file descriptors.
 
-This is the first group project in the 42 core curriculum, that was done by myself and [andremvsramos](https://github.com/andremvsramos)
+This is the first group project in the 42 core curriculum, that was done by myself and [davioliv]()
 ## How To Execute The Program
 To compile the program:
 ```bash
