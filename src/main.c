@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:17:01 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:28:11 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int ac, char **av, char **env)
 				continue;
 			else if (i == -1)
 				break;
-			//execute(&ms);
+			execute(&ms);
 		}
 		return (free_all(ms), ft_putstr("exit\n"), 0);
 	}

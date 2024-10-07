@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/07 12:29:21 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/10/07 15:04:47 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,14 @@ LIBFTDIR = ./libft/
 HEADERDIR = ./headers/
 
 SRC =	src/main.c \
+		src/exec_utils.c \
+		src/exec.c \
 		src/free.c \
 		src/get_env.c \
 		src/input_errors.c \
 		src/input_handling.c \
 		src/input_utils.c \
+		src/parsing.c \
 		src/prompt.c \
 		src/signals.c \
 		src/splitter.c \
