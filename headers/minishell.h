@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/07 15:01:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:54:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,11 @@ typedef struct s_expander
 //SRC
 
 //exec_utils.c
+void	get_exit_status(t_minishell *ms);
+void	free_program(t_minishell *ms, int i);
 char	**remove_redirects(char *input);
+char	*get_command(char *cmd, t_minishell *ms, int i);
+void	free_child(t_minishell *ms, char **cmd_query, int i);
 
 //exec.c
 void	execute(t_minishell *ms);
@@ -101,6 +105,7 @@ int		unexpected_tokens(char *input);
 int		unexpected_redirect(char *input, int *i);
 
 //parsing.c
+char	*get_command(char *cmd, t_minishell *ms, int i);
 void	parse_query(t_minishell *ms, char **cmd_query);
 
 //prompt.c
