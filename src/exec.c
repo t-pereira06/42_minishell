@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/08 15:53:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:03:20 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	single_cmd(t_minishell *ms, char* cmd)
 		if (!cmd_query[0])
 			free_child(ms, cmd_query, 1);
 		command = get_command(cmd_query[0], ms, 0);
-		execve(cmd, cmd_query, ft_envcpy(ms->env));
+		execve(command, cmd_query, ft_envcpy(ms->env));
 	}
 }
 
@@ -67,7 +67,6 @@ void	execute(t_minishell *ms)
 	cmd = add_whitespaces(ms->args[0]);
 	single_cmd(ms, cmd);
 	free(cmd);
-	ft_free_split(ms->query);
 	get_exit_status(ms);
 	free_program(ms, 0);
 }
