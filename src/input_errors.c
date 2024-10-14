@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/07 13:11:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:07:23 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,12 @@ int	check_supported_op(char *input)
 
 	i = -1;
 	quote = 0;
+	printf("Input: %s\n", input);
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);
+		/* make a function to get the part of the input string and compare it
+		to the supported operators */
 		if (i + 1 < (int)ft_strlen(input)
 			&& input[i] == '|' && input[i + 1] == '|' && !quote)
 			return (error_operator(NOSUPPORT, "||"));

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/07 12:30:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:28:15 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,6 @@ int	unexpected_redirect(char *input, int *i)
 	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] == input[*i + 1])
 		return (error_token(UNTOKEN, input[*i + 1], 1));
 	return (0);
+	/* em vez disto fazer apenas, se o operador for diferente dos operadores
+	suportados, mandar so a mensagem a dizer que nao e suportado */
 }
