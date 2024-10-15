@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/07 15:04:47 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/10/15 12:17:44 by davioliv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,9 @@ SRC =	src/main.c \
 		src/signals.c \
 		src/splitter.c \
 		src/utils.c \
+		src/builtins/echo.c \
+		src/builtins/env.c \
+		src/builtins/cd.c \
 
 #----------COMMANDS----------#
 

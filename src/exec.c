@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/09 12:03:20 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:38:21 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 char	**handle_query(t_minishell *ms, char *input)
 {
 	char	**cmd_query;
-	int		i;
-	int		count;
+/*	int		i;
+	int		count;*/
 
-	i = 0;
+//	i = 0;
 	ms->in_fd = STDIN_FILENO;
 	ms->out_fd = STDOUT_FILENO;
-	count = ft_wordcounter(input, ' ');
+//	count = ft_wordcounter(input, ' ');
 	cmd_query = splitter(input, ' ');
 	free(input);
 	return (cmd_query);
@@ -49,7 +49,15 @@ void	single_cmd(t_minishell *ms, char* cmd)
 		if (!cmd_query[0])
 			free_child(ms, cmd_query, 1);
 		command = get_command(cmd_query[0], ms, 0);
-		execve(command, cmd_query, ft_envcpy(ms->env));
+//		printf("%s\n", cmd_query[0]);
+		if (!(ft_strncmp(cmd_query[0], "echo", 4)))
+			ft_echo(cmd_query);
+		else if (!(ft_strncmp(cmd_query[0], "env", 3)))
+			ft_env(ms);
+		else if (!(ft_strncmp(cmd_query[0], "cd", 2)))
+			ft_cd(cmd_query[1]);
+		else
+			execve(command, cmd_query, ft_envcpy(ms->env));
 	}
 }
 

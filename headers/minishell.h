@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/08 15:54:36 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:37:26 by davioliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,8 @@ size_t	ft_cmdlen(char *str);
 int		check_strcmp(char *s1, char *s2);
 
 //BUILT-INS
+void	ft_echo(char **args);
+void	ft_env(t_minishell *ms);
+void	ft_cd(char *path);
 
 #endif

@@ -70,11 +70,11 @@ void	free_program(t_minishell *ms, int i)
 char	**remove_redirects(char *input)
 {
 	char	**cmd_query;
-	int		i;
+/*	int		i;
 	int		count;
 
 	i = 0;
-	count = ft_wordcounter(input, ' ');
+	count = ft_wordcounter(input, ' ');*/
 	cmd_query = splitter(input, ' ');
 	/* while (cmd_query[i])
 	{
