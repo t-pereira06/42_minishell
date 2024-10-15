@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 12:38:21 by davioliv         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:50:16 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,44 @@ char	**handle_query(t_minishell *ms, char *input)
 	return (cmd_query);
 }
 
+void	is_builtin(char	*command)
+{
+	if (!(ft_strncmp(ms->query[0], "echo", 4)))
+		ft_echo(ms->query);
+	else if (!(ft_strncmp(ms->query[0], "env", 3)))
+		ft_env(ms);
+	else if (!(ft_strncmp(ms->query[0], "cd", 2)))
+		ft_cd(ms->query[1]);
+	/*execute builtins inside child*/
+}
+
+void	do_builtin(t_minishell *ms)
+{
+	if (!(ft_strncmp(ms->query[0], "echo", 4)))
+		ft_echo(ms->query);
+	else if (!(ft_strncmp(ms->query[0], "env", 3)))
+		ft_env(ms);
+	else if (!(ft_strncmp(ms->query[0], "cd", 2)))
+		ft_cd(ms->query[1]);
+}
+
 void	single_cmd(t_minishell *ms, char* cmd)
 {
-	char	**cmd_query;
+	char	**query;
 	char	*command;
 
 	ms->pid[0] = fork();
 	if (!ms->pid[0])
 	{
-		cmd_query = handle_query(ms, cmd);
 		signal_default();
-		if (!cmd_query[0])
-			free_child(ms, cmd_query, 1);
-		command = get_command(cmd_query[0], ms, 0);
-//		printf("%s\n", cmd_query[0]);
-		if (!(ft_strncmp(cmd_query[0], "echo", 4)))
-			ft_echo(cmd_query);
-		else if (!(ft_strncmp(cmd_query[0], "env", 3)))
-			ft_env(ms);
-		else if (!(ft_strncmp(cmd_query[0], "cd", 2)))
-			ft_cd(cmd_query[1]);
-		else
-			execve(command, cmd_query, ft_envcpy(ms->env));
+		query = handle_query(ms, cmd);
+		if (!query[0])
+			free_child(ms, query, 1);
+		command = get_command(query[0], ms, 0);
+		is_builtin(query[0]);
+//		printf("%s\n", query[0]);
+		execve(command, query, ft_envcpy(ms->env));
+		/*execute built-ins inside the child process*/
 	}
 }
 
@@ -73,8 +89,11 @@ void	execute(t_minishell *ms)
 	char	*cmd;
 
 	cmd = add_whitespaces(ms->args[0]);
+	//ms->query = handle_query(ms, cmd);
 	single_cmd(ms, cmd);
 	free(cmd);
+	do_builtin(ms);
+	//ft_free_split(ms->query);
 	get_exit_status(ms);
 	free_program(ms, 0);
 }

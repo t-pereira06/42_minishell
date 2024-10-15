@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 12:28:49 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:58:16 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_supported_op(char *input)
 		/* make a function to get the part of the input string and compare it
 		to the supported operators */
 		quote = get_quote(input[i], quote);
-		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
+		/* if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
 			operator = ft_strjoin("/", operator);
 		else if (ft_strlen(operator) != 0)
 		{
@@ -87,7 +87,18 @@ int	check_supported_op(char *input)
 			return_val = check_operator(operator);
 			free(operator);
 			return (return_val);
-		}
+		} */
+		if (i + 1 < (int)ft_strlen(input)
+			&& input[i] == '|' && input[i + 1] == '|' && !quote)
+			return (error_operator(NOSUPPORT, "||"));
+		else if (ft_strrchr(NOHANDLE, input[i]) && !quote)
+			return (error_token(NOSUPPORT, input[i], 0));
+		else if (input[i] == '<' && input[i + 1] == '>' && !quote)
+			return (error_operator(NOSUPPORT, "<>"));
+		else if (i + 2 < (int)ft_strlen(input)
+			&& input[i] == '<' && input[i + 1] == '<'
+			&& input[i + 2] == '<' && !quote)
+			return (error_operator(NOSUPPORT, "<<<"));
 	}
 	return (unexpected_tokens(input));
 }
