@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/15 12:17:44 by davioliv         ###   ########.fr        #
+#    Updated: 2024/10/16 13:33:33 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ HEADERDIR = ./headers/
 
 SRC =	src/main.c \
 		src/exec_utils.c \
+		src/check_builtins.c \
 		src/exec.c \
 		src/free.c \
 		src/get_env.c \
@@ -29,6 +30,7 @@ SRC =	src/main.c \
 		src/input_utils.c \
 		src/parsing.c \
 		src/prompt.c \
+		src/redirects.c \
 		src/signals.c \
 		src/splitter.c \
 		src/utils.c \
