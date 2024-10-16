@@ -6,55 +6,23 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 15:50:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:13:29 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-/**
- * Handles the input/output redirections in the command query by
- * calling the corresponding functions.
- *
- * @param ms     The minishell structure.
- * @param input  The input string containing the command query.
- *
- * @return The updated command query array after handling the redirections.
- */
-char	**handle_query(t_minishell *ms, char *input)
+void	exec_command(t_minishell *ms, char **query)
 {
-	char	**cmd_query;
-/*	int		i;
-	int		count;*/
+	char	*command;
 
-//	i = 0;
-	ms->in_fd = STDIN_FILENO;
-	ms->out_fd = STDOUT_FILENO;
-//	count = ft_wordcounter(input, ' ');
-	cmd_query = splitter(input, ' ');
-	free(input);
-	return (cmd_query);
-}
-
-void	is_builtin(char	*command)
-{
-	if (!(ft_strncmp(ms->query[0], "echo", 4)))
-		ft_echo(ms->query);
-	else if (!(ft_strncmp(ms->query[0], "env", 3)))
-		ft_env(ms);
-	else if (!(ft_strncmp(ms->query[0], "cd", 2)))
-		ft_cd(ms->query[1]);
-	/*execute builtins inside child*/
-}
-
-void	do_builtin(t_minishell *ms)
-{
-	if (!(ft_strncmp(ms->query[0], "echo", 4)))
-		ft_echo(ms->query);
-	else if (!(ft_strncmp(ms->query[0], "env", 3)))
-		ft_env(ms);
-	else if (!(ft_strncmp(ms->query[0], "cd", 2)))
-		ft_cd(ms->query[1]);
+	if (!query[0])
+			free_child(ms, query, 1);
+	if (do_builtin(ms, query));
+		return ;
+	command = get_command(query[0], ms, 0);
+	//printf("%s\n", query[0]);
+	execve(command, query, ft_envcpy(ms->env));
 }
 
 void	single_cmd(t_minishell *ms, char* cmd)
@@ -66,17 +34,10 @@ void	single_cmd(t_minishell *ms, char* cmd)
 	if (!ms->pid[0])
 	{
 		signal_default();
-		query = handle_query(ms, cmd);
-		if (!query[0])
-			free_child(ms, query, 1);
-		command = get_command(query[0], ms, 0);
-		is_builtin(query[0]);
-//		printf("%s\n", query[0]);
-		execve(command, query, ft_envcpy(ms->env));
-		/*execute built-ins inside the child process*/
+		query = check_redir(ms, cmd);
+		exec_command(ms, query);
 	}
 }
-
 
 /**
  * Function with instructions to execute single or multiple commands
@@ -92,7 +53,7 @@ void	execute(t_minishell *ms)
 	//ms->query = handle_query(ms, cmd);
 	single_cmd(ms, cmd);
 	free(cmd);
-	do_builtin(ms);
+	//do_builtin(ms);
 	//ft_free_split(ms->query);
 	get_exit_status(ms);
 	free_program(ms, 0);

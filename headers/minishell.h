@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 12:37:26 by davioliv         ###   ########.fr       */
+/*   Updated: 2024/10/16 12:12:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ typedef struct s_expander
 }				t_expander;
 
 //SRC
+
+//check_builtins.c
+int	do_builtin(t_minishell *ms, char *command);
 
 //exec_utils.c
 void	get_exit_status(t_minishell *ms);
