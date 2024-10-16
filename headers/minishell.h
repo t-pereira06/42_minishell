@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 12:37:26 by davioliv         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:40:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_expander
 
 //SRC
 
+//check_builtins.c
+int	do_builtin(t_minishell *ms, char **query);
+
 //exec_utils.c
 void	get_exit_status(t_minishell *ms);
 void	free_program(t_minishell *ms, int i);
@@ -76,8 +79,9 @@ char	*get_command(char *cmd, t_minishell *ms, int i);
 void	free_child(t_minishell *ms, char **cmd_query, int i);
 
 //exec.c
-void	execute(t_minishell *ms);
+void	exec_command(t_minishell *ms, char **query);
 void	exec_single_cmd(t_minishell *ms, char *cmd);
+void	execute(t_minishell *ms);
 
 //free.c
 void	ft_free_lst(t_list *lst);
@@ -111,6 +115,9 @@ void	parse_query(t_minishell *ms, char **cmd_query);
 //prompt.c
 char	*get_prompt(t_minishell *ms, int i, int j);
 
+//redirects.c
+char	**check_redir(t_minishell *ms, char *input);
+
 //signals.c
 void	handler(int signal);
 void	handler_sigint(int sig);
@@ -129,8 +136,8 @@ size_t	ft_cmdlen(char *str);
 int		check_strcmp(char *s1, char *s2);
 
 //BUILT-INS
-void	ft_echo(char **args);
-void	ft_env(t_minishell *ms);
-void	ft_cd(char *path);
+void	ft_echo(t_minishell *ms, char **query);
+void	ft_env(t_minishell *ms, char**query);
+void	ft_cd(t_minishell *ms, char **query);
 
 #endif

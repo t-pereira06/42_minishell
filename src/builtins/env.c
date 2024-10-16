@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: davioliv <davioliv@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:04:00 by davioliv          #+#    #+#             */
-/*   Updated: 2024/10/15 12:48:45 by davioliv         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:39:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_minishell *ms)
+void	ft_env(t_minishell *ms, char **query)
 {
 	t_list	*temp;
 	t_env	*vars;
@@ -35,4 +35,7 @@ void	ft_env(t_minishell *ms)
 		}
 		temp = temp->next;
 	}
+	free_child(ms, query, 0);
+	g_exit = 0;
+	exit (0);
 }
