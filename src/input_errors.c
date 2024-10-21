@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 15:37:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:54:20 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ int	check_invalid_syntax(char *input)
 		return (1);
 	}
 	else if (ft_strrchr(REDIRECT, input[ft_strlen(input) - 1]))
-		return (error_operator(UNTOKEN, "newline"));
+		return (print_op_err(UNTOKEN, "newline"));
 	return (0);
 }
 
-int	check_operator(char *operator)
+int	check_op(char *operator)
 {
 	if(check_strcmp(operator, "<") || check_strcmp(operator, ">")
 		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
 		|| check_strcmp(operator, "|"))
 		return (0);
 	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
-		|| check_strcmp(operator, "<<<"))
-		error_operator("minishell: no support for operator '", operator);
+		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
+		return (print_op_err("minishell: no support for operator '", operator));
 	else
-		error_operator("minishell: syntax error near unexpected token '", operator);
-	return (1);
+		return (print_syntax_err("minishell: syntax error near unexpected token '", operator));
+	//return (1);
 }
 
 /**
@@ -75,7 +75,7 @@ int	check_supported_op(char *input)
 		else if (ft_strlen(operator) != 0)
 		{
 			printf("Parsed operator: %s\n", operator);
-			return_val = check_operator(operator);
+			return_val = check_op(operator);
 			free(operator);
 			if (return_val == 1)
 				return (return_val);

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/14 12:28:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:52:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	get_quote(char c, char quote)
  * @param operator The invalid operator causing the error.
  * @return Returns 1.
  */
-int	error_operator(char *error, char *operator)
+int	print_op_err(char *error, char *operator)
 {
 	ft_putstr_fd(error, STDERR_FILENO);
 	ft_putstr_fd(operator, STDERR_FILENO);
@@ -113,9 +113,9 @@ int	unexpected_redirect(char *input, int *i)
 	if (input[*i] == '|')
 		return (error_token(UNTOKEN, '|', 0));
 	else if (input[*i - 1] == '>' && input[*i] == '|')
-		return (error_operator(NOSUPPORT, ">|"));
+		return (print_op_err(NOSUPPORT, ">|"));
 	else if (ft_strrchr(REDIRECT, input[*i]) && !input[*i])
-		return (error_operator(UNTOKEN, "newline"));
+		return (print_op_err(UNTOKEN, "newline"));
 	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] != input[*i + 1])
 		return (error_token(UNTOKEN, input[*i], 0));
 	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] == input[*i + 1])

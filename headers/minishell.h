@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 14:25:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:52:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,12 @@ int		check_valid_input(char *input);
 //input_handling.c
 int		read_input(t_minishell *ms);
 
+//input_utils_2.c
+int	print_syntax_err(char *error, char *operator);
+
 //input_utils.c
 char	get_quote(char c, char quote);
-int		error_operator(char *error, char *operator);
+int		print_op_err(char *error, char *operator);
 int		error_token(char *error, char metachar, int dup);
 int		unexpected_tokens(char *input);
 int		unexpected_redirect(char *input, int *i);
