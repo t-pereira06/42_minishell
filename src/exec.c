@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/16 13:32:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:23:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	execute(t_minishell *ms)
 	//ms->query = handle_query(ms, cmd);
 	single_cmd(ms, cmd);
 	free(cmd);
-	//do_builtin(ms);
 	//ft_free_split(ms->query);
 	get_exit_status(ms);
 	free_program(ms, 0);
