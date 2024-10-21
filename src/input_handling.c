@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/09 14:34:24 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:37:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param ms    A pointer to the minishell structure.
  * @param input The input string containing the oommand query line.
  */
-static void	ms_init(t_minishell *ms, char *input)
+static void	start_program(t_minishell *ms, char *input)
 {
 	ms->heredoc = false;
 	ms->n_cmd = ft_wordcounter(input, '|');
@@ -63,7 +63,7 @@ int	read_input(t_minishell *ms)
 		g_exit = 2;
 		return (0);
 	}
-	ms_init(ms, trimmed);
+	start_program(ms, trimmed);
 	free(trimmed);
 	return (1);
 }

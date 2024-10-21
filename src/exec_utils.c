@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/08 15:55:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/21 13:40:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,39 +56,6 @@ void	free_program(t_minishell *ms, int i)
 		ft_free_split(ms->args);
 	if (i == 1)
 		ft_free_lst(ms->env);
-}
-
-/**
- * Removes redirection symbols from the input string and returns
- * the resulting command query.
- *
- * @param input The input string containing redirection symbols.
- *
- * @return Returns an array of strings representing the command query
- * without redirection symbols.
- */
-char	**remove_redirects(char *input)
-{
-	char	**cmd_query;
-/*	int		i;
-	int		count;
-
-	i = 0;
-	count = ft_wordcounter(input, ' ');*/
-	cmd_query = splitter(input, ' ');
-	/* while (cmd_query[i])
-	{
-		if (!ft_strncmp(cmd_query[i], "<", ft_strlen(cmd_query[i])))
-			shift_redirect(cmd_query, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], ">", ft_strlen(cmd_query[i])))
-			shift_redirect(cmd_query, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], "<<", ft_strlen(cmd_query[i])))
-			shift_redirect(cmd_query, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], ">>", ft_strlen(cmd_query[i])))
-			shift_redirect(cmd_query, &i, &count);
-		i++;
-	}*/
-	return (cmd_query);
 }
 
 /**
