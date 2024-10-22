@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 15:54:20 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:17:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	check_invalid_syntax(char *input)
 		ft_putstr_fd("minishell: no support for pipe prompt\n", STDERR_FILENO);
 		return (1);
 	}
-	else if (ft_strrchr(REDIRECT, input[ft_strlen(input) - 1]))
+	else if (ft_strrchr("><", input[ft_strlen(input) - 1]))
 		return (print_op_err(UNTOKEN, "newline"));
 	return (0);
 }
@@ -67,14 +67,11 @@ int	check_supported_op(char *input)
 	return_val = 0;
 	while (input[++i])
 	{
-		/* make a function to get the part of the input string and compare it
-		to the supported operators */
 		quote = get_quote(input[i], quote);
 		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
 			operator = ft_strcjoin(operator, input[i]);
 		else if (ft_strlen(operator) != 0)
 		{
-			printf("Parsed operator: %s\n", operator);
 			return_val = check_op(operator);
 			free(operator);
 			if (return_val == 1)

@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/21 15:53:13 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/10/22 11:06:22 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ HEADERDIR = ./headers/
 SRC =	src/main.c \
 		src/exec_utils.c \
 		src/check_builtins.c \
+		src/exec_redirects.c \
 		src/exec.c \
 		src/free.c \
 		src/get_env.c \

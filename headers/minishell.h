@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 15:52:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:30:13 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef struct s_expander
 //check_builtins.c
 int	do_builtin(t_minishell *ms, char **query);
 
+//exec_redirects.c
+void	do_input(t_minishell *ms, char **query);
+void	do_output(t_minishell *ms, char **query);
+//void	do_heredoc(t_minishell *ms, char **query);
+void	do_append(t_minishell *ms, char **query);
+
 //exec_utils.c
 void	get_exit_status(t_minishell *ms);
 void	free_program(t_minishell *ms, int i);
@@ -101,12 +107,12 @@ int		check_valid_input(char *input);
 int		read_input(t_minishell *ms);
 
 //input_utils_2.c
-int	print_syntax_err(char *error, char *operator);
+int		print_syntax_err(char *error, char *str);
+int		print_op_err(char *error, char *str);
+int		error_token(char *error, char metachar, int dup);
 
 //input_utils.c
 char	get_quote(char c, char quote);
-int		print_op_err(char *error, char *operator);
-int		error_token(char *error, char metachar, int dup);
 int		unexpected_tokens(char *input);
 int		unexpected_redirect(char *input, int *i);
 

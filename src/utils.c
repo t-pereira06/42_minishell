@@ -64,7 +64,7 @@ char	*add_whitespaces(char *str)
 	while (str[i])
 	{
 		quote = get_quote(str[i], quote);
-		if (!quote && ft_strchr(REDIRECT, str[i]))
+		if (!quote && ft_strchr("><", str[i]))
 		{
 			res[j++] = ' ';
 			res[j++] = str[i++];
@@ -98,7 +98,7 @@ size_t	ft_cmdlen(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (ft_strchr(REDIRECT, str[i]))
+		if (ft_strchr("><", str[i]))
 		{
 			len += 3;
 			i++;

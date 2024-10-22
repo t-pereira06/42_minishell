@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 15:52:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:49:24 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,6 @@ char	get_quote(char c, char quote)
 	else if (ft_strrchr("\"\'", c) && quote == c)
 		return (0);
 	return (quote);
-}
-
-/**
- * Prints an error message indicating an invalid operator.
- *
- * @param error The error message to be displayed.
- * @param operator The invalid operator causing the error.
- * @return Returns 1.
- */
-int	print_op_err(char *error, char *operator)
-{
-	ft_putstr_fd(error, STDERR_FILENO);
-	ft_putstr_fd(operator, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	return (1);
-}
-
-/**
- * Prints an error message indicating an unexpected token.
- *
- * @param error The error message to be displayed.
- * @param metachar The unexpected token causing the error.
- * @param dup Flag indicating whether the token should be duplicated in the
- * error message.
- * @return Returns 1.
- */
-int	error_token(char *error, char metachar, int dup)
-{
-	ft_putstr_fd(error, STDERR_FILENO);
-	ft_putchar_fd(metachar, STDERR_FILENO);
-	if (dup == 1)
-		ft_putchar_fd(metachar, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	return (1);
 }
 
 /**
@@ -88,7 +54,7 @@ int	unexpected_tokens(char *input)
 			if (input[i] && input[i] == ' ')
 				return (error_token(UNTOKEN, '|', 0));
 		}
-		else if (ft_strrchr(REDIRECT, input[i]) && !quote)
+		else if (ft_strrchr("><", input[i]) && !quote)
 			if (unexpected_redirect(input, &i))
 				return (1);
 	}
@@ -114,11 +80,11 @@ int	unexpected_redirect(char *input, int *i)
 		return (error_token(UNTOKEN, '|', 0));
 	else if (input[*i - 1] == '>' && input[*i] == '|')
 		return (print_op_err(NOSUPPORT, ">|"));
-	else if (ft_strrchr(REDIRECT, input[*i]) && !input[*i])
+	else if (ft_strrchr("><", input[*i]) && !input[*i])
 		return (print_op_err(UNTOKEN, "newline"));
-	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] != input[*i + 1])
+	else if (ft_strrchr("><", input[*i]) && input[*i] != input[*i + 1])
 		return (error_token(UNTOKEN, input[*i], 0));
-	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] == input[*i + 1])
+	else if (ft_strrchr("><", input[*i]) && input[*i] == input[*i + 1])
 		return (error_token(UNTOKEN, input[*i + 1], 1));
 	return (0);
 	/* em vez disto fazer apenas, se o operador for diferente dos operadores

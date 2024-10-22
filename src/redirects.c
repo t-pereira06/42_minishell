@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/16 11:57:32 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:03:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,27 @@
  */
 char	**check_redir(t_minishell *ms, char *input)
 {
-	char	**cmd_query;
-	/* int		i;
-	int		count; */
+	char	**query;
+	int		i;
+	//int		count;
 
-	//i = 0;
+	i = -1;
 	ms->in_fd = STDIN_FILENO;
 	ms->out_fd = STDOUT_FILENO;
 	//count = ft_wordcounter(input, ' ');
-	cmd_query = splitter(input, ' ');
+	query = splitter(input, ' ');
 	free(input);
-	/* while (cmd_query[i])
+	while (query[++i])
 	{
-		if (!ft_strncmp(cmd_query[i], "<", ft_strlen(cmd_query[i])))
-			handle_in(cmd_query, ms, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], ">", ft_strlen(cmd_query[i])))
-			handle_out(cmd_query, ms, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], ">>", ft_strlen(cmd_query[i])))
-			handle_append(cmd_query, ms, &i, &count);
-		else if (!ft_strncmp(cmd_query[i], "<<", ft_strlen(cmd_query[i])))
-			heredoc(cmd_query, ms, &i, &count);
-		i++;
-	} */
-	return (cmd_query);
+		if (check_strcmp(query[i], "<"))
+			do_input(ms, &query[i + 1]);
+		/* if (check_strcmp(query[i], ">"))
+			do_output(ms, query, i); */
+		/* if (check_strcmp(query[i], "<<"))
+			do_heredoc(ms, query); */
+		/* if (check_strcmp(query[i], ">>"))
+			do_append(ms, query, i); */
+	}
+	//change_fds(ms);
+	return (query);
 }
