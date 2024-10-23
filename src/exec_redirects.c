@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:44:10 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 11:22:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:16:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ int	do_output(t_minishell *ms, char **query)
 {
 	ms->out_fd = open(query[0], O_RDWR | O_CREAT
 			| O_TRUNC, S_IRUSR | S_IWUSR);
+	if (ms->out_fd < 0)
+		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
+	return (0);
+}
+
+int	do_append(t_minishell *ms, char **query)
+{
+	ms->out_fd = open(query[0], O_RDWR | O_CREAT | O_APPEND,
+			S_IRUSR | S_IWUSR);
 	if (ms->out_fd < 0)
 		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
 	return (0);

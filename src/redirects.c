@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:04:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:19:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ char	**check_redir(t_minishell *ms, char *input, int i, int err)
 			err = do_output(ms, &query[i + 1]);
 		/* if (check_strcmp(query[i], "<<"))
 			err = do_heredoc(ms, query); */
-		/* if (check_strcmp(query[i], ">>"))
-			err = do_append(ms, query, i); */
+		if (check_strcmp(query[i], ">>"))
+			err = do_append(ms, &query[i + 1]);
 		if (err == 0)
 		{
 			query = erase_redir(query, i, 0, -1);
