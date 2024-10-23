@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/22 12:30:13 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:38:32 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ typedef struct s_expander
 //SRC
 
 //check_builtins.c
-int	do_builtin(t_minishell *ms, char **query);
+int		do_builtin(t_minishell *ms, char **query);
 
 //exec_redirects.c
-void	do_input(t_minishell *ms, char **query);
-void	do_output(t_minishell *ms, char **query);
-//void	do_heredoc(t_minishell *ms, char **query);
-void	do_append(t_minishell *ms, char **query);
+void	change_fds(t_minishell *ms);
+int		do_input(t_minishell *ms, char **query);
+int		do_output(t_minishell *ms, char **query);
+//int		do_heredoc(t_minishell *ms, char **query);
+int		do_append(t_minishell *ms, char **query);
 
 //exec_utils.c
 void	get_exit_status(t_minishell *ms);
@@ -99,7 +100,8 @@ char	**ft_envcpy(t_list *env);
 
 //input_errors.c
 int		check_invalid_syntax(char *input);
-int		check_supported_op(char *input);
+//int		check_supported_op(char *input);
+int		check_supported_op(char *input, int i, int return_val);
 int		check_quotes(char *input);
 int		check_valid_input(char *input);
 
@@ -124,7 +126,7 @@ void	parse_query(t_minishell *ms, char **cmd_query);
 char	*get_prompt(t_minishell *ms, int i, int j);
 
 //redirects.c
-char	**check_redir(t_minishell *ms, char *input);
+char	**check_redir(t_minishell *ms, char *input, int i, int err);
 
 //signals.c
 void	handler(int signal);

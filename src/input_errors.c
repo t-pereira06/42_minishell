@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/22 12:17:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:39:16 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_invalid_syntax(char *input)
 
 int	check_op(char *operator)
 {
-	if(check_strcmp(operator, "<") || check_strcmp(operator, ">")
+	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
 		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
 		|| check_strcmp(operator, "|"))
 		return (0);
@@ -44,7 +44,8 @@ int	check_op(char *operator)
 		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
 		return (print_op_err("minishell: no support for operator '", operator));
 	else
-		return (print_syntax_err("minishell: syntax error near unexpected token '", operator));
+		return (print_syntax_err
+			("minishell: syntax error near unexpected token '", operator));
 	//return (1);
 }
 
@@ -54,17 +55,13 @@ int	check_op(char *operator)
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	check_supported_op(char *input)
+int	check_supported_op(char *input, int i, int return_val)
 {
-	int		i;
 	char	quote;
 	char	*operator;
-	int		return_val;
 
-	i = -1;
 	quote = 0;
 	operator = "\0";
-	return_val = 0;
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);
@@ -79,7 +76,7 @@ int	check_supported_op(char *input)
 			else
 			{
 				operator = "\0";
-				continue;
+				continue ;
 			}
 		}
 	}
@@ -133,7 +130,7 @@ int	check_valid_input(char *input)
 		ft_putstr_fd("minishell: unclosed quotes\n", STDERR_FILENO);
 		return (0);
 	}
-	if (check_supported_op(input))
+	if (check_supported_op(input, -1, 0))
 		return (0);
 	if (check_invalid_syntax(input))
 		return (0);
