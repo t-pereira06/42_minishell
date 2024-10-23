@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:19:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:35:58 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	**erase_redir(char **query, int pos, int size, int j)
 	i = -1;
 	while (query[++i])
 		free(query[i]);
+	free(query);
 	return (temp);
 }
 
