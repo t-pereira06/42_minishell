@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 14:35:32 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:04:15 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	query_count(char **query)
 
 	i = 0;
 	while (query[i])
-	{
 		i++;
-	}
 	return (i);
 }
 

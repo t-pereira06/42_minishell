@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/07 14:28:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:07:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	main(int ac, char **av, char **env)
 			signal_handling();
 			i = read_input(&ms);
 			if (!i)
-				continue;
+				continue ;
 			else if (i == -1)
-				break;
+				break ;
 			execute(&ms);
 		}
 		return (free_all(ms), ft_putstr("exit\n"), 0);

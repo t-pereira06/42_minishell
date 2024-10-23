@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 14:38:32 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:04:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	parse_query(t_minishell *ms, char **cmd_query);
 char	*get_prompt(t_minishell *ms, int i, int j);
 
 //redirects.c
+int		query_count(char **query);
+char	**erase_redir(char **query, int pos, int size, int j);
 char	**check_redir(t_minishell *ms, char *input, int i, int err);
 
 //signals.c

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 14:14:33 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:06:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	exec_command(t_minishell *ms, char **query)
 	char	*command;
 
 	if (!query[0])
-			free_child(ms, query, 1);
+		free_child(ms, query, 1);
 	if (do_builtin(ms, query))
 		return ;
 	command = get_command(query[0], ms, 0);
 	execve(command, query, ft_envcpy(ms->env));
 }
 
-void	single_cmd(t_minishell *ms, char* cmd)
+void	single_cmd(t_minishell *ms, char *cmd)
 {
 	char	**query;
 
