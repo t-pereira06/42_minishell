@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 21:06:54 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 21:08:19 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	check_supported_op(t_minishell *ms, char *input, int i, int j)
 {
 	char	quote;
 
-	//ms->operator = 0;
 	quote = 0;
 	while (input[++i])
 	{
