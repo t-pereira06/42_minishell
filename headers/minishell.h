@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 19:24:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:29:40 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**ft_envcpy(t_list *env);
 
 //input_errors.c
 int		check_invalid_syntax(char *input);
-//int		check_supported_op(char *input);
+int		check_op(char *operator);
 int		check_supported_op(t_minishell *ms, char *input, int i, int return_val);
 int		check_quotes(char *input);
 int		check_valid_input(t_minishell *ms, char *input);

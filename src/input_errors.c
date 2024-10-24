@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 19:25:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:29:55 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	check_op(char *operator)
 	else
 		return (print_syntax_err
 			("minishell: syntax error near unexpected token '", operator));
-	//return (1);
 }
 
 /**
