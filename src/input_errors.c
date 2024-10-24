@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 18:30:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:25:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,32 @@ int	check_op(char *operator)
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	check_supported_op(char *input, int i, int return_val)
+int	check_supported_op(t_minishell *ms, char *input, int i, int return_val)
 {
 	char	quote;
-	char	*operator;
 
+	ms->temp = "\0";
+	ms->operator = ft_strdup("\0");
 	quote = 0;
-	operator = "\0";
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);
 		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
-			operator = ft_strcjoin(operator, input[i]);
-		else if (ft_strlen(operator) != 0)
 		{
-			return_val = check_op(operator);
-			free(operator);
-			/* leaks here, missing something */
+			ms->temp = ft_strdup(ms->operator);
+			free(ms->operator);
+			ms->operator = ft_strcjoin(ms->temp, input[i]);
+			free(ms->temp);
+		}
+		else if (ft_strlen(ms->operator) != 0)
+		{
+			return_val = check_op(ms->operator);
+			free(ms->operator);
 			if (return_val == 1)
 				return (return_val);
 			else
 			{
-				operator = "\0";
+				ms->operator = "\0";
 				continue ;
 			}
 		}
@@ -122,7 +126,7 @@ int	check_quotes(char *input)
  * @param input The input string to check.
  * @return 1 if the input is valid, 0 otherwise.
  */
-int	check_valid_input(char *input)
+int	check_valid_input(t_minishell *ms, char *input)
 {
 	if (!input || input[0] == '\0')
 		return (0);
@@ -131,7 +135,7 @@ int	check_valid_input(char *input)
 		ft_putstr_fd("minishell: unclosed quotes\n", STDERR_FILENO);
 		return (0);
 	}
-	if (check_supported_op(input, -1, 0))
+	if (check_supported_op(ms, input, -1, 0))
 		return (0);
 	if (check_invalid_syntax(input))
 		return (0);

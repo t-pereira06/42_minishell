@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/21 12:37:51 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 19:24:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	read_input(t_minishell *ms)
 	free(ms->input);
 	if (trimmed[0] == '\0')
 		return (free(trimmed), g_exit = 0, 0);
-	if (!check_valid_input(trimmed))
+	if (!check_valid_input(ms, trimmed))
 	{
 		free(trimmed);
 		g_exit = 2;
