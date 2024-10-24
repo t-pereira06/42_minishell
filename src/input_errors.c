@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 19:29:55 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/24 21:06:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,52 @@ int	check_op(char *operator)
 			("minishell: syntax error near unexpected token '", operator));
 }
 
+int	helper_operator(t_minishell *ms)
+{
+	int	return_val;
+
+	return_val = check_op(ms->operator);
+	free(ms->operator);
+	if (return_val == 1)
+		return (1);
+	else
+	{
+		ms->operator = "\0";
+		return (0) ;
+	}
+}
+
 /**
  * Checks for unsupported operators and tokens in the input string.
  *
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	check_supported_op(t_minishell *ms, char *input, int i, int return_val)
+int	check_supported_op(t_minishell *ms, char *input, int i, int j)
 {
 	char	quote;
 
-	ms->temp = "\0";
-	ms->operator = ft_strdup("\0");
+	//ms->operator = 0;
 	quote = 0;
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);
 		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
 		{
+			if (j == 0)
+				ms->operator = ft_strdup("\0");
 			ms->temp = ft_strdup(ms->operator);
 			free(ms->operator);
 			ms->operator = ft_strcjoin(ms->temp, input[i]);
 			free(ms->temp);
+			j = 1;
 		}
-		else if (ft_strlen(ms->operator) != 0)
+		else if (j == 1 && ft_strlen(ms->operator) != 0)
 		{
-			return_val = check_op(ms->operator);
-			free(ms->operator);
-			if (return_val == 1)
-				return (return_val);
+			if (helper_operator(ms))
+				return (1);
 			else
-			{
-				ms->operator = "\0";
-				continue ;
-			}
+				continue;
 		}
 	}
 	return (unexpected_tokens(input));
