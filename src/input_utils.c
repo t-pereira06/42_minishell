@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 12:36:30 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:39:30 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,13 @@ char	get_quote(char c, char quote)
  * @param input The input string to check.
  * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
  */
-int	unexpected_tokens(t_minishell *ms, char *input)
+int	unexpected_tokens(char *input)
 {
 	int		i;
 	char	quote;
 
 	i = -1;
 	quote = 0;
-	(void)ms;
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);

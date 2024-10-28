@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 12:33:21 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:37:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	handle_op(t_minishell *ms, char *input, int i, int j)
 		}
 	}
 	helper_free_op(ms, j);
-	return (unexpected_tokens(ms, input));
+	return (unexpected_tokens(input));
 }
 
 /**

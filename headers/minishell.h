@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 12:33:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:37:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int		error_token(char *error, char metachar, int dup);
 int		helper_operator(t_minishell *ms);
 void	helper_free_op(t_minishell *ms, int j);
 char	get_quote(char c, char quote);
-int		unexpected_tokens(t_minishell *ms, char *input);
+int		unexpected_tokens(char *input);
 int		unexpected_redirect(char *input, int *i);
 
 //parsing.c
