@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 12:37:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:25:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 int	check_invalid_syntax(char *input)
 {
 	if (input[1] && input[0] == '|' && input[1] != '|')
-		return (error_token(UNTOKEN, '|', 0));
+		return (print_token_err(UNTOKEN, '|', 0));
 	else if (input[1] && input[0] == '|' && input[1] == '|')
-		return (error_token(UNTOKEN, '|', 1));
+		return (print_token_err(UNTOKEN, '|', 1));
 	if (input[ft_strlen(input) - 1] == '|')
 	{
 		ft_putstr_fd("minishell: no support for pipe prompt\n", STDERR_FILENO);
@@ -34,6 +34,18 @@ int	check_invalid_syntax(char *input)
 	return (0);
 }
 
+/**
+ * Checks the validity of an operator in the minishell structure.
+ *
+ * @param operator A string representing the operator to validate.
+ *
+ * @return Returns 0 if the operator is valid and supported.
+ *         If the operator is recognized but unsupported, it returns the result
+ *         of `print_op_err`, indicating an unsupported operator error.
+ *         For unrecognized operators, it returns the result of
+ *         `print_syntax_err`, indicating a syntax error with the
+ *         provided operator.
+ */
 int	check_op(char *operator)
 {
 	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
@@ -131,7 +143,7 @@ int	check_valid_input(t_minishell *ms, char *input)
 	}
 	if (handle_op(ms, input, -1, 0))
 		return (0);
-	if (check_invalid_syntax(input))
-		return (0);
+	/* if (check_invalid_syntax(input))
+		return (0); */
 	return (1);
 }

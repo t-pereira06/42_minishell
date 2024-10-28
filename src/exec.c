@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/23 15:06:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 14:20:26 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	single_cmd(t_minishell *ms, char *cmd)
 	{
 		signal_default();
 		query = check_redir(ms, cmd, -1, -1);
-		//change_fds(ms);
 		exec_command(ms, query);
 	}
 }

@@ -44,7 +44,7 @@ int	print_op_err(char *error, char *str)
  * error message.
  * @return Returns 1.
  */
-int	error_token(char *error, char metachar, int dup)
+int	print_token_err(char *error, char metachar, int dup)
 {
 	ft_putstr_fd(error, STDERR_FILENO);
 	ft_putchar_fd(metachar, STDERR_FILENO);
