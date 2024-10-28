@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 19:29:40 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:33:16 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,21 +105,23 @@ char	**ft_envcpy(t_list *env);
 //input_errors.c
 int		check_invalid_syntax(char *input);
 int		check_op(char *operator);
-int		check_supported_op(t_minishell *ms, char *input, int i, int return_val);
+int		handle_op(t_minishell *ms, char *input, int i, int return_val);
 int		check_quotes(char *input);
 int		check_valid_input(t_minishell *ms, char *input);
 
 //input_handling.c
 int		read_input(t_minishell *ms);
 
-//input_utils_2.c
+//input_prterr.c
 int		print_syntax_err(char *error, char *str);
 int		print_op_err(char *error, char *str);
 int		error_token(char *error, char metachar, int dup);
 
 //input_utils.c
+int		helper_operator(t_minishell *ms);
+void	helper_free_op(t_minishell *ms, int j);
 char	get_quote(char c, char quote);
-int		unexpected_tokens(char *input);
+int		unexpected_tokens(t_minishell *ms, char *input);
 int		unexpected_redirect(char *input, int *i);
 
 //parsing.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 21:08:19 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:33:21 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,13 @@ int	check_op(char *operator)
 			("minishell: syntax error near unexpected token '", operator));
 }
 
-int	helper_operator(t_minishell *ms)
-{
-	int	return_val;
-
-	return_val = check_op(ms->operator);
-	free(ms->operator);
-	if (return_val == 1)
-		return (1);
-	else
-	{
-		ms->operator = "\0";
-		return (0) ;
-	}
-}
-
 /**
  * Checks for unsupported operators and tokens in the input string.
  *
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	check_supported_op(t_minishell *ms, char *input, int i, int j)
+int	handle_op(t_minishell *ms, char *input, int i, int j)
 {
 	char	quote;
 
@@ -91,11 +76,10 @@ int	check_supported_op(t_minishell *ms, char *input, int i, int j)
 		{
 			if (helper_operator(ms))
 				return (1);
-			else
-				continue;
 		}
 	}
-	return (unexpected_tokens(input));
+	helper_free_op(ms, j);
+	return (unexpected_tokens(ms, input));
 }
 
 /**
@@ -145,7 +129,7 @@ int	check_valid_input(t_minishell *ms, char *input)
 		ft_putstr_fd("minishell: unclosed quotes\n", STDERR_FILENO);
 		return (0);
 	}
-	if (check_supported_op(ms, input, -1, 0))
+	if (handle_op(ms, input, -1, 0))
 		return (0);
 	if (check_invalid_syntax(input))
 		return (0);

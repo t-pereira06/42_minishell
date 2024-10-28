@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/22 11:06:22 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/10/28 12:27:13 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC =	src/main.c \
 		src/get_env.c \
 		src/input_errors.c \
 		src/input_handling.c \
-		src/input_utils_2.c \
+		src/input_prterr.c \
 		src/input_utils.c \
 		src/parsing.c \
 		src/prompt.c \

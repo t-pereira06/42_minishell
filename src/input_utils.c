@@ -6,11 +6,57 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/22 10:49:24 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:36:30 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+/**
+ * Validates and resets the operator in the minishell structure.
+ *
+ * @param ms Pointer to the minishell structure containing the current operator.
+ *
+ * @return Returns 1 if the operator requires further handling (as indicated
+ * by `check_op`), or 0 if no further handling is required. In all cases,
+ * the function frees `ms->operator` and resets it to an empty string if
+ * not needed.
+ */
+int	helper_operator(t_minishell *ms)
+{
+	int	return_val;
+
+	return_val = check_op(ms->operator);
+	free(ms->operator);
+	if (return_val == 1)
+		return (1);
+	else
+	{
+		ms->operator = "\0";
+		return (0);
+	}
+}
+
+/**
+ * Frees the operator in the minishell structure if it has been set.
+ *
+ * @param ms Pointer to the minishell structure containing the operator
+ * to be freed.
+ * @param j An integer flag indicating if the operator has
+ * been used (1 if true).
+ *
+ * Frees the memory allocated for `ms->operator` and sets it to `NULL` if
+ * `j` is 1 and `ms->operator` is not empty. This prevents memory leaks by
+ * ensuring that `ms->operator` is only freed when necessary.
+ */
+void	helper_free_op(t_minishell *ms, int j)
+{
+	if (j == 1 && *ms->operator != '\0')
+	{
+		free(ms->operator);
+		ms->operator = NULL;
+	}
+}
 
 /**
  * Updates the current state of quotation marks in a string.
@@ -36,13 +82,14 @@ char	get_quote(char c, char quote)
  * @param input The input string to check.
  * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
  */
-int	unexpected_tokens(char *input)
+int	unexpected_tokens(t_minishell *ms, char *input)
 {
 	int		i;
 	char	quote;
 
 	i = -1;
 	quote = 0;
+	(void)ms;
 	while (input[++i])
 	{
 		quote = get_quote(input[i], quote);
