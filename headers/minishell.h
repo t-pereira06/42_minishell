@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:24:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:27:25 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int		read_input(t_minishell *ms);
 //input_prterr.c
 int		print_syntax_err(char *error, char *str);
 int		print_op_err(char *error, char *str);
-int		error_token(char *error, char metachar, int dup);
+int		print_token_err(char *error, char metachar, int dup);
 
 //input_utils.c
 int		helper_operator(t_minishell *ms);

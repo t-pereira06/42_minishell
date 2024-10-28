@@ -6,33 +6,11 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:25:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:33:12 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-/**
- * Checks for invalid syntax in the input string.
- *
- * @param input The input string to check.
- * @return 0 if the syntax is valid, 1 otherwise.
- */
-int	check_invalid_syntax(char *input)
-{
-	if (input[1] && input[0] == '|' && input[1] != '|')
-		return (print_token_err(UNTOKEN, '|', 0));
-	else if (input[1] && input[0] == '|' && input[1] == '|')
-		return (print_token_err(UNTOKEN, '|', 1));
-	if (input[ft_strlen(input) - 1] == '|')
-	{
-		ft_putstr_fd("minishell: no support for pipe prompt\n", STDERR_FILENO);
-		return (1);
-	}
-	else if (ft_strrchr("><", input[ft_strlen(input) - 1]))
-		return (print_op_err(UNTOKEN, "newline"));
-	return (0);
-}
 
 /**
  * Checks the validity of an operator in the minishell structure.
@@ -143,7 +121,5 @@ int	check_valid_input(t_minishell *ms, char *input)
 	}
 	if (handle_op(ms, input, -1, 0))
 		return (0);
-	/* if (check_invalid_syntax(input))
-		return (0); */
 	return (1);
 }
