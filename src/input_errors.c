@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:33:12 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:51:40 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	handle_op(t_minishell *ms, char *input, int i, int j)
 		{
 			if (helper_operator(ms))
 				return (1);
+			j = 0;
+			/* fix echo a > > a shouldn't be working*/
 		}
 	}
 	helper_free_op(ms, j);

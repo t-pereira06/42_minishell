@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:27:25 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/28 15:42:52 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int		check_valid_input(t_minishell *ms, char *input);
 
 //input_handling.c
 int		read_input(t_minishell *ms);
+
+//input_helpers.c
+void	helper_free_op(t_minishell *ms, int j);
+void	helper_free_dp(char **dp);
 
 //input_prterr.c
 int		print_syntax_err(char *error, char *str);
