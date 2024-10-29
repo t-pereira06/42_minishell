@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:42:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:45:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,16 @@ int		do_append(t_minishell *ms, char **query);
 void	get_exit_status(t_minishell *ms);
 void	free_program(t_minishell *ms, int i);
 char	*get_command(char *cmd, t_minishell *ms, int i);
+void	no_command_err(char *command, char **query, t_minishell *ms);
 void	free_child(t_minishell *ms, char **cmd_query, int i);
 
 //exec.c
 void	exec_command(t_minishell *ms, char **query);
 void	exec_single_cmd(t_minishell *ms, char *cmd);
 void	execute(t_minishell *ms);
+
+//expand.c
+void	check_expand(t_minishell *ms, char **query);
 
 //free.c
 void	ft_free_lst(t_list *lst);
@@ -104,7 +108,6 @@ char	**ft_envcpy(t_list *env);
 
 //input_errors.c
 int		check_invalid_syntax(char *input);
-int		check_op(char *operator);
 int		handle_op(t_minishell *ms, char *input, int i, int return_val);
 int		check_quotes(char *input);
 int		check_valid_input(t_minishell *ms, char *input);
@@ -122,6 +125,7 @@ int		print_op_err(char *error, char *str);
 int		print_token_err(char *error, char metachar, int dup);
 
 //input_utils.c
+int		check_op(char *operator);
 int		helper_operator(t_minishell *ms);
 void	helper_free_op(t_minishell *ms, int j);
 char	get_quote(char c, char quote);
@@ -135,6 +139,11 @@ void	parse_query(t_minishell *ms, char **cmd_query);
 
 //prompt.c
 char	*get_prompt(t_minishell *ms, int i, int j);
+
+//quotes.c
+int		len_quoteless(char *arg);
+void	find_quote(char *arg, int *i, char *quote);
+char	*remove_quotes(char *arg);
 
 //redirects.c
 int		query_count(char **query);

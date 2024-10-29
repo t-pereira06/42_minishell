@@ -6,11 +6,44 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:39:23 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:12:14 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+/**
+ * Checks the validity of an operator in the minishell structure.
+ *
+ * @param operator A string representing the operator to validate.
+ *
+ * @return Returns 0 if the operator is valid and supported.
+ *         If the operator is recognized but unsupported, it returns the result
+ *         of `print_op_err`, indicating an unsupported operator error.
+ *         For unrecognized operators, it returns the result of
+ *         `print_syntax_err`, indicating a syntax error with the
+ *         provided operator.
+ */
+int	check_op(char *operator)
+{
+	int	i;
+
+	i = -1;
+	while (operator[++i])
+		if (ft_strchr("&;(){}*\\", operator[i]))
+			return (print_op_err
+				("minishell: no support for operator '", operator));
+	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
+		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
+		|| check_strcmp(operator, "|"))
+		return (0);
+	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
+		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
+		return (print_op_err("minishell: no support for operator '", operator));
+	else
+		return (print_syntax_err
+			("minishell: syntax error near unexpected token '", operator));
+}
 
 /**
  * Validates and resets the operator in the minishell structure.
@@ -77,6 +110,39 @@ int	unexpected_tokens(char *input)
 	return (0);
 }
 
+int	search_quote(char *query)
+{
+	int		i;
+	int		j;
+	char	quote;
+
+	i = 0;
+	j = 0;
+	quote = 0;
+	while (query[++i])
+	{
+		quote = get_quote(query[i], quote);
+		if (quote == query[i])
+			return (1);
+	}
+	return (0);
+}
+
+int	check_pipe(char *string, char**query, int i)
+{
+	int	quote;
+
+	quote = 0;
+	quote = search_quote(string);
+	if (check_strcmp(query[0], "|"))
+		return (print_token_err(UNTOKEN, '|', 0));
+	if (((ft_strchr(string, '|') && ft_strlen(string) > 1) && !query[i + 1] && !quote) || check_strcmp(query[0], "|"))
+		return (print_token_err(UNTOKEN, '|', 0));
+	//if (((check_strcmp(query[i], "|") && ft_strlen(query[i]) > 1) && !query[i + 1] && !quote) || check_strcmp(query[0], "|"))
+	//return (print_token_err(UNTOKEN, '|', 0));
+	return (0);
+}
+
 /**
  * Checks for unexpected redirect tokens and raises corresponding errors.
  *
@@ -87,19 +153,19 @@ int	unexpected_tokens(char *input)
 int	unexpected_redirect(char **query)
 {
 	int	i;
+	int	quote;
 
 	i = -1;
+	quote = 0;
 	while (query[++i])
 	{
 		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
 			|| ft_strchr(query[i], '|'))
 		{
-			if (((ft_strchr(query[i], '|') && ft_strlen(query[i]) > 1)
-					&& (!query[i + 1])) || check_strcmp(query[0], "|"))
+			check_pipe(query[i], query, i);
+			if (check_strcmp(query[i], "|") && !query[i + 1])
 				return (print_token_err(UNTOKEN, '|', 0));
-			else if (check_strcmp(query[i], "|") && !query[i + 1])
-				return (print_token_err(UNTOKEN, '|', 0));
-			if (check_strcmp(query[i], "||") && !query[i + 1])
+			else if (check_strcmp(query[i], "||") && !query[i + 1])
 				return (print_token_err(UNTOKEN, '|', 0));
 			else if (check_strcmp(query[i], ">|"))
 				return (print_op_err(NOSUPPORT, ">|"));

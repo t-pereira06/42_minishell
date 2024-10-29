@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/24 20:50:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:44:25 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,22 @@ char	*get_command(char *cmd, t_minishell *ms, int i)
 		i++;
 	}
 	return (0);
+}
+
+/**
+ * Prints an error message indicating that a command is not found.
+ *
+ * @param cmd The command that was not found.
+ * @param cmd_args The arguments associated with the command.
+ * @param ms The pointer to the minishell structure.
+ */
+void	no_command_err(char *command, char **query, t_minishell *ms)
+{
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	free_child(ms, query, 0);
+	g_exit = 127;
+	exit (g_exit);
 }
 
 /**
