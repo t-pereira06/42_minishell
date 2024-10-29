@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 15:21:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:39:02 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ int	check_op(char *operator)
 	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
 		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
 		return (print_op_err("minishell: no support for operator '", operator));
-	else
+	return (0);
+	/* else
 		return (print_syntax_err
-			("minishell: syntax error near unexpected token '", operator));
+			("minishell: syntax error near unexpected token '", operator)); */
 }
 
 /**
@@ -133,7 +134,8 @@ int	check_pipe(char *string, char**query, int a)
 	int	quote;
 	int	i;
 
-	quote = search_quote(string);
+	quote = 0;
+	//quote = search_quote(string);
 	i = -1;
 	if (check_strcmp(query[0], "|"))
 		return (1);
@@ -147,6 +149,8 @@ int	check_pipe(char *string, char**query, int a)
 			if (string[i] == '|' && !quote)
 			{
 				if (!string[i - 1] || !string[i + 1])
+					return (1);
+				if (ft_strchr("<>", string[i-1]))
 					return (1);
 			}
 		}
