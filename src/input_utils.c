@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 14:12:14 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/29 15:21:37 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,18 +128,29 @@ int	search_quote(char *query)
 	return (0);
 }
 
-int	check_pipe(char *string, char**query, int i)
+int	check_pipe(char *string, char**query, int a)
 {
 	int	quote;
+	int	i;
 
-	quote = 0;
 	quote = search_quote(string);
+	i = -1;
 	if (check_strcmp(query[0], "|"))
-		return (print_token_err(UNTOKEN, '|', 0));
-	if (((ft_strchr(string, '|') && ft_strlen(string) > 1) && !query[i + 1] && !quote) || check_strcmp(query[0], "|"))
-		return (print_token_err(UNTOKEN, '|', 0));
-	//if (((check_strcmp(query[i], "|") && ft_strlen(query[i]) > 1) && !query[i + 1] && !quote) || check_strcmp(query[0], "|"))
-	//return (print_token_err(UNTOKEN, '|', 0));
+		return (1);
+	if (check_strcmp(query[0], "|") && (!query[a-1] || !query[a+1]))
+		return (1);
+	else if (ft_strchr(string, '|') && ft_strlen(string) > 1 && !query[a+1])
+	{
+		while (string[++i])
+		{
+			quote = get_quote(string[i], quote);
+			if (string[i] == '|' && !quote)
+			{
+				if (!string[i - 1] || !string[i + 1])
+					return (1);
+			}
+		}
+	}
 	return (0);
 }
 
@@ -153,16 +164,15 @@ int	check_pipe(char *string, char**query, int i)
 int	unexpected_redirect(char **query)
 {
 	int	i;
-	int	quote;
 
 	i = -1;
-	quote = 0;
 	while (query[++i])
 	{
 		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
 			|| ft_strchr(query[i], '|'))
 		{
-			check_pipe(query[i], query, i);
+			if (check_pipe(query[i], query, i))
+				return (print_token_err(UNTOKEN, '|', 0));
 			if (check_strcmp(query[i], "|") && !query[i + 1])
 				return (print_token_err(UNTOKEN, '|', 0));
 			else if (check_strcmp(query[i], "||") && !query[i + 1])
