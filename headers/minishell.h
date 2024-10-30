@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/30 11:32:17 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:45:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define REDIRECT "><"
 # define NOHANDLE "&;(){}*\\"
 
-# define UNTOKEN "minishell: syntax error near unexpected token '"
-# define NOSUPPORT "minishell: no support for operator '"
+# define ERR_TOKEN "minishell: syntax error near unexpected token '"
+# define ERR_OP "minishell: no support for operator '"
 
 extern int	g_exit;
 
@@ -165,7 +165,6 @@ char	*get_env_info(t_list **env, char *name);
 char	*add_whitespaces(char *str);
 size_t	ft_cmdlen(char *str);
 int		check_strcmp(char *s1, char *s2);
-char	*ft_strcjoin(char const *s1, char c);
 
 //BUILT-INS
 void	ft_echo(t_minishell *ms, char **query);

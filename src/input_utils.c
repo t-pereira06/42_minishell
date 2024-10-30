@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/30 11:32:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:45:59 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ int	check_op(char *operator, char *input)
 	j = 0;
 	while (operator[++i])
 		if (ft_strchr("&;(){}*\\", operator[i]))
-			return (print_op_err
-				("minishell: no support for operator '", operator));
+			return (print_op_err(ERR_OP, operator));
 	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
 		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
 		|| check_strcmp(operator, "|"))
@@ -42,14 +41,15 @@ int	check_op(char *operator, char *input)
 		while (input[j] == ' ')
 			j++;
 		if (input[j] == '<' || input[j] == '>')
-			return (print_syntax_err
-				("minishell: syntax error near unexpected token '", operator));
+			return (print_syntax_err(ERR_TOKEN, operator));
 		else
 			return (0);
 	}
 	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
 		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
-		return (print_op_err("minishell: no support for operator '", operator));
+		return (print_op_err(ERR_OP, operator));
+	else
+		return (print_syntax_err(ERR_TOKEN, operator));
 	return (0);
 }
 
@@ -143,18 +143,18 @@ int	unexpected_redirect(char **query)
 			|| ft_strchr(query[i], '|'))
 		{
 			if (check_pipe(query[i], query, i, 0))
-				return (print_token_err(UNTOKEN, '|', 0));
+				return (print_token_err(ERR_TOKEN, '|', 0));
 			if (check_strcmp(query[i], "|") && !query[i + 1])
-				return (print_token_err(UNTOKEN, '|', 0));
+				return (print_token_err(ERR_TOKEN, '|', 0));
 			else if (check_strcmp(query[i], "||") && !query[i + 1])
-				return (print_token_err(UNTOKEN, '|', 0));
+				return (print_token_err(ERR_TOKEN, '|', 0));
 			else if (check_strcmp(query[i], ">|"))
-				return (print_op_err(NOSUPPORT, ">|"));
+				return (print_op_err(ERR_OP, ">|"));
 			else if ((check_strcmp(query[i], ">>")
 					|| check_strcmp(query[i], "<<")
 					|| check_strcmp(query[i], ">")
 					|| check_strcmp(query[i], "<")) && !query[i + 1])
-				return (print_op_err(UNTOKEN, "newline"));
+				return (print_op_err(ERR_TOKEN, "newline"));
 		}
 	}
 	return (0);
