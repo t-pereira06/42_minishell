@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/29 11:45:46 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/10/30 11:54:36 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,8 @@ $(NAME):	$(OBJ) $(LIBFT)
 
 clean:
 			@$(RM) $(OBJ:%=bin/%) $(OBJ_CHECKER)
-			@rm -r bin/src
+			@if [ -d "bin/src" ]; then rm -rf bin/src; fi
+			@if [ -d "bin" ]; then rm -rf bin; fi
 			@cd $(LIBFTDIR) && $(MAKE) -s clean
 
 fclean:		clean
