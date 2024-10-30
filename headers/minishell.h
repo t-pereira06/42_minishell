@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 12:45:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:32:17 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,8 @@ char	*get_name(char *info);
 char	**ft_envcpy(t_list *env);
 
 //input_errors.c
-int		check_invalid_syntax(char *input);
 int		handle_op(t_minishell *ms, char *input, int i, int return_val);
-int		check_quotes(char *input);
+int		unexpected_tokens(char *input);
 int		check_valid_input(t_minishell *ms, char *input);
 
 //input_handling.c
@@ -125,13 +124,11 @@ int		print_op_err(char *error, char *str);
 int		print_token_err(char *error, char metachar, int dup);
 
 //input_utils.c
-int		check_op(char *operator);
-int		helper_operator(t_minishell *ms);
-void	helper_free_op(t_minishell *ms, int j);
-char	get_quote(char c, char quote);
-int		unexpected_tokens(char *input);
+int		check_op(char *operator, char *input);
+int		helper_operator(t_minishell *ms, char *input);
+int		search_quote(char *query);
+int		check_pipe(char *string, char**query, int a, int quote);
 int		unexpected_redirect(char **query);
-void	helper_free_dp(char **dp);
 
 //parsing.c
 char	*get_command(char *cmd, t_minishell *ms, int i);
@@ -144,6 +141,8 @@ char	*get_prompt(t_minishell *ms, int i, int j);
 int		len_quoteless(char *arg);
 void	find_quote(char *arg, int *i, char *quote);
 char	*remove_quotes(char *arg);
+int		check_quotes(char *input);
+char	get_quote(char c, char quote);
 
 //redirects.c
 int		query_count(char **query);

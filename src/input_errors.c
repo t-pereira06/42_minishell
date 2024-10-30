@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 15:57:17 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:30:01 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ int	handle_op(t_minishell *ms, char *input, int i, int j)
 		}
 		else if (j == 1 && ft_strlen(ms->operator) != 0)
 		{
-			if (helper_operator(ms))
+			if (helper_operator(ms, &input[i + 1]))
 				return (1);
 			j = 0;
-			/* fix echo a > > a shouldn't be working*/
 		}
 	}
 	helper_free_op(ms, j);
@@ -49,35 +48,25 @@ int	handle_op(t_minishell *ms, char *input, int i, int j)
 }
 
 /**
- * Checks if quotes in the given input string are properly balanced.
+ * Checks for unexpected tokens and redirects in the input string.
  *
- * @param input A pointer to the input string to be checked.
- * @return Returns 0 if quotes are balanced or absent, 1 if there is
- * an unclosed quote.
+ * @param input The input string to check.
+ * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
  */
-int	check_quotes(char *input)
+int	unexpected_tokens(char *input)
 {
+	int		i;
 	char	quote;
+	char	**query;
 
+	i = -1;
 	quote = 0;
-	while (*input && !quote)
-	{
-		if (ft_strrchr("\"\'", *input))
-			quote = *input;
-		input++;
-	}
-	while (*input && quote)
-	{
-		if (*input && *input == quote)
-			quote = 0;
-		input++;
-	}
-	if (*input)
-		return (check_quotes(input));
-	else if (!quote)
-		return (0);
-	else
-		return (1);
+	query = splitter(input, ' ');
+	if (unexpected_redirect(query))
+		return (helper_free_dp(query), 1);
+	if (query)
+		helper_free_dp(query);
+	return (0);
 }
 
 /**

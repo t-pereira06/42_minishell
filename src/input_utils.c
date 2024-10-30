@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 15:55:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:32:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@
  *         `print_syntax_err`, indicating a syntax error with the
  *         provided operator.
  */
-int	check_op(char *operator)
+int	check_op(char *operator, char *input)
 {
 	int	i;
+	int	j;
 
 	i = -1;
+	j = 0;
 	while (operator[++i])
 		if (ft_strchr("&;(){}*\\", operator[i]))
 			return (print_op_err
@@ -36,14 +38,19 @@ int	check_op(char *operator)
 	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
 		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
 		|| check_strcmp(operator, "|"))
-		return (0);
+	{
+		while (input[j] == ' ')
+			j++;
+		if (input[j] == '<' || input[j] == '>')
+			return (print_syntax_err
+				("minishell: syntax error near unexpected token '", operator));
+		else
+			return (0);
+	}
 	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
 		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
 		return (print_op_err("minishell: no support for operator '", operator));
 	return (0);
-	/* else
-		return (print_syntax_err
-			("minishell: syntax error near unexpected token '", operator)); */
 }
 
 /**
@@ -56,11 +63,11 @@ int	check_op(char *operator)
  * the function frees `ms->operator` and resets it to an empty string if
  * not needed.
  */
-int	helper_operator(t_minishell *ms)
+int	helper_operator(t_minishell *ms, char *input)
 {
 	int	return_val;
 
-	return_val = check_op(ms->operator);
+	return_val = check_op(ms->operator, input);
 	free(ms->operator);
 	if (return_val == 1)
 		return (1);
@@ -69,46 +76,6 @@ int	helper_operator(t_minishell *ms)
 		ms->operator = "\0";
 		return (0);
 	}
-}
-
-/**
- * Updates the current state of quotation marks in a string.
- *
- * @param c The current character being evaluated.
- * @param quote The current state of quotation marks.
- *
- * @return Returns the updated state of quotation marks based on the
- * character evaluation.
- */
-char	get_quote(char c, char quote)
-{
-	if (ft_strrchr("\"\'", c) && !quote)
-		return (c);
-	else if (ft_strrchr("\"\'", c) && quote == c)
-		return (0);
-	return (quote);
-}
-
-/**
- * Checks for unexpected tokens and redirects in the input string.
- *
- * @param input The input string to check.
- * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
- */
-int	unexpected_tokens(char *input)
-{
-	int		i;
-	char	quote;
-	char	**query;
-
-	i = -1;
-	quote = 0;
-	query = splitter(input, ' ');
-	if (unexpected_redirect(query))
-		return (helper_free_dp(query), 1);
-	if (query)
-		helper_free_dp(query);
-	return (0);
 }
 
 int	search_quote(char *query)
@@ -129,16 +96,16 @@ int	search_quote(char *query)
 	return (0);
 }
 
-int	check_pipe(char *string, char**query, int a)
+int	check_pipe(char *string, char**query, int a, int quote)
 {
-	int	quote;
 	int	i;
 
-	quote = 0;
 	i = -1;
-	if (check_strcmp(query[0], "|"))
+	if (check_strcmp(query[0], "|")
+		|| (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1])))
 		return (1);
-	if (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1]))
+	if (check_strcmp(query[a], "|")
+		&& ft_strchr("<>", query[a - 1][ft_strlen(query[a - 1]) - 1]))
 		return (1);
 	else if (ft_strchr(string, '|') && ft_strlen(string) > 1 && !query[a + 1])
 	{
@@ -175,7 +142,7 @@ int	unexpected_redirect(char **query)
 		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
 			|| ft_strchr(query[i], '|'))
 		{
-			if (check_pipe(query[i], query, i))
+			if (check_pipe(query[i], query, i, 0))
 				return (print_token_err(UNTOKEN, '|', 0));
 			if (check_strcmp(query[i], "|") && !query[i + 1])
 				return (print_token_err(UNTOKEN, '|', 0));
