@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:44:10 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 12:40:21 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:18:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	do_output(t_minishell *ms, char **query)
 
 int	do_heredoc(t_minishell *ms, char **query, char **next)
 {
-	signals_heredoc();
+	//signals_heredoc();
+	signal(SIGQUIT, SIG_IGN);
 	helper_heredoc(ms, query, next[0]);
 	ms->in_fd = open(".heredoc", O_RDONLY);
 	if (ms->in_fd < 0)
 	{
-		ft_putstr_fd("minishell: .heredoc: No such file or directory\n",
-				 STDERR_FILENO);
-		exit(1);
+		return (ft_putstr_fd("minishell: .heredoc: No such file or directory\n",
+				 STDERR_FILENO), 1);
 	}
 	return (0);
 }

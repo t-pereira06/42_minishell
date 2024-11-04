@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 11:58:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:25:42 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ char	*get_name(char *info);
 char	**ft_envcpy(t_list *env);
 
 //heredoc.c
+void	heredoc_sigint(int signum);
+void	err_heredoc(t_minishell *ms, char **query);
+void	err_eof(char *str);
 void	helper_heredoc(t_minishell *ms, char **input, char *lim);
 
 //input_errors.c
@@ -153,6 +156,7 @@ char	**erase_redir(char **query, int pos, int size, int j);
 char	**check_redir(t_minishell *ms, char *input, int i, int err);
 
 //signals.c
+void	sigint_heredoc(void);
 void	handler(int signal);
 void	handler_sigint(int sig);
 void	signal_handling(void);

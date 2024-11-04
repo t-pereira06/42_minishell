@@ -6,11 +6,17 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/03 15:18:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:25:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+void	sigint_heredoc(void)
+{
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
+}
 
 /**
  * Signal handler function for handling the SIGINT signal.

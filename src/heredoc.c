@@ -6,26 +6,42 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 12:37:25 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 15:00:21 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	signals_heredoc(void)
+void	free_child_heredoc(void)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_heredoc);
-}
-void	sigint_heredoc(t_minishell *ms, char **query, int signal)
-{
-	if (signal == SIGINT)
+	/* if (cmd_query)
+		ft_free_split(cmd_query);
+	if (s_minishell()->pipe_fd)
+		free(ms->pipe_fd);
+	unlink(".heredoc");
+	if (ms->paths)
+		ft_free_split(ms->paths);
+	if (ms->query)
+		ft_free_split(ms->query);
+	if (ms->args)
+		ft_free_split(ms->args);
+	ft_free_lst(ms->env);
+	if (ms->pid)
+		free(ms->pid);
+	//ft_free_lst(ms->xprt);
+	if (i == 1)
 	{
-		ft_putchar_fd('\n', STDOUT_FILENO);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
-	free_child(ms, query, 1);
+		g_exit = 1;
+		exit (1);
+	} */
+}
+
+void	heredoc_sigint(int signum)
+{
+	if (signum != SIGINT)
+		return ;
+	printf("\n");
+	free_child_heredoc();
 }
 
 void	err_heredoc(t_minishell *ms, char **query)
@@ -47,6 +63,7 @@ void	helper_heredoc(t_minishell *ms, char **query, char *delimiter)
 	int		file;
 	char	*buffer;
 
+	/*working on freeing the memory if SIGINT is called*/
 	file = open(".heredoc", O_CREAT
 			| O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);
 	if (file < 0)
@@ -70,4 +87,5 @@ void	helper_heredoc(t_minishell *ms, char **query, char *delimiter)
 	if (buffer)
 		free(buffer);
 	close(file);
+	return (0);
 }
