@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/30 11:45:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:40:21 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  *         `print_syntax_err`, indicating a syntax error with the
  *         provided operator.
  */
-int	check_op(char *operator, char *input)
+int	check_op(char *operator, char *input, int a)
 {
 	int	i;
 	int	j;
@@ -40,8 +40,8 @@ int	check_op(char *operator, char *input)
 	{
 		while (input[j] == ' ')
 			j++;
-		if (input[j] == '<' || input[j] == '>')
-			return (print_syntax_err(ERR_TOKEN, operator));
+		if ((input[j] == '<' || input[j] == '>') && a != 0)
+			return (print_op_err(ERR_TOKEN, "newline"));
 		else
 			return (0);
 	}
@@ -63,11 +63,11 @@ int	check_op(char *operator, char *input)
  * the function frees `ms->operator` and resets it to an empty string if
  * not needed.
  */
-int	helper_operator(t_minishell *ms, char *input)
+int	helper_operator(t_minishell *ms, char *input, int a)
 {
 	int	return_val;
 
-	return_val = check_op(ms->operator, input);
+	return_val = check_op(ms->operator, input, a);
 	free(ms->operator);
 	if (return_val == 1)
 		return (1);
@@ -104,7 +104,7 @@ int	check_pipe(char *string, char**query, int a, int quote)
 	if (check_strcmp(query[0], "|")
 		|| (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1])))
 		return (1);
-	if (check_strcmp(query[a], "|")
+	if (check_strcmp(query[0], "|")
 		&& ft_strchr("<>", query[a - 1][ft_strlen(query[a - 1]) - 1]))
 		return (1);
 	else if (ft_strchr(string, '|') && ft_strlen(string) > 1 && !query[a + 1])

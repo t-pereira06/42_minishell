@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/30 11:45:04 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:38:12 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ int		print_op_err(char *error, char *str);
 int		print_token_err(char *error, char metachar, int dup);
 
 //input_utils.c
-int		check_op(char *operator, char *input);
-int		helper_operator(t_minishell *ms, char *input);
+int		check_op(char *operator, char *input, int a);
+int		helper_operator(t_minishell *ms, char *input, int a);
 int		search_quote(char *query);
 int		check_pipe(char *string, char**query, int a, int quote);
 int		unexpected_redirect(char **query);
