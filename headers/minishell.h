@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 11:38:12 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:58:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		do_builtin(t_minishell *ms, char **query);
 void	change_fds(t_minishell *ms);
 int		do_input(t_minishell *ms, char **query);
 int		do_output(t_minishell *ms, char **query);
-//int		do_heredoc(t_minishell *ms, char **query);
+int		do_heredoc(t_minishell *ms, char **query, char **next);
 int		do_append(t_minishell *ms, char **query);
 
 //exec_utils.c
@@ -105,6 +105,9 @@ t_list	*init_env(char **env);
 t_env	*ft_create_data(char *info);
 char	*get_name(char *info);
 char	**ft_envcpy(t_list *env);
+
+//heredoc.c
+void	helper_heredoc(t_minishell *ms, char **input, char *lim);
 
 //input_errors.c
 int		handle_op(t_minishell *ms, char *input, int i, int return_val);

@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/30 11:54:36 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/11/04 11:59:32 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	src/main.c \
 		src/expand.c \
 		src/free.c \
 		src/get_env.c \
+		src/heredoc.c \
 		src/input_errors.c \
 		src/input_handling.c \
 		src/input_helpers.c \
