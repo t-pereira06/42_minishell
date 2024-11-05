@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:09:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 10:24:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:06:27 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_minishell	*ms(void)
 {
 	static t_minishell	ms;
+	//use this for ms
 
 	return (&ms);
 }
