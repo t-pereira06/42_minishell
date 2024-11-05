@@ -6,34 +6,16 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:25:14 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:45:26 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	free_child_heredoc(void)
+void	signals_heredoc(void)
 {
-	/* if (cmd_query)
-		ft_free_split(cmd_query);
-	if (ms()->pipe_fd)
-		free(ms()->pipe_fd);
-	unlink(".heredoc");
-	if (ms()->paths)
-		ft_free_split(ms()->paths);
-	if (ms()->query)
-		ft_free_split(ms()->query);
-	if (ms()->args)
-		ft_free_split(ms()->args);
-	ft_free_lst(ms()->env);
-	if (ms()->pid)
-		free(ms()->pid);
-	//ft_free_lst(ms()->xprt);
-	if (i == 1)
-	{
-		g_exit = 1;
-		exit (1);
-	} */
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	heredoc_sigint(int signum)
@@ -63,6 +45,7 @@ void	helper_heredoc(char **query, char *delimiter)
 	int		file;
 	char	*buffer;
 
+	signals_heredoc();
 	/*working on freeing the memory if SIGINT is called*/
 	file = open(".heredoc", O_CREAT
 			| O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);

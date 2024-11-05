@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:16:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 14:46:46 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,25 @@ void	ft_free_lst(t_list *lst)
 		free(temp);
 		temp = next;
 	}
+}
+
+void	free_child_heredoc(void)
+{
+	/* if (cmd_query)
+		ft_free_split(cmd_query); */
+	if (ms()->pipe_fd)
+		free(ms()->pipe_fd);
+	unlink(".heredoc");
+	if (ms()->paths)
+		ft_free_split(ms()->paths);
+	if (ms()->query)
+		ft_free_split(ms()->query);
+	if (ms()->args)
+		ft_free_split(ms()->args);
+	ft_free_lst(ms()->env);
+	if (ms()->pid)
+		free(ms()->pid);
+	//ft_free_lst(ms()->xprt);
+	g_exit = 1;
+	exit (1);
 }
