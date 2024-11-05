@@ -6,13 +6,13 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:04:51 by davioliv          #+#    #+#             */
-/*   Updated: 2024/10/16 13:40:12 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:23:21 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(t_minishell *ms, char **query)
+void	ft_echo(char **query)
 {
 	int	i;
 	int	j;
@@ -31,7 +31,7 @@ void	ft_echo(t_minishell *ms, char **query)
 	}
 	if (ft_strncmp(query[1], "-n", 2))
 		printf("\n");
-	free_child(ms, query, 0);
+	free_child(query, 0);
 	g_exit = 0;
 	exit (0);
 }

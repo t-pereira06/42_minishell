@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:39:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/28 15:39:30 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:19:28 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
  * `j` is 1 and `ms->operator` is not empty. This prevents memory leaks by
  * ensuring that `ms->operator` is only freed when necessary.
  */
-void	helper_free_op(t_minishell *ms, int j)
+void	helper_free_op(int j)
 {
-	if (j == 1 && *ms->operator != '\0')
+	if (j == 1 && *ms()->operator != '\0')
 	{
-		free(ms->operator);
-		ms->operator = NULL;
+		free(ms()->operator);
+		ms()->operator = NULL;
 	}
 }
 

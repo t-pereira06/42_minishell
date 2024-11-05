@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 11:59:07 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:19:46 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,17 @@ int	check_op(char *operator, char *input, int a)
  * the function frees `ms->operator` and resets it to an empty string if
  * not needed.
  */
-int	helper_operator(t_minishell *ms, char *input, int a)
+int	helper_operator(char *input, int a)
 {
 	int	return_val;
 
-	return_val = check_op(ms->operator, input, a);
-	free(ms->operator);
+	return_val = check_op(ms()->operator, input, a);
+	free(ms()->operator);
 	if (return_val == 1)
 		return (1);
 	else
 	{
-		ms->operator = "\0";
+		ms()->operator = "\0";
 		return (0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 12:03:14 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:22:32 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@ char	**erase_redir(char **query, int pos, int size, int j)
  * Handles the input/output redirections in the command query by
  * calling the corresponding functions.
  *
- * @param ms     The minishell structure.
  * @param input  The input string containing the command query.
  *
  * @return The updated command query array after handling the redirections.
  */
-char	**check_redir(t_minishell *ms, char *input, int i, int err)
+char	**check_redir(char *input, int i, int err)
 {
 	char	**query;
 
@@ -65,22 +64,22 @@ char	**check_redir(t_minishell *ms, char *input, int i, int err)
 	while (query[++i])
 	{
 		if (check_strcmp(query[i], "<"))
-			err = do_input(ms, &query[i + 1]);
+			err = do_input(&query[i + 1]);
 		if (check_strcmp(query[i], ">"))
-			err = do_output(ms, &query[i + 1]);
+			err = do_output(&query[i + 1]);
 		if (check_strcmp(query[i], "<<"))
-			err = do_heredoc(ms, query, &query[i + 1]);
+			err = do_heredoc(query, &query[i + 1]);
 		if (check_strcmp(query[i], ">>"))
-			err = do_append(ms, &query[i + 1]);
+			err = do_append(&query[i + 1]);
 		if (err == 0)
 		{
 			query = erase_redir(query, i, 0, -1);
 			i--;
 		}
 		if (err == 1)
-			free_child(ms, query, 1);
+			free_child(query, 1);
 		err = -1;
 	}
-	change_fds(ms);
+	change_fds();
 	return (query);
 }
