@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/11/04 11:59:32 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/11/05 10:14:00 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LIBFTDIR = ./libft/
 HEADERDIR = ./headers/
 
 SRC =	src/main.c \
+		src/ms.c \
 		src/exec_utils.c \
 		src/check_builtins.c \
 		src/exec_redirects.c \
