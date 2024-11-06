@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 14:45:26 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:18:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	helper_heredoc(char **query, char *delimiter)
 	char	*buffer;
 
 	signals_heredoc();
-	/*working on freeing the memory if SIGINT is called*/
 	file = open(".heredoc", O_CREAT
 			| O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);
 	if (file < 0)

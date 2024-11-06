@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 14:47:02 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:13:15 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_minishell
 	/* redirect use only */
 	char	*operator;
 	char	*temp;
+	char	**temp_query;
 	/* -------------- */
 	char	**query;
 	char	**args;

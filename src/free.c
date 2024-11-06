@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 14:46:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/06 10:15:24 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	ft_free_lst(t_list *lst)
 
 void	free_child_heredoc(void)
 {
-	/* if (cmd_query)
-		ft_free_split(cmd_query); */
+	if (ms()->temp_query)
+		ft_free_split(ms()->temp_query);
 	if (ms()->pipe_fd)
 		free(ms()->pipe_fd);
 	unlink(".heredoc");
