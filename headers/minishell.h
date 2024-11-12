@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/06 10:13:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:10:37 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define ERR_TOKEN "minishell: syntax error near unexpected token '"
 # define ERR_OP "minishell: no support for operator '"
+# define ERR_PIPE "minishell: pipe: error creating pipe\n"
 
 extern int	g_exit;
 

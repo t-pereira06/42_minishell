@@ -4,6 +4,7 @@
 		"history.h": "c",
 		"limits.h": "c",
 		"stat.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"readline.h": "c"
 	}
 }
