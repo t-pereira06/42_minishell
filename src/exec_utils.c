@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/29 12:44:25 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:15:05 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  *
  * @param ms A pointer to the minishell structure.
  */
-void	get_exit_status(t_minishell *ms)
+void	get_exit_status(void)
 {
 	int		i;
 	pid_t	pid;
@@ -25,10 +25,10 @@ void	get_exit_status(t_minishell *ms)
 
 	i = 0;
 	status = 0;
-	while (i < ms->n_cmd)
+	while (i < ms()->n_cmd)
 	{
 		signal(SIGINT, &handler_sigint);
-		pid = waitpid(ms->pid[i++], &status, 0);
+		pid = waitpid(ms()->pid[i++], &status, 0);
 		if (pid < 0)
 			continue ;
 		if (WIFEXITED(status))
@@ -44,18 +44,18 @@ void	get_exit_status(t_minishell *ms)
  * @param ms The minishell structure.
  * @param i  Flag indicating whether to free the environment list.
  */
-void	free_program(t_minishell *ms, int i)
+void	free_program(int i)
 {
-	free(ms->pid);
-	if (ms->pipe_fd)
-		free(ms->pipe_fd);
+	free(ms()->pid);
+	if (ms()->pipe_fd)
+		free(ms()->pipe_fd);
 	unlink(".heredoc");
-	if (ms->paths)
-		ft_free_split(ms->paths);
-	if (ms->args)
-		ft_free_split(ms->args);
+	if (ms()->paths)
+		ft_free_split(ms()->paths);
+	if (ms()->args)
+		ft_free_split(ms()->args);
 	if (i == 1)
-		ft_free_lst(ms->env);
+		ft_free_lst(ms()->env);
 }
 
 /**
@@ -66,20 +66,20 @@ void	free_program(t_minishell *ms, int i)
  * @param i    Index variable for string traversal.
  * @return     The full path of the command executable, or NULL if not found.
  */
-char	*get_command(char *cmd, t_minishell *ms, int i)
+char	*get_command(char *cmd, int i)
 {
 	char	*temp;
 	char	*command;
 
 	if (!cmd)
 		return (0);
-	if (!get_env_info(&ms->env, "PATH"))
+	if (!get_env_info(&ms()->env, "PATH"))
 		return ("NO_PATH_AVAILABLE");
 	if (!access(cmd, X_OK))
 		return (cmd);
-	while (ms->paths[i])
+	while (ms()->paths[i])
 	{
-		temp = ft_strdup(ms->paths[i]);
+		temp = ft_strdup(ms()->paths[i]);
 		command = ft_strjoin(temp, "/");
 		free(temp);
 		temp = ft_strdup(command);
@@ -101,11 +101,11 @@ char	*get_command(char *cmd, t_minishell *ms, int i)
  * @param cmd_args The arguments associated with the command.
  * @param ms The pointer to the minishell structure.
  */
-void	no_command_err(char *command, char **query, t_minishell *ms)
+void	no_command_err(char *command, char **query)
 {
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	free_child(ms, query, 0);
+	free_child(query, 0);
 	g_exit = 127;
 	exit (g_exit);
 }
@@ -117,23 +117,23 @@ void	no_command_err(char *command, char **query, t_minishell *ms)
  * @param cmd_query  The command query array.
  * @param i          Flag indicating whether to exit the child process.
  */
-void	free_child(t_minishell *ms, char **cmd_query, int i)
+void	free_child(char **cmd_query, int i)
 {
 	if (cmd_query)
 		ft_free_split(cmd_query);
-	if (ms->pipe_fd)
-		free(ms->pipe_fd);
+	if (ms()->pipe_fd)
+		free(ms()->pipe_fd);
 	unlink(".heredoc");
-	if (ms->paths)
-		ft_free_split(ms->paths);
-	if (ms->query)
-		ft_free_split(ms->query);
-	if (ms->args)
-		ft_free_split(ms->args);
-	ft_free_lst(ms->env);
-	if (ms->pid)
-		free(ms->pid);
-	//ft_free_lst(ms->xprt);
+	if (ms()->paths)
+		ft_free_split(ms()->paths);
+	if (ms()->query)
+		ft_free_split(ms()->query);
+	if (ms()->args)
+		ft_free_split(ms()->args);
+	ft_free_lst(ms()->env);
+	if (ms()->pid)
+		free(ms()->pid);
+	//ft_free_lst(ms()->xprt);
 	if (i == 1)
 	{
 		g_exit = 1;

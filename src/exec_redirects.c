@@ -6,22 +6,22 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:44:10 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 14:18:47 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:13:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	change_fds(t_minishell *ms)
+void	change_fds(void)
 {
-	dup2(ms->in_fd, STDIN_FILENO);
-	dup2(ms->out_fd, STDOUT_FILENO);
+	dup2(ms()->in_fd, STDIN_FILENO);
+	dup2(ms()->out_fd, STDOUT_FILENO);
 }
 
-int	do_input(t_minishell *ms, char **query)
+int	do_input(char **query)
 {
-	ms->in_fd = open(query[0], O_RDONLY);
-	if (ms->in_fd < 0)
+	ms()->in_fd = open(query[0], O_RDONLY);
+	if (ms()->in_fd < 0)
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		ft_putstr_fd(query[0], STDERR_FILENO);
@@ -31,22 +31,22 @@ int	do_input(t_minishell *ms, char **query)
 	return (0);
 }
 
-int	do_output(t_minishell *ms, char **query)
+int	do_output(char **query)
 {
-	ms->out_fd = open(query[0], O_RDWR | O_CREAT
+	ms()->out_fd = open(query[0], O_RDWR | O_CREAT
 			| O_TRUNC, S_IRUSR | S_IWUSR);
-	if (ms->out_fd < 0)
+	if (ms()->out_fd < 0)
 		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
 	return (0);
 }
 
-int	do_heredoc(t_minishell *ms, char **query, char **next)
+int	do_heredoc(char **query, char **next)
 {
 	//signals_heredoc();
 	signal(SIGQUIT, SIG_IGN);
-	helper_heredoc(ms, query, next[0]);
-	ms->in_fd = open(".heredoc", O_RDONLY);
-	if (ms->in_fd < 0)
+	helper_heredoc(query, next[0]);
+	ms()->in_fd = open(".heredoc", O_RDONLY);
+	if (ms()->in_fd < 0)
 	{
 		return (ft_putstr_fd("minishell: .heredoc: No such file or directory\n",
 				 STDERR_FILENO), 1);
@@ -54,11 +54,11 @@ int	do_heredoc(t_minishell *ms, char **query, char **next)
 	return (0);
 }
 
-int	do_append(t_minishell *ms, char **query)
+int	do_append(char **query)
 {
-	ms->out_fd = open(query[0], O_RDWR | O_CREAT | O_APPEND,
+	ms()->out_fd = open(query[0], O_RDWR | O_CREAT | O_APPEND,
 			S_IRUSR | S_IWUSR);
-	if (ms->out_fd < 0)
+	if (ms()->out_fd < 0)
 		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
 	return (0);
 }

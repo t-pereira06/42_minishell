@@ -6,23 +6,23 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:04:00 by davioliv          #+#    #+#             */
-/*   Updated: 2024/10/21 12:35:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:23:32 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_minishell *ms, char **query)
+void	ft_env(char **query)
 {
 	t_list	*temp;
 	t_env	*vars;
 
-	if (ft_strlen(ms->args[0]) > 3)
+	if (ft_strlen(ms()->args[0]) > 3)
 	{
 		printf("no options allowed");
 		return ;
 	}
-	temp = ms->env;
+	temp = ms()->env;
 	while (temp->next)
 	{
 		vars = (t_env *)temp->content;
@@ -35,7 +35,7 @@ void	ft_env(t_minishell *ms, char **query)
 		}
 		temp = temp->next;
 	}
-	free_child(ms, query, 0);
+	free_child(query, 0);
 	g_exit = 0;
 	exit (0);
 }

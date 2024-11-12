@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 11:39:44 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:18:34 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	handle_op(t_minishell *ms, char *input, int i, int j)
+int	handle_op(char *input, int i, int j)
 {
 	char	quote;
 
@@ -29,21 +29,21 @@ int	handle_op(t_minishell *ms, char *input, int i, int j)
 		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
 		{
 			if (j == 0)
-				ms->operator = ft_strdup("\0");
-			ms->temp = ft_strdup(ms->operator);
-			free(ms->operator);
-			ms->operator = ft_strcjoin(ms->temp, input[i]);
-			free(ms->temp);
+				ms()->operator = ft_strdup("\0");
+			ms()->temp = ft_strdup(ms()->operator);
+			free(ms()->operator);
+			ms()->operator = ft_strcjoin(ms()->temp, input[i]);
+			free(ms()->temp);
 			j = 1;
 		}
-		else if (j == 1 && ft_strlen(ms->operator) != 0)
+		else if (j == 1 && ft_strlen(ms()->operator) != 0)
 		{
-			if (helper_operator(ms, &input[i + 1], i - 1))
+			if (helper_operator(&input[i + 1], i - 1))
 				return (1);
 			j = 0;
 		}
 	}
-	helper_free_op(ms, j);
+	helper_free_op(j);
 	return (unexpected_tokens(input));
 }
 
@@ -75,7 +75,7 @@ int	unexpected_tokens(char *input)
  * @param input The input string to check.
  * @return 1 if the input is valid, 0 otherwise.
  */
-int	check_valid_input(t_minishell *ms, char *input)
+int	check_valid_input(char *input)
 {
 	char	*temp;
 	char	*temp2;
@@ -92,7 +92,7 @@ int	check_valid_input(t_minishell *ms, char *input)
 	free(temp2);
 	temp2 = ft_strcjoin(temp, ' ');
 	free(temp);
-	if (handle_op(ms, temp2, -1, 0))
+	if (handle_op(temp2, -1, 0))
 		return (free(temp2), 0);
 	free(temp2);
 	return (1);
