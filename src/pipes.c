@@ -6,11 +6,26 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:53:28 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/12 21:01:44 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:37:07 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
+
+/**
+ * Closes the file descriptors associated with the pipes used in
+ * piped commands.
+ *
+ * @param ms The t_minishell structure containing relevant data.
+ */
+void	close_pipes_fd(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < ms()->n_pipe * 2)
+		close(ms()->pipe_fd[i++]);
+}
 
 /**
  * Creates multiple pipes for inter-process communication.

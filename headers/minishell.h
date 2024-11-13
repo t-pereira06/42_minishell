@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/12 21:10:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:31:14 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,9 @@ void	free_child(char **cmd_query, int i);
 
 //exec.c
 void	exec_command(char **query);
-void	exec_single_cmd(char *cmd);
+void	exec_command_pipe(char *command, int n_pid);
+void	exec_pipes(void);
+void	single_cmd(char *cmd);
 void	execute(void);
 
 //expand.c
@@ -145,6 +147,10 @@ int		unexpected_redirect(char **query);
 //parsing.c
 char	*get_command(char *cmd, int i);
 void	parse_query(char **cmd_query);
+
+//pipes.c
+void	do_pipex(void);
+void	close_pipes_fd(void);
 
 //prompt.c
 char	*get_prompt(int i, int j);

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/12 21:10:41 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:39:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	exec_command(char **query)
 	execve(command, query, ft_envcpy(ms()->env));
 }
 
-void	exec_command_pipe(char **command, int n_pid)
+void	exec_command_pipe(char *command, int n_pid)
 {
 	char	**query;
 
@@ -54,11 +54,11 @@ void	exec_pipes(void)
 	{
 		command = add_whitespaces(ms()->args[i]);
 		//ms()->query = 0;
-		check_heredoc(ms(), i);
+		//check_heredoc(ms(), i);
 		exec_command_pipe(command, i);
 		free(command);
 	}
-	close_pipex(ms());
+	close_pipes_fd();
 }
 
 void	single_cmd(char *cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:19:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:33:05 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ int	helper_operator(char *input, int a)
 int	search_quote(char *query)
 {
 	int		i;
-	int		j;
+	//int		j;
 	char	quote;
 
 	i = 0;
-	j = 0;
+	//j = 0;
 	quote = 0;
 	while (query[++i])
 	{
