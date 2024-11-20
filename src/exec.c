@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/13 17:39:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/13 17:46:34 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	exec_pipes(void)
 	int		i;
 
 	i = -1;
-	do_pipex();
 	while (ms()->args[++i])
 	{
 		command = add_whitespaces(ms()->args[i]);
@@ -93,6 +92,7 @@ void	execute(void)
 			ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
 			free_child(NULL, 1);
 		}
+		do_pipex();
 		exec_pipes();
 	}
 	cmd = add_whitespaces(ms()->args[0]);
