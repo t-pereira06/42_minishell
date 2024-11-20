@@ -6,12 +6,22 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/13 17:46:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:49:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+/**
+ * Executes a command by handling builtins and invoking the external command.
+ *
+ * This function first checks if the command is a builtin and executes it if so.
+ * If not, it attempts to locate the command and execute it using `execve`.
+ * If the command cannot be found, an error is raised.
+ *
+ * @param query The parsed command arguments, where `query[0]` is the
+ * command to execute.
+ */
 void	exec_command(char **query)
 {
 	char	*command;
@@ -26,6 +36,17 @@ void	exec_command(char **query)
 	execve(command, query, ft_envcpy(ms()->env));
 }
 
+/**
+ * Executes a command in a pipeline after handling redirections and I/O.
+ *
+ * This function forks a process to execute a command in the pipeline.
+ * It handles redirections, manages input/output redirections for the
+ * pipeline, and expands variables/quotes before executing the command.
+ *
+ * @param command The command to be executed in the pipeline.
+ * @param n_pid The index of the current process in the pipeline,
+ * used to manage I/O.
+ */
 void	exec_command_pipe(char *command, int n_pid)
 {
 	char	**query;
@@ -37,12 +58,22 @@ void	exec_command_pipe(char *command, int n_pid)
 	{
 		signal_default();
 		query = check_redir(command, -1, -1);
-		check_expand(query);
+		manage_pipeline_io(n_pid);
+		//still need to do expand
+		check_expand_quotes(query);
 		exec_command(query);
-		//stopped here, keep going
 	}
 }
 
+/**
+ * Executes commands in a pipeline.
+ *
+ * This function iterates over each command in the pipeline,
+ * adds necessary whitespace, executes the command using `exec_command_pipe`,
+ * and frees allocated memory.
+ * It also ensures that the pipe file descriptors are closed after execution.
+ *
+ */
 void	exec_pipes(void)
 {
 	char	*command;
@@ -52,14 +83,22 @@ void	exec_pipes(void)
 	while (ms()->args[++i])
 	{
 		command = add_whitespaces(ms()->args[i]);
-		//ms()->query = 0;
 		//check_heredoc(ms(), i);
 		exec_command_pipe(command, i);
 		free(command);
 	}
-	close_pipes_fd();
+	close_pipes_fd(0);
 }
 
+/**
+ * Executes a single command by forking a new process.
+ *
+ * This function forks the current process and, in the child process,
+ * processes the command by checking for redirections, expanding variables
+ * and executing the command.
+ *
+ * @param cmd The command string to be executed.
+ */
 void	single_cmd(char *cmd)
 {
 	char	**query;
@@ -69,7 +108,8 @@ void	single_cmd(char *cmd)
 	{
 		signal_default();
 		query = check_redir(cmd, -1, -1);
-		check_expand(query);
+		//still need to do expand
+		check_expand_quotes(query);
 		exec_command(query);
 	}
 }
@@ -95,11 +135,14 @@ void	execute(void)
 		do_pipex();
 		exec_pipes();
 	}
-	cmd = add_whitespaces(ms()->args[0]);
-	//ms()->query = handle_query(cmd);
-	single_cmd(cmd);
-	free(cmd);
-	//ft_free_split(ms->query);
+	else
+	{
+		cmd = add_whitespaces(ms()->args[0]);
+		//ms()->query = handle_query(cmd);
+		single_cmd(cmd);
+		free(cmd);
+		//ft_free_split(ms->query);
+	}
 	get_exit_status();
 	free_program(0);
 }

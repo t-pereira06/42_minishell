@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:16:48 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:45:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	check_expand(char **query)
+void	check_expand_quotes(char **query)
 {
 	int	i;
 
