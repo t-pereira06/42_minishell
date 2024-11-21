@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:53:28 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/20 23:49:28 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/21 00:00:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	change_standard_io(int in_fd, int out_fd)
  */
 void	manage_pipeline_io(int n_pid)
 {
-	if (n_pid == 0)
+	if (!n_pid)
 		change_standard_io(ms()->in_fd, ms()->pipe_fd[1]);
 	else if (n_pid == ms()->n_pipe)
 		change_standard_io(ms()->pipe_fd[n_pid * 2 - 2], ms()->out_fd);
