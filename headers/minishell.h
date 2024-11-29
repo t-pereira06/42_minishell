@@ -131,6 +131,7 @@ int		read_input(void);
 //input_helpers.c
 void	helper_free_op(int j);
 void	helper_free_dp(char **dp);
+int		helper_check_pipe(char **query, int a);
 
 //input_prterr.c
 int		print_syntax_err(char *error, char *str);

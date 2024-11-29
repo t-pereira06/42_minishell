@@ -101,11 +101,7 @@ int	check_pipe(char *string, char**query, int a, int quote)
 	int	i;
 
 	i = -1;
-	if (check_strcmp(query[0], "|")
-		|| (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1])))
-		return (1);
-	if (check_strcmp(query[0], "|")
-		&& ft_strchr("<>", query[a - 1][ft_strlen(query[a - 1]) - 1]))
+	if (helper_check_pipe(query, a))
 		return (1);
 	else if (ft_strchr(string, '|') && ft_strlen(string) > 1 && !query[a + 1])
 	{
@@ -114,10 +110,13 @@ int	check_pipe(char *string, char**query, int a, int quote)
 			quote = get_quote(string[i], quote);
 			if (string[i] == '|' && !quote)
 			{
-				if ((i == 0 || !string[i - 1])
+				if (a == 0)
+				{
+					if ((i == 0 || !string[i - 1])
 					|| (i + 1 >= (int)ft_strlen(string) || !string[i + 1]))
-					return (1);
-				if (ft_strchr("<>", string[i - 1]))
+						return (1);
+				}
+				if (string[i - 1] && ft_strchr("<>", string[i - 1]))
 					return (1);
 			}
 		}
@@ -142,8 +141,9 @@ int	unexpected_redirect(char **query)
 		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
 			|| ft_strchr(query[i], '|'))
 		{
-			if (check_pipe(query[i], query, i, 0))
-				return (print_token_err(ERR_TOKEN, '|', 0));
+			if (ft_strchr(query[i], '|'))
+				if (check_pipe(query[i], query, i, 0))
+					return (print_token_err(ERR_TOKEN, '|', 0));
 			if (check_strcmp(query[i], "|") && !query[i + 1])
 				return (print_token_err(ERR_TOKEN, '|', 0));
 			else if (check_strcmp(query[i], "||") && !query[i + 1])

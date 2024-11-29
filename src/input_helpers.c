@@ -42,3 +42,17 @@ void	helper_free_dp(char **dp)
 		free(dp[i]);
 	free(dp);
 }
+
+int	helper_check_pipe(char **query, int a)
+{
+	if (check_strcmp(query[0], "|")
+		|| (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1])))
+		return (1);
+	if (a != 0)
+	{
+		if (query[a][0] == '|'
+			&& ft_strchr("<>", query[a - 1][ft_strlen(query[a - 1]) - 1]))
+			return (1);
+	}
+	return (0);
+}
