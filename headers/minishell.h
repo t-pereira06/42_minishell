@@ -189,8 +189,29 @@ size_t	ft_cmdlen(char *str);
 int		check_strcmp(char *s1, char *s2);
 
 //BUILT-INS
-void	ft_echo(char **query);
-void	ft_env(char**query);
+
+//cd.c
 void	ft_cd(char **query);
+int		ft_dir_change(char **query);
+
+//echo.c
+void	ft_echo(char **query);
+
+//env.c
+void	ft_env(char **query);
+
+//exit.c
+void	ft_exit(void);
+
+//export.c
+void	add_to_list(char **query);
+void	show_list(void);
+void	ft_export(t_minishell *ms, char **query);
+
+//pwd.c
+void	pwd(void);
+
+//unset.c
+void	ft_unset(char **query);
 
 #endif

@@ -13,7 +13,7 @@ void	add_to_list(char **query)
 	}
 }
 
-void	show_list(tvoid)
+void	show_list(void)
 {
 	t_list	*temp;
 	t_env	*vars;
