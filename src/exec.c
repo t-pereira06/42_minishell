@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 21:21:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:28:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,7 @@ void	execute(void)
 		cmd = add_whitespaces(ms()->args[0]);
 		//ms()->query = handle_query(cmd);
 		single_cmd(cmd);
-		i = -1;
-		while (ms()->args)
-			printf("%s", ms()->args[++i]);
-		builtins();
+		exec_parent_builtins();
 		free(cmd);
 		//ft_free_split(ms->query);
 	}

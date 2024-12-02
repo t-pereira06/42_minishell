@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 20:34:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:29:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_minishell	*ms(void);
 
 //check_builtins.c
 int		do_builtin(char **query);
+int 	exec_parent_builtins(void);
 
 //exec_redirects.c
 void	change_fds();
