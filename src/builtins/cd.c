@@ -10,32 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
-void	ft_cd(char **query)
+void	ft_cd(t_minishell *ms, char **query)
 {
 	int	i;
+	int	check;
+	char	old_path[200];
 
+	getcwd(old_path, sizeof(old_path));
 	i = 0;
 	while (query[i])
 		i++;
-	if (i == 1)
-	{
-		free_child(query, 0);
-		g_exit = 0;
-		exit (g_exit);
-	}
 	if (i > 2)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(query[0], STDERR_FILENO);
-		ft_putstr_fd(": too many arguments\n", STDERR_FILENO);
-		free_child(query, 0);
+		ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
 		g_exit = 1;
-		exit (g_exit);
 	}
-	chdir(query[1]);
-	free_child(query, 0);
+	check = ft_dir_change(ms, query);
+	if (check != 0)
+		return ;
+	ft_update_env(&ms->env, "OLDPWD", old_path);
+	getcwd(old_path, sizeof(old_path));
+	ft_update_env(&ms->env, "PWD", old_path);
 	g_exit = 0;
-	exit (g_exit);
+}
+
+int	ft_dir_change(t_minishell *ms, char **query)
+{
+	int	check;
+
+	if (query[1])
+	{
+		if (ft_strlen(query[1]) == 1 && query[1][0] == '-')
+		{
+			printf("%s\n", get_env_info(&ms->env, "OLDPWD"));
+			check = chdir(get_env_info(&ms->env, "OLDPWD"));
+		}
+		else if ((query[1][0] == '-' && query[1][1] == '-') || (ft_strlen(query[1]) == 1 && query[1][0] == '~'))
+			check = chdir(get_env_info(&ms->env, "HOME"));
+		else
+			check = chdir(query[1]);
+	}
+	else
+		check = chdir(get_env_info(&ms->env, "HOME"));
+	return (check);
 }

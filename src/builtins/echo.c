@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
-void	ft_echo(char **query)
+void	ft_echo(t_minishell *ms, char **query)
 {
 	int	i;
 	int	j;
 
 	i = 1;
+	(void)ms;
 	if (!(ft_strncmp(query[1], "-n", 2)))
 		i++;
 	while (query[i])
@@ -31,7 +32,4 @@ void	ft_echo(char **query)
 	}
 	if (ft_strncmp(query[1], "-n", 2))
 		printf("\n");
-	free_child(query, 0);
-	g_exit = 0;
-	exit (0);
 }
