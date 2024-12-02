@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/02 20:54:23 by tsodre-p         ###   ########.fr       */
+/*   Created: 2024/12/02 20:21:09 by tsodre-p          #+#    #+#             */
+/*   Updated: 2024/12/02 20:23:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../headers/libft.h"
 
-int	ft_exit(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	ft_putstr_fd(ms()->args[0], STDERR_FILENO);
-	if (ft_strlen(ms()->args[0]) > 5)
+	size_t	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		printf("no options allowed");
-		free_child(NULL, 1);
+		if (s1[i] != s2[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
 	}
-	free_child(NULL, 0);
-	g_exit = 0;
-	exit (0);
-	//still working on this one
+	return (0);
 }

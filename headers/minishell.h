@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/20 23:45:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:34:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ extern int	g_exit;
 typedef struct s_minishell
 {
 	t_list	*env;
-	t_list	*xprt;
+	t_list	*export;
 	int		n_cmd;
 	int		n_pipe;
 	int		in_fd;
@@ -72,7 +72,7 @@ typedef struct s_expander
 	t_list	*temp;
 }				t_expander;
 
-//SRC
+/* ------------------- Source ------------------- */
 
 //ms.c
 t_minishell	*ms(void);
@@ -113,6 +113,12 @@ t_list	*init_env(char **env);
 t_env	*ft_create_data(char *info);
 char	*get_name(char *info);
 char	**ft_envcpy(t_list *env);
+
+//get_export.c
+t_list	*get_export(char **env);
+char	**check_alpha(char **env);
+void	ft_swap(char **s1, char **s2);
+int		check_bigger(char *s1, char *s2);
 
 //heredoc.c
 void	heredoc_sigint(int signum);
@@ -188,7 +194,7 @@ char	*add_whitespaces(char *str);
 size_t	ft_cmdlen(char *str);
 int		check_strcmp(char *s1, char *s2);
 
-//BUILT-INS
+/* ------------------- Built-ins ------------------- */
 
 //cd.c
 void	ft_cd(char **query);
@@ -198,18 +204,19 @@ int		ft_dir_change(char **query);
 void	ft_echo(char **query);
 
 //env.c
+void	ft_update_env(t_list **env, char *var_upd, char *content);
 void	ft_env(char **query);
 
 //exit.c
-void	ft_exit(void);
+int		ft_exit(void);
 
 //export.c
 void	add_to_list(char **query);
 void	show_list(void);
-void	ft_export(t_minishell *ms, char **query);
+void	ft_export(char **query);
 
 //pwd.c
-void	pwd(void);
+void	ft_pwd(void);
 
 //unset.c
 void	ft_unset(char **query);

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/20 23:49:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 21:21:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,16 @@ void	exec_pipes(void)
  */
 void	single_cmd(char *cmd)
 {
-	char	**query;
+	//char	**query;
 
 	ms()->pid[0] = fork();
 	if (!ms()->pid[0])
 	{
 		signal_default();
-		query = check_redir(cmd, -1, -1);
+		ms()->query = check_redir(cmd, -1, -1);
 		//still need to do expand
-		check_expand_quotes(query);
-		exec_command(query);
+		check_expand_quotes(ms()->query);
+		exec_command(ms()->query);
 	}
 }
 
@@ -123,6 +123,7 @@ void	single_cmd(char *cmd)
 void	execute(void)
 {
 	char	*cmd;
+	int		i;
 
 	if (ms()->n_pipe != 0)
 	{
@@ -140,6 +141,10 @@ void	execute(void)
 		cmd = add_whitespaces(ms()->args[0]);
 		//ms()->query = handle_query(cmd);
 		single_cmd(cmd);
+		i = -1;
+		while (ms()->args)
+			printf("%s", ms()->args[++i]);
+		builtins();
 		free(cmd);
 		//ft_free_split(ms->query);
 	}

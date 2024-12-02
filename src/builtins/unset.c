@@ -5,7 +5,7 @@ void	ft_unset(char **query)
 	t_list	*temp;
 	t_env	*vars;
 
-	temp = ms()->xprt;
+	temp = ms()->export;
 	while (temp->next)
 	{
 		vars = (t_env *)temp->next->content;

@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+void	ft_update_env(t_list **env, char *var_upd, char *content)
+{
+	t_env	*vars;
+	t_list	*temp;
+
+	temp = *env;
+	while (temp->next)
+	{
+		vars = (t_env *)temp->content;
+		if (!(ft_strcmp(vars->name, var_upd)))
+		{
+			ft_strlcpy(vars->info, content, ft_strlen(content) + 1);
+			break ;
+		}
+		temp = temp->next;
+	}
+}
+
 void	ft_env(char **query)
 {
 	t_list	*temp;

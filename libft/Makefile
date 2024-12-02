@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 08:46:18 by pealexan          #+#    #+#              #
-#    Updated: 2024/10/30 11:35:41 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/02 20:22:33 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRC =	ft_abs.c \
 	ft_strlcpy.c \
 	ft_strlen.c \
 	ft_strmapi.c \
+	ft_strcmp.c \
 	ft_strncmp.c \
 	ft_strnstr.c \
 	ft_strrchr.c \

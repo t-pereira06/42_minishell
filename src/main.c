@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 13:20:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:47:55 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	free_all(void)
 {
 	if (ms()->env)
 		ft_free_lst(ms()->env);
-	/* if (ms().xprt)
-		ft_free_lst(ms().xprt); */
+	if (ms()->export)
+		ft_free_lst(ms()->export);
 	if (ms()->input)
 		free(ms()->input);
 }
@@ -46,7 +46,7 @@ int	main(int ac, char **av, char **env)
 	else
 	{
 		ms()->env = init_env(env);
-		//ms()->xprt = get_export(env);
+		ms()->export = get_export(env);
 		while (1)
 		{
 			i = 0;

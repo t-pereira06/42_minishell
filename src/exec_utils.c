@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:15:05 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/02 20:36:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	free_child(char **cmd_query, int i)
 	ft_free_lst(ms()->env);
 	if (ms()->pid)
 		free(ms()->pid);
-	//ft_free_lst(ms()->xprt);
+	ft_free_lst(ms()->export);
 	if (i == 1)
 	{
 		g_exit = 1;
