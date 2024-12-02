@@ -12,13 +12,12 @@
 
 #include "../../headers/minishell.h"
 
-void	ft_echo(t_minishell *ms, char **query)
+void	ft_echo(char **query)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	(void)ms;
 	if (!(ft_strncmp(query[1], "-n", 2)))
 		i++;
 	while (query[i])
