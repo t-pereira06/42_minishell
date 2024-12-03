@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 21:28:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/03 00:15:32 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void	single_cmd(char *cmd)
 void	execute(void)
 {
 	char	*cmd;
-	int		i;
 
 	if (ms()->n_pipe != 0)
 	{

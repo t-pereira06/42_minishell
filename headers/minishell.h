@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 21:29:45 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/03 00:27:55 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,8 +198,9 @@ int		check_strcmp(char *s1, char *s2);
 /* ------------------- Built-ins ------------------- */
 
 //cd.c
-void	ft_cd(char **query);
-int		ft_dir_change(char **query);
+void	ft_cd(char *arg);
+int		ft_dir_change(char *arg);
+void	exec_cd(void);
 
 //echo.c
 void	ft_echo(char **query);
