@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/03 00:28:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/03 00:30:38 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	ft_dir_change(char *arg)
 			printf("%s\n", get_env_info(&ms()->env, "OLDPWD"));
 			check = chdir(get_env_info(&ms()->env, "OLDPWD"));
 		}
-		//what is this for?
-		//
 		else if (ft_strcmp(arg, "--")
 				|| (ft_strlen(arg) == 1 && arg[0] == '~'))
 			check = chdir(get_env_info(&ms()->env, "HOME"));
