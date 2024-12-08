@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/08 19:26:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 20:14:44 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	ft_cd(char *arg)
 {
 	if (arg && !ft_strcmp(arg, "-"))
 	{
+		/* add soemthing on check_errors on cd child process
+		to check if the OLDPWD exists, if not print this:
+		cd: OLDPWD not set */
 		free(ms()->query[1]);
 		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
 	}
@@ -69,6 +72,9 @@ void	exec_cd_child(void)
 		exit_status = 0;
 		free_child(NULL, 0);
 		exit(exit_status);
+		/* missing check for:
+		- if file/directory exists
+		- invalid options */
 		//check_errors(ms, cmd_query);
 	}
 }
