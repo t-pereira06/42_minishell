@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/03 00:27:55 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:22:01 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define ERR_OP "minishell: no support for operator '"
 # define ERR_PIPE "minishell: pipe: error creating pipe\n"
 
-extern int	g_exit;
+extern int	exit_status;
 
 typedef struct s_minishell
 {
@@ -78,7 +78,7 @@ typedef struct s_expander
 t_minishell	*ms(void);
 
 //check_builtins.c
-int		do_builtin(char **query);
+int		do_builtin_child(char **query);
 int 	exec_parent_builtins(void);
 
 //exec_redirects.c
@@ -198,24 +198,29 @@ int		check_strcmp(char *s1, char *s2);
 /* ------------------- Built-ins ------------------- */
 
 //cd.c
+void	change_env_exp_var(char *env_var);
 void	ft_cd(char *arg);
 int		ft_dir_change(char *arg);
+void	exec_cd_child(void);
 void	exec_cd(void);
 
 //echo.c
 void	ft_echo(char **query);
 
 //env.c
-void	ft_update_env(t_list **env, char *var_upd, char *content);
+void	ft_update_env(t_list *env, char *var_upd, char *updt_info);
 void	ft_env(char **query);
 
 //exit.c
 int		ft_exit(void);
 
 //export.c
-void	add_to_list(char **query);
+char	*format_exp_variable(char *str);
+void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info);
+void	add_to_list(void);
 void	show_list(void);
-void	ft_export(char **query);
+void	exec_export_child(void);
+void	exec_export(void);
 
 //pwd.c
 void	ft_pwd(void);

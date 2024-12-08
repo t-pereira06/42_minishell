@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 20:25:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	free_child_heredoc(void)
 	if (ms()->pid)
 		free(ms()->pid);
 	//ft_free_lst(ms()->export);
-	g_exit = 1;
+	exit_status = 1;
 	exit (1);
 }

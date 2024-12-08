@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 20:36:18 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	get_exit_status(void)
 		if (pid < 0)
 			continue ;
 		if (WIFEXITED(status))
-			g_exit = WEXITSTATUS(status);
+			exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			g_exit = 128 + WTERMSIG(status);
+			exit_status = 128 + WTERMSIG(status);
 	}
 }
 
@@ -106,8 +106,8 @@ void	no_command_err(char *command, char **query)
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	free_child(query, 0);
-	g_exit = 127;
-	exit (g_exit);
+	exit_status = 127;
+	exit (exit_status);
 }
 
 /**
@@ -136,7 +136,7 @@ void	free_child(char **cmd_query, int i)
 	ft_free_lst(ms()->export);
 	if (i == 1)
 	{
-		g_exit = 1;
+		exit_status = 1;
 		exit (1);
 	}
 }

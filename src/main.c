@@ -6,20 +6,20 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 20:47:55 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
 /**
- * The use of a global variable like g_exit allows the exit status to be
+ * The use of a global variable like exit_status allows the exit status to be
  * accessed
  * and modified from different parts of the program, including signal handlers
  * or functions that handle command execution. It provides a way to communicate
  * the exit status between different components of the minishell program.
  */
-int	g_exit = 0;
+int	exit_status = 0;
 
 /**
  * Frees the memory allocated for the minishell structure.

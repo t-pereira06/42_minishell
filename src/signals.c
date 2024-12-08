@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/04 14:25:36 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handler(int signal)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit = 130;
+		exit_status = 130;
 	}
 }
 

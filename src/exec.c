@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/03 00:15:32 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 15:23:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_command(char **query)
 
 	if (!query[0])
 		free_child(query, 1);
-	if (do_builtin(query))
+	if (do_builtin_child(query))
 		return ;
 	command = get_command(query[0], 0);
 	if (!command)

@@ -6,46 +6,68 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/03 00:32:32 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 16:58:52 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	ft_cd(char *arg)
+void	change_env_exp_var(char *env_var)
 {
-	int	check;
-	char	old_path[200];
+	char	*cwd;
+	char	*var;
+	char	*temp;
 
-	getcwd(old_path, sizeof(old_path));
-	check = ft_dir_change(arg);
-	if (check != 0)
-		return ;
-	ft_update_env(&ms()->env, "OLDPWD", old_path);
-	getcwd(old_path, sizeof(old_path));
-	ft_update_env(&ms()->env, "PWD", old_path);
-	g_exit = 0;
+	cwd = getcwd(0, 0);
+	var = ft_strcjoin(env_var, '=');
+	temp = ft_strjoin(var, cwd);
+	ft_update_env(ms()->env, env_var, temp);
+	//export here
+	//ft_update_exp(ms()->export, "env_var", temp);
+	free(cwd);
+	free(var);
+	free(temp);
 }
 
-int	ft_dir_change(char *arg)
+void	ft_cd(char *arg)
 {
-	int	check;
-
-	if (arg)
+	if (!ft_strcmp(arg, "-"))
 	{
-		if (ft_strlen(arg) == 1 && arg[0] == '-')
-		{
-			printf("%s\n", get_env_info(&ms()->env, "OLDPWD"));
-			check = chdir(get_env_info(&ms()->env, "OLDPWD"));
-		}
-		else if (ft_strcmp(arg, "--") || ft_strcmp(arg, "-"))
-			check = chdir(get_env_info(&ms()->env, "HOME"));
-		else
-			check = chdir(arg);
+		free(ms()->query[1]);
+		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
+	}
+	if (!ft_strcmp(arg, "~"))
+	{
+		free(ms()->query[1]);
+		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "HOME"));
+	}
+	change_env_exp_var("OLDPWD");
+	chdir(ms()->query[1]);
+	change_env_exp_var("PWD");
+}
+
+void	exec_cd_child(void)
+{
+	if (ft_dpcount(ms()->query) == 1)
+	{
+		exit_status = 0;
+		free_child(NULL, 0);
+		exit(exit_status);
+	}
+	if (ft_dpcount(ms()->query) > 2)
+	{
+		ft_putstr_fd("minishell: too many arguments\n", STDERR_FILENO);
+		exit_status = 1;
+		free_child(NULL, 0);
+		exit(exit_status);
 	}
 	else
-		check = chdir(get_env_info(&ms()->env, "HOME"));
-	return (check);
+	{
+		exit_status = 0;
+		free_child(NULL, 0);
+		exit(exit_status);
+		//check_errors(ms, cmd_query);
+	}
 }
 
 void	exec_cd(void)
@@ -56,18 +78,12 @@ void	exec_cd(void)
 	count = ft_dpcount(ms()->query);
 	wait(&child_status);
 	if (WIFEXITED(child_status))
-		g_exit = WEXITSTATUS(child_status);
-	if (g_exit == 0)
+		exit_status = WEXITSTATUS(child_status);
+	if (exit_status == 0)
 	{
 		if (count == 1)
 			ft_cd(NULL);
 		else if (count == 2)
 			ft_cd(ms()->query[1]);
-		else
-		{
-			ft_putstr_fd("minishell: cd: too many arguments\n", STDERR_FILENO);
-			g_exit = 1;
-		}
-		
 	}
 }
