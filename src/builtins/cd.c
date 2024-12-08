@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/08 16:58:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:26:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	change_env_exp_var(char *env_var)
 
 void	ft_cd(char *arg)
 {
-	if (!ft_strcmp(arg, "-"))
+	if (arg && !ft_strcmp(arg, "-"))
 	{
 		free(ms()->query[1]);
 		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
 	}
-	if (!ft_strcmp(arg, "~"))
+	else if (arg && !ft_strcmp(arg, "~"))
 	{
 		free(ms()->query[1]);
 		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "HOME"));
 	}
 	change_env_exp_var("OLDPWD");
-	chdir(ms()->query[1]);
+	if (!arg)
+		chdir(get_env_info(&ms()->env, "HOME"));
+	else
+		chdir(ms()->query[1]);
 	change_env_exp_var("PWD");
 }
 

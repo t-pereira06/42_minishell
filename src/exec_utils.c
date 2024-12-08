@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:07:11 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	free_program(int i)
 	if (ms()->pipe_fd)
 		free(ms()->pipe_fd);
 	unlink(".heredoc");
+	if (ms()->query)
+		ft_free_split(ms()->query);
 	if (ms()->paths)
 		ft_free_split(ms()->paths);
 	if (ms()->args)

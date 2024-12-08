@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 15:23:04 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:08:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void	execute(void)
 		single_cmd(cmd);
 		exec_parent_builtins();
 		free(cmd);
-		//ft_free_split(ms->query);
 	}
 	get_exit_status();
 	free_program(0);
