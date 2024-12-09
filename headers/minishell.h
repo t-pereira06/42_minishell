@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 17:22:01 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:39:38 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,9 +198,9 @@ int		check_strcmp(char *s1, char *s2);
 /* ------------------- Built-ins ------------------- */
 
 //cd.c
+int		cd_error_handler(void);
 void	change_env_exp_var(char *env_var);
 void	ft_cd(char *arg);
-int		ft_dir_change(char *arg);
 void	exec_cd_child(void);
 void	exec_cd(void);
 

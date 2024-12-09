@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/08 20:14:44 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:33:06 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+int	cd_error_handler(void)
+{
+	struct stat	statbuf;
+
+	if (stat(ms()->query[1], &statbuf) == 0)
+		return (0);
+	else if (ms()->query[1][0] == '-' && ft_strlen(ms()->query[1]) != 1)
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(ms()->query[1], STDERR_FILENO);
+		ft_putstr_fd(": Invalid option\n", STDERR_FILENO);
+		return (1);
+	}
+	else if (!ft_strcmp(ms()->query[1], "-"))
+	{
+		if (!get_env_info(&ms()->env, "OLDPWD"))
+			return (ft_putstr_fd
+					("minishell: cd: OLDPWD not set", STDERR_FILENO), 1);
+	}
+	return (0);
+}
 
 void	change_env_exp_var(char *env_var)
 {
@@ -36,6 +58,8 @@ void	ft_cd(char *arg)
 		/* add soemthing on check_errors on cd child process
 		to check if the OLDPWD exists, if not print this:
 		cd: OLDPWD not set */
+		ft_putstr_fd(get_env_info(&ms()->env, "OLDPWD"), STDOUT_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
 		free(ms()->query[1]);
 		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
 	}
@@ -69,7 +93,7 @@ void	exec_cd_child(void)
 	}
 	else
 	{
-		exit_status = 0;
+		exit_status = cd_error_handler();
 		free_child(NULL, 0);
 		exit(exit_status);
 		/* missing check for:
