@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:04:00 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/08 17:00:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_update_env(t_list *env, char *var_upd, char *updt_info)
 	temp = env;
 	while (temp)
 	{
-		if (check_strcmp(var_upd, ((t_env *)(temp->content))->name))
+		if (match_strings(var_upd, ((t_env *)(temp->content))->name))
 		{
 			free(((t_env *)(temp->content))->info);
 			((t_env *)(temp->content))->info = ft_strdup(updt_info);
@@ -56,6 +56,6 @@ void	ft_env(char **query)
 		temp = temp->next;
 	}
 	free_child(query, 0);
-	exit_status = 0;
+	g_exit_status = 0;
 	exit (0);
 }

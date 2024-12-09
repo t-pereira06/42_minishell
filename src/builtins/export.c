@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 18:53:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:29:34 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
 	temp = exp;
 	while (temp)
 	{
-		if ((check_strcmp(var_upd, ((t_env *)(temp->content))->name)))
+		if ((match_strings(var_upd, ((t_env *)(temp->content))->name)))
 		{
 			free(((t_env *)(temp->content))->info);
 			//((t_env *)(temp->content))->info = format_exp_variable(updt_info);
@@ -85,7 +85,8 @@ void	add_to_list(void)
 	while (ms()->query[1][i++])
 	{
 		if (ms()->query[1][i] == '=' && ms()->query[1][i + 1])
-			ft_lstadd_back(&ms()->env, ft_lstnew(ft_create_data(ms()->query[1])));
+			ft_lstadd_back(&ms()->env,
+				ft_lstnew(ft_create_data(ms()->query[1])));
 	}
 }
 
@@ -130,9 +131,9 @@ void	exec_export_child(void)
 		/* else
 			export_error(ms, cmd_query); */
 	}
-	exit_status = 0;
+	g_exit_status = 0;
 	free_child(NULL, 0);
-	exit(exit_status);
+	exit(g_exit_status);
 }
 
 void	exec_export(void)
@@ -143,13 +144,13 @@ void	exec_export(void)
 	count = ft_dpcount(ms()->query);
 	wait(&child_status);
 	if (WIFEXITED(child_status))
-		exit_status = WEXITSTATUS(child_status);
-	if (exit_status != 2)
+		g_exit_status = WEXITSTATUS(child_status);
+	if (g_exit_status != 2)
 	{
 		if (count > 1)
 		{
 			count = 0;
-			exit_status = 0;
+			g_exit_status = 0;
 			/* while (cmd_query[++i])
 				if (check_val(cmd_query[i]))
 					update_env(ms, cmd_query[i]); */

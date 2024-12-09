@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/06 10:13:56 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:25:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,17 @@ char	**erase_redir(char **query, int pos, int size, int j)
 char	**check_redir(char *input, int i, int err)
 {
 	//char	**query;
-
 	ms()->temp_query = splitter(input, ' ');
 	free(input);
 	while (ms()->temp_query[++i])
 	{
-		if (check_strcmp(ms()->temp_query[i], "<"))
+		if (match_strings(ms()->temp_query[i], "<"))
 			err = do_input(&ms()->temp_query[i + 1]);
-		if (check_strcmp(ms()->temp_query[i], ">"))
+		if (match_strings(ms()->temp_query[i], ">"))
 			err = do_output(&ms()->temp_query[i + 1]);
-		if (check_strcmp(ms()->temp_query[i], "<<"))
+		if (match_strings(ms()->temp_query[i], "<<"))
 			err = do_heredoc(ms()->temp_query, &ms()->temp_query[i + 1]);
-		if (check_strcmp(ms()->temp_query[i], ">>"))
+		if (match_strings(ms()->temp_query[i], ">>"))
 			err = do_append(&ms()->temp_query[i + 1]);
 		if (err == 0)
 		{

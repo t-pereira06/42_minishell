@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void	free_child_heredoc(void)
 	if (ms()->pid)
 		free(ms()->pid);
 	//ft_free_lst(ms()->export);
-	exit_status = 1;
+	g_exit_status = 1;
 	exit (1);
 }

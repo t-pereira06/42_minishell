@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/09 13:33:06 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:43:14 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	cd_error_handler(void)
 	else if (!ft_strcmp(ms()->query[1], "-"))
 	{
 		if (!get_env_info(&ms()->env, "OLDPWD"))
-			return (ft_putstr_fd
-					("minishell: cd: OLDPWD not set", STDERR_FILENO), 1);
+			return (ft_putstr_fd("minishell: cd: OLDPWD not set\n",
+					STDERR_FILENO), 1);
 	}
 	return (0);
 }
@@ -55,11 +55,8 @@ void	ft_cd(char *arg)
 {
 	if (arg && !ft_strcmp(arg, "-"))
 	{
-		/* add soemthing on check_errors on cd child process
-		to check if the OLDPWD exists, if not print this:
-		cd: OLDPWD not set */
 		ft_putstr_fd(get_env_info(&ms()->env, "OLDPWD"), STDOUT_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		free(ms()->query[1]);
 		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
 	}
@@ -80,26 +77,20 @@ void	exec_cd_child(void)
 {
 	if (ft_dpcount(ms()->query) == 1)
 	{
-		exit_status = 0;
 		free_child(NULL, 0);
-		exit(exit_status);
+		exit(g_exit_status);
 	}
 	if (ft_dpcount(ms()->query) > 2)
 	{
 		ft_putstr_fd("minishell: too many arguments\n", STDERR_FILENO);
-		exit_status = 1;
-		free_child(NULL, 0);
-		exit(exit_status);
+		free_child(NULL, 1);
+		exit(g_exit_status);
 	}
 	else
 	{
-		exit_status = cd_error_handler();
-		free_child(NULL, 0);
-		exit(exit_status);
-		/* missing check for:
-		- if file/directory exists
-		- invalid options */
-		//check_errors(ms, cmd_query);
+		g_exit_status = cd_error_handler();
+		free_child(NULL, g_exit_status);
+		exit(g_exit_status);
 	}
 }
 
@@ -111,8 +102,8 @@ void	exec_cd(void)
 	count = ft_dpcount(ms()->query);
 	wait(&child_status);
 	if (WIFEXITED(child_status))
-		exit_status = WEXITSTATUS(child_status);
-	if (exit_status == 0)
+		g_exit_status = WEXITSTATUS(child_status);
+	if (g_exit_status == 0)
 	{
 		if (count == 1)
 			ft_cd(NULL);

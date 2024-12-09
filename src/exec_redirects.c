@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:44:10 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:13:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:17:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	do_input(char **query)
 int	do_output(char **query)
 {
 	ms()->out_fd = open(query[0], O_RDWR | O_CREAT
-			| O_TRUNC, S_IRUSR | S_IWUSR);
+		| O_TRUNC, S_IRUSR | S_IWUSR);
 	if (ms()->out_fd < 0)
 		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
 	return (0);
@@ -49,7 +49,7 @@ int	do_heredoc(char **query, char **next)
 	if (ms()->in_fd < 0)
 	{
 		return (ft_putstr_fd("minishell: .heredoc: No such file or directory\n",
-				 STDERR_FILENO), 1);
+				STDERR_FILENO), 1);
 	}
 	return (0);
 }
@@ -57,7 +57,7 @@ int	do_heredoc(char **query, char **next)
 int	do_append(char **query)
 {
 	ms()->out_fd = open(query[0], O_RDWR | O_CREAT | O_APPEND,
-			S_IRUSR | S_IWUSR);
+		S_IRUSR | S_IWUSR);
 	if (ms()->out_fd < 0)
 		return (ft_putstr_fd("Error creating file\n", STDERR_FILENO), 1);
 	return (0);

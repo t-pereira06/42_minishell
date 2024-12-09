@@ -31,7 +31,7 @@ char	*get_env_info(t_list **env, char *name)
 	temp = *env;
 	while (temp)
 	{
-		if (check_strcmp(((t_env *)(temp->content))->name, name))
+		if (match_strings(((t_env *)(temp->content))->name, name))
 		{
 			info = ft_strchr(((t_env *)(temp->content))->info, '=');
 			info++;
@@ -118,7 +118,7 @@ size_t	ft_cmdlen(char *str)
  *
  * @return Returns 1 if the strings are equal, 0 otherwise.
  */
-int	check_strcmp(char *s1, char *s2)
+int	match_strings(char *s1, char *s2)
 {
 	if (ft_strlen(s1) == ft_strlen(s2)
 		&& !ft_strncmp(s1, s2, ft_strlen(s1)))

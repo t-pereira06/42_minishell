@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 12:39:38 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define ERR_OP "minishell: no support for operator '"
 # define ERR_PIPE "minishell: pipe: error creating pipe\n"
 
-extern int	exit_status;
+extern int	g_exit_status;
 
 typedef struct s_minishell
 {
@@ -193,7 +193,7 @@ char	**splitter(char *s, char c);
 char	*get_env_info(t_list **env, char *name);
 char	*add_whitespaces(char *str);
 size_t	ft_cmdlen(char *str);
-int		check_strcmp(char *s1, char *s2);
+int		match_strings(char *s1, char *s2);
 
 /* ------------------- Built-ins ------------------- */
 
@@ -226,6 +226,9 @@ void	exec_export(void);
 void	ft_pwd(void);
 
 //unset.c
-void	ft_unset(char **query);
+void	free_node(t_list *lst);
+void	do_unset(t_list *lst, char *unset_var);
+void	exec_unset_child(void);
+void	exec_unset(void);
 
 #endif

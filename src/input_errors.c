@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_errors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/13 17:32:29 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:18:35 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	handle_op(char *input, int i, int j)
  */
 int	unexpected_tokens(char *input)
 {
+	char	**query;
 	//int		i;
 	//char	quote;
-	char	**query;
 
 	//i = -1;
 	//quote = 0;

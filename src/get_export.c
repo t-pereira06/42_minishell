@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:21:58 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/02 20:22:01 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:23:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	**check_alpha(char **env)
 		j = 0;
 		while (j++ < list_len - i - 1 && env[j + 1])
 		{
-			if (ft_strncmp(env[j], env[j + 1], check_bigger(env[j], env[j + 1])) > 0)
+			if (ft_strncmp(env[j], env[j + 1],
+					check_bigger(env[j], env[j + 1])) > 0)
 				ft_swap(&env[j], &env[j + 1]);
 		}
 	}

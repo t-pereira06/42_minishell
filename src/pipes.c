@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 20:53:28 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/21 00:00:36 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:22:06 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	manage_pipeline_io(int n_pid)
 		change_standard_io(ms()->pipe_fd[n_pid * 2 - 2], ms()->out_fd);
 	else
 		change_standard_io(ms()->pipe_fd[n_pid * 2 - 2],
-							ms()->pipe_fd[n_pid * 2 + 1]);
+			ms()->pipe_fd[n_pid * 2 + 1]);
 	close_pipes_fd(0);
 	change_standard_io(ms()->in_fd, ms()->out_fd);
 }

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/06 10:18:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:21:03 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	helper_heredoc(char **query, char *delimiter)
 		}
 		if (!ft_strncmp(delimiter, buffer, ft_strlen(delimiter) + 1))
 			break ;
-			/* expander here*/
+			/* expander here */
 		/* if (ft_strrchr(buffer, '$'))
 			buffer = expander(buffer); */
 		ft_putendl_fd(buffer, file);
@@ -69,5 +69,4 @@ void	helper_heredoc(char **query, char *delimiter)
 	if (buffer)
 		free(buffer);
 	close(file);
-	//return (0);
 }

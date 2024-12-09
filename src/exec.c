@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 19:08:04 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:19:21 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exec_command_pipe(char *command, int n_pid)
 {
 	char	**query;
 
-	if(ms()->heredoc == true)
+	if (ms()->heredoc == true)
 		wait (0);
 	ms()->pid[n_pid] = fork();
 	if (!ms()->pid[n_pid])
@@ -102,7 +102,6 @@ void	exec_pipes(void)
 void	single_cmd(char *cmd)
 {
 	//char	**query;
-
 	ms()->pid[0] = fork();
 	if (!ms()->pid[0])
 	{

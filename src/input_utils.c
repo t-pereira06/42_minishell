@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/13 17:33:05 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:25:24 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	check_op(char *operator, char *input, int a)
 	while (operator[++i])
 		if (ft_strchr("&;(){}*\\", operator[i]))
 			return (print_op_err(ERR_OP, operator));
-	if (check_strcmp(operator, "<") || check_strcmp(operator, ">")
-		|| check_strcmp(operator, "<<") || check_strcmp(operator, ">>")
-		|| check_strcmp(operator, "|"))
+	if (match_strings(operator, "<") || match_strings(operator, ">")
+		|| match_strings(operator, "<<") || match_strings(operator, ">>")
+		|| match_strings(operator, "|"))
 	{
 		while (input[j] == ' ')
 			j++;
@@ -45,8 +45,8 @@ int	check_op(char *operator, char *input, int a)
 		else
 			return (0);
 	}
-	else if (check_strcmp(operator, "||") || check_strcmp(operator, "<>")
-		|| check_strcmp(operator, "<<<") || check_strcmp(operator, ">|"))
+	else if (match_strings(operator, "||") || match_strings(operator, "<>")
+		|| match_strings(operator, "<<<") || match_strings(operator, ">|"))
 		return (print_op_err(ERR_OP, operator));
 	else
 		return (print_syntax_err(ERR_TOKEN, operator));
@@ -81,9 +81,8 @@ int	helper_operator(char *input, int a)
 int	search_quote(char *query)
 {
 	int		i;
-	//int		j;
 	char	quote;
-
+	//int		j;
 	i = 0;
 	//j = 0;
 	quote = 0;
@@ -113,7 +112,7 @@ int	check_pipe(char *string, char**query, int a, int quote)
 				if (a == 0)
 				{
 					if ((i == 0 || !string[i - 1])
-					|| (i + 1 >= (int)ft_strlen(string) || !string[i + 1]))
+						|| (i + 1 >= (int)ft_strlen(string) || !string[i + 1]))
 						return (1);
 				}
 				if (string[i - 1] && ft_strchr("<>", string[i - 1]))
@@ -144,16 +143,16 @@ int	unexpected_redirect(char **query)
 			if (ft_strchr(query[i], '|'))
 				if (check_pipe(query[i], query, i, 0))
 					return (print_token_err(ERR_TOKEN, '|', 0));
-			if (check_strcmp(query[i], "|") && !query[i + 1])
+			if (match_strings(query[i], "|") && !query[i + 1])
 				return (print_token_err(ERR_TOKEN, '|', 0));
-			else if (check_strcmp(query[i], "||") && !query[i + 1])
+			else if (match_strings(query[i], "||") && !query[i + 1])
 				return (print_token_err(ERR_TOKEN, '|', 0));
-			else if (check_strcmp(query[i], ">|"))
+			else if (match_strings(query[i], ">|"))
 				return (print_op_err(ERR_OP, ">|"));
-			else if ((check_strcmp(query[i], ">>")
-					|| check_strcmp(query[i], "<<")
-					|| check_strcmp(query[i], ">")
-					|| check_strcmp(query[i], "<")) && !query[i + 1])
+			else if ((match_strings(query[i], ">>")
+					|| match_strings(query[i], "<<")
+					|| match_strings(query[i], ">")
+					|| match_strings(query[i], "<")) && !query[i + 1])
 				return (print_op_err(ERR_TOKEN, "newline"));
 		}
 	}

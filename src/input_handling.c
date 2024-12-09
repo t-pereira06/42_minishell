@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 15:19:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	read_input(void)
 	trimmed = ft_strtrim(ms()->input, " ");
 	free(ms()->input);
 	if (trimmed[0] == '\0')
-		return (free(trimmed), exit_status = 0, 0);
+		return (free(trimmed), g_exit_status = 0, 0);
 	if (!check_valid_input(trimmed))
 	{
 		free(trimmed);
-		exit_status = 2;
+		g_exit_status = 2;
 		return (0);
 	}
 	start_program(trimmed);

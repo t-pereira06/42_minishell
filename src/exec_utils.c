@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/08 19:07:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	get_exit_status(void)
 		if (pid < 0)
 			continue ;
 		if (WIFEXITED(status))
-			exit_status = WEXITSTATUS(status);
+			g_exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
-			exit_status = 128 + WTERMSIG(status);
+			g_exit_status = 128 + WTERMSIG(status);
 	}
 }
 
@@ -108,8 +108,8 @@ void	no_command_err(char *command, char **query)
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	free_child(query, 0);
-	exit_status = 127;
-	exit (exit_status);
+	g_exit_status = 127;
+	exit (g_exit_status);
 }
 
 /**
@@ -138,7 +138,7 @@ void	free_child(char **cmd_query, int i)
 	ft_free_lst(ms()->export);
 	if (i == 1)
 	{
-		exit_status = 1;
+		g_exit_status = 1;
 		exit (1);
 	}
 }

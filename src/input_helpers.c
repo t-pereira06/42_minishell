@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:39:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:19:28 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:05:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	helper_free_dp(char **dp)
 
 int	helper_check_pipe(char **query, int a)
 {
-	if (check_strcmp(query[0], "|")
-		|| (check_strcmp(query[0], "|") && (!query[a - 1] || !query[a + 1])))
+	if (match_strings(query[0], "|")
+		|| (match_strings(query[0], "|") && (!query[a - 1] || !query[a + 1])))
 		return (1);
 	if (a != 0)
 	{
