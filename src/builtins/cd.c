@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/09 14:43:14 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:00:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,13 @@ int	cd_error_handler(void)
 {
 	struct stat	statbuf;
 
-	if (stat(ms()->query[1], &statbuf) == 0)
-		return (0);
+	if (stat(ms()->query[1], &statbuf) != 0)
+	{
+		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
+		ft_putstr_fd(ms()->query[1], STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		return (1);
+	}
 	else if (ms()->query[1][0] == '-' && ft_strlen(ms()->query[1]) != 1)
 	{
 		ft_putstr_fd("minishell: cd: ", STDERR_FILENO);
