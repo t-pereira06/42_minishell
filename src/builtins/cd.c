@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/09 15:31:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:39:03 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	cd_error_handler(void)
 {
 	struct stat	statbuf;
 
-	if (!ft_strcmp(ms()->query[1], "--"))
+	if (!ft_strcmp(ms()->query[1], "--") || !ft_strcmp(ms()->query[1], "~"))
 		return (0);
 	if (ms()->query[1][0] == '-' && ft_strlen(ms()->query[1]) != 1)
 	{
