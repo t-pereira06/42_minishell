@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:53:27 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:29:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:30:30 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,6 @@ void	free_node(t_list *lst)
 	free(((t_env *)(lst->content))->info);
 	free((t_env *)lst->content);
 }
-
-/* void	ft_unset(char **query)
-{
-	t_list	*temp;
-	t_env	*vars;
-
-	temp = ms()->export;
-	while (temp->next)
-	{
-		vars = (t_env *)temp->next->content;
-		if (ft_strncmp(vars->name, query[1], ft_strlen(query[1])))
-		{
-			if (temp->next->next)
-				temp->next = temp->next->next;
-			else
-				temp->next = NULL;
-			free(vars->name);
-			free(vars->info);
-			free(vars);
-			break ;
-		}
-		temp = temp->next;
-	}
-} */
 
 void	do_unset(t_list *lst, char *unset_var)
 {

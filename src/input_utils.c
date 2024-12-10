@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:25:24 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:12:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	check_op(char *operator, char *input, int a)
 	i = -1;
 	j = 0;
 	while (operator[++i])
-		if (ft_strchr("&;(){}*\\", operator[i]))
+		if (ft_strchr("&;(){}*\\", operator[i]) && input[a - 1] == ' ' && input[a + 1] == ' ')
+			//solve issue here when echo abc * a not working
 			return (print_op_err(ERR_OP, operator));
 	if (match_strings(operator, "<") || match_strings(operator, ">")
 		|| match_strings(operator, "<<") || match_strings(operator, ">>")
@@ -48,8 +49,8 @@ int	check_op(char *operator, char *input, int a)
 	else if (match_strings(operator, "||") || match_strings(operator, "<>")
 		|| match_strings(operator, "<<<") || match_strings(operator, ">|"))
 		return (print_op_err(ERR_OP, operator));
-	else
-		return (print_syntax_err(ERR_TOKEN, operator));
+	/* else
+		return (print_syntax_err(ERR_TOKEN, operator)); */
 	return (0);
 }
 

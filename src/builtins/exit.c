@@ -6,11 +6,11 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:30:04 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 int	ft_exit(void)
 {

@@ -6,11 +6,11 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:04:00 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/09 15:07:20 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:30:02 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../headers/minishell.h"
 
 void	ft_update_env(t_list *env, char *var_upd, char *updt_info)
 {

@@ -6,44 +6,11 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:29:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:54:28 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
-
-/**
- * Format the environment variable declaration for export.
- *
- * @param str  The environment variable declaration.
- * @return     The formatted string for export.
- */
-/* char	*format_exp_variable(char *str)
-{
-	int		i;
-	char	*name;
-	char	*info;
-
-	i = 0;
-	while (str[i] && str[i] != '=')
-		i++;
-	if (str[i] != '=')
-	{
-		name = ft_strjoin("declare -x ", str);
-		info = ft_strjoin(name, "=\"\"");
-		return (free(name), info);
-	}
-	name = ft_substr(str, 0, i);
-	info = ft_strjoin(name, "=\"");
-	free(name);
-	name = ft_strjoin(info, str + i + 1);
-	free(info);
-	info = ft_strjoin(name, "\"");
-	free(name);
-	name = ft_strjoin("declare -x ", info);
-	free(info);
-	return (name);
-} */
 
 /**
  * Updates an existing environment variable in a linked list.
@@ -128,11 +95,10 @@ void	exec_export_child(void)
 			free_child(NULL, 0);
 			exit (2);
 		}
-		/* else
-			export_error(ms, cmd_query); */
+		else
+			g_exit_status = valid_syntax();
 	}
-	g_exit_status = 0;
-	free_child(NULL, 0);
+	free_child(NULL, g_exit_status);
 	exit(g_exit_status);
 }
 
@@ -145,15 +111,14 @@ void	exec_export(void)
 	wait(&child_status);
 	if (WIFEXITED(child_status))
 		g_exit_status = WEXITSTATUS(child_status);
-	if (g_exit_status != 2)
+	if (g_exit_status != 0)
 	{
 		if (count > 1)
 		{
 			count = 0;
 			g_exit_status = 0;
-			/* while (cmd_query[++i])
-				if (check_val(cmd_query[i]))
-					update_env(ms, cmd_query[i]); */
+			//while (ms()->query[++count])
+				//update_env(ms, ms()->query[count]);
 		}
 	}
 }

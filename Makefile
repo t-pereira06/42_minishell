@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/02 20:22:55 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/10 15:36:33 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC =	src/main.c \
 		src/builtins/echo.c \
 		src/builtins/env.c \
 		src/builtins/exit.c \
+		src/builtins/export_utils.c \
 		src/builtins/export.c \
 		src/builtins/pwd.c \
 		src/builtins/unset.c \

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:58:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:03:42 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,11 @@ void		ft_env(char **query);
 //exit.c
 int			ft_exit(void);
 
+//export_utils.c
+int			ft_isalnum_extra(char c);
+int			valid_syntax(void);
+
 //export.c
-//char		*format_exp_variable(char *str);
 void		ft_update_exp(t_list *exp, char *var_upd, char *updt_info);
 void		add_to_list(void);
 void		show_list(void);
