@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/10 15:36:33 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/12 17:45:31 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	src/main.c \
 		src/input_handling.c \
 		src/input_helpers.c \
 		src/input_prterr.c \
+		src/input_utils_2.c \
 		src/input_utils.c \
 		src/parsing.c \
 		src/pipes.c \

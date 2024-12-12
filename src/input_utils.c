@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/10 16:18:08 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:44:07 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_op(char *operator, char *input, int a)
 	i = -1;
 	j = 0;
 	while (operator[++i])
-		if (ft_strchr("&;(){}*\\", operator[i]))
+		if (ft_strchr("&;(){}\\", operator[i]) || verify_asterisc(a))
 			//solve issue here when echo abc * a not working
 			return (print_op_err(ERR_OP, operator));
 	if (match_strings(operator, "<") || match_strings(operator, ">")

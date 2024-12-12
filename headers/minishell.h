@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/10 16:03:42 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:44:59 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,11 @@ int			print_syntax_err(char *error, char *str);
 int			print_op_err(char *error, char *str);
 int			print_token_err(char *error, char metachar, int dup);
 
+//input_utils_2.c
+int			verify_asterisc(int pos);
+
 //input_utils.c
+int			verify_asterisc(int pos);
 int			check_op(char *operator, char *input, int a);
 int			helper_operator(char *input, int a);
 int			search_quote(char *query);
