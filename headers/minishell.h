@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/12 17:44:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:03:10 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,8 @@ int			valid_syntax(void);
 //export.c
 void		ft_update_exp(t_list *exp, char *var_upd, char *updt_info);
 void		add_to_list(void);
-void		show_list(void);
+//void		show_list(void);
+void		configure_variable(char *info);
 void		exec_export_child(void);
 void		exec_export(void);
 

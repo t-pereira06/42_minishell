@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 08:46:18 by pealexan          #+#    #+#              #
-#    Updated: 2024/12/03 00:06:31 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/12 22:18:13 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRC =	ft_abs.c \
 	ft_strlen.c \
 	ft_strmapi.c \
 	ft_strcmp.c \
+	ft_chrcmp.c \
 	ft_strncmp.c \
 	ft_strnstr.c \
 	ft_strrchr.c \

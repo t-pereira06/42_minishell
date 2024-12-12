@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 22:33:14 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	read_input(void)
 	if (ft_strlen(ms()->input))
 		add_history(ms()->input);
 	trimmed = ft_strtrim(ms()->input, " ");
-	free(ms()->input);
+	//free(ms()->input);
 	if (trimmed[0] == '\0')
 		return (free(trimmed), g_exit_status = 0, 0);
 	if (!check_valid_input(trimmed))

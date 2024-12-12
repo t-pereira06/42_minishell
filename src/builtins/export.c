@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/10 15:54:28 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:46:56 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
 	ft_lstadd_back(&exp, ft_lstnew(ft_create_data(updt_info)));
 }
 
-void	add_to_list(void)
+/* void	add_to_list(void)
 {
 	int	i;
 
@@ -55,16 +55,18 @@ void	add_to_list(void)
 			ft_lstadd_back(&ms()->env,
 				ft_lstnew(ft_create_data(ms()->query[1])));
 	}
-}
+} */
 
-void	show_list(void)
+/* void	show_list(void)
 {
 	t_list	*temp;
 	t_env	*vars;
 
+	temp = ft_calloc(1, sizeof(t_list));
 	temp = ms()->export;
 	while (temp->next)
 	{
+		vars = ft_calloc(1, sizeof(t_env));
 		vars = (t_env *)temp->content;
 		printf("declare -x ");
 		printf("%s", vars->name);
@@ -79,7 +81,57 @@ void	show_list(void)
 			printf("\"\n");
 		}
 		temp = temp->next;
+		//free(vars);
 	}
+	ft_free_lst(temp);
+} */
+
+/**
+ * Print the exported environment variables in ascii name order.
+ *
+ * @param lst The list of exported environment variables.
+ */
+void	show_list(void)
+{
+	int		i;
+	char	**copy;
+
+	i = 0;
+	copy = ft_envcpy(ms()->export);
+	while (i < ft_lstsize(ms()->export))
+	{
+		printf("declare -x ");
+		printf("%s\n", copy[i++]);
+	}
+	ft_free_split(copy);
+}
+
+
+/**
+ * Update the environment variables in the minishell structure.
+ *
+ * @param ms    The minishell structure.
+ * @param info  The string containing the environment variable information.
+ */
+void	configure_variable(char *info)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while (info[i] && info[i] != '=')
+		i++;
+	if (info[i] != '=')
+	{
+		name = ft_substr(info, 0, i);
+		ft_update_exp(ms()->export, name, info);
+		free(name);
+		return ;
+	}
+	name = ft_substr(info, 0, i);
+	ft_update_env(ms()->env, name, info);
+	ft_update_exp(ms()->export, name, info);
+	free(name);
 }
 
 void	exec_export_child(void)
@@ -117,8 +169,8 @@ void	exec_export(void)
 		{
 			count = 0;
 			g_exit_status = 0;
-			//while (ms()->query[++count])
-				//update_env(ms, ms()->query[count]);
+			while (ms()->query[++count])
+				configure_variable(ms()->query[count]);
 		}
 	}
 }
