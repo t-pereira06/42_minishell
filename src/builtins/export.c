@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/12 23:46:56 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:56:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,49 +42,6 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
 	//ft_lstadd_back(&lst, ft_lstnew(ft_create_export(updt_info)));
 	ft_lstadd_back(&exp, ft_lstnew(ft_create_data(updt_info)));
 }
-
-/* void	add_to_list(void)
-{
-	int	i;
-
-	i = 0;
-	ft_lstadd_back(&ms()->export, ft_lstnew(ft_create_data(ms()->query[1])));
-	while (ms()->query[1][i++])
-	{
-		if (ms()->query[1][i] == '=' && ms()->query[1][i + 1])
-			ft_lstadd_back(&ms()->env,
-				ft_lstnew(ft_create_data(ms()->query[1])));
-	}
-} */
-
-/* void	show_list(void)
-{
-	t_list	*temp;
-	t_env	*vars;
-
-	temp = ft_calloc(1, sizeof(t_list));
-	temp = ms()->export;
-	while (temp->next)
-	{
-		vars = ft_calloc(1, sizeof(t_env));
-		vars = (t_env *)temp->content;
-		printf("declare -x ");
-		printf("%s", vars->name);
-		if (vars->info)
-		{
-			while (*vars->info != '=')
-				vars->info++;
-			vars->info++;
-			printf("=");
-			printf("\"");
-			printf("%s", vars->info);
-			printf("\"\n");
-		}
-		temp = temp->next;
-		//free(vars);
-	}
-	ft_free_lst(temp);
-} */
 
 /**
  * Print the exported environment variables in ascii name order.
@@ -163,7 +120,7 @@ void	exec_export(void)
 	wait(&child_status);
 	if (WIFEXITED(child_status))
 		g_exit_status = WEXITSTATUS(child_status);
-	if (g_exit_status != 0)
+	if (g_exit_status == 0)
 	{
 		if (count > 1)
 		{
