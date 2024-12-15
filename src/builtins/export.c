@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/12 23:56:18 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 23:47:46 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
 		if ((match_strings(var_upd, ((t_env *)(temp->content))->name)))
 		{
 			free(((t_env *)(temp->content))->info);
-			//((t_env *)(temp->content))->info = format_exp_variable(updt_info);
 			((t_env *)(temp->content))->info = ft_strdup(updt_info);
 			return ;
 		}
 		temp = temp->next;
 	}
-	//ft_lstadd_back(&lst, ft_lstnew(ft_create_export(updt_info)));
 	ft_lstadd_back(&exp, ft_lstnew(ft_create_data(updt_info)));
 }
 
@@ -52,13 +50,18 @@ void	show_list(void)
 {
 	int		i;
 	char	**copy;
+	char	**formatted_str;
 
-	i = 0;
+	i = -1;
 	copy = ft_envcpy(ms()->export);
-	while (i < ft_lstsize(ms()->export))
+	while (++i < ft_lstsize(ms()->export))
 	{
+		formatted_str = ft_split(copy[i], '=');
 		printf("declare -x ");
-		printf("%s\n", copy[i++]);
+		printf("%s=", formatted_str[0]);
+		printf("%c", '\"');
+		printf("%s\"\n", formatted_str[1]);
+		ft_free_split(formatted_str);
 	}
 	ft_free_split(copy);
 }
