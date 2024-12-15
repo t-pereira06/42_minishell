@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:20:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/12 22:16:07 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 23:56:15 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char		*ft_strtrim(char const *str, char const *set);
 char		*ft_substr(char const *str, unsigned int start, size_t len);
 int			ft_wordcount(const char *str, char c);
 int			ft_dpcount(char **dp);
+void		ft_swap(char **s1, char **s2);
 
 /*---------------------------PUT---------------------------*/
 

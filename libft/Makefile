@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 08:46:18 by pealexan          #+#    #+#              #
-#    Updated: 2024/12/12 22:18:13 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/15 23:55:52 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ SRC =	ft_abs.c \
 	ft_wordcount.c \
 	ft_dpcount.c \
 	ft_free_split.c \
+	ft_swap.c \
 
 #--------COMMANDS--------#
 CC = cc
