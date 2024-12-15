@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/15 23:47:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/15 23:50:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,24 @@ void	show_list(void)
  * @param ms    The minishell structure.
  * @param info  The string containing the environment variable information.
  */
-void	configure_variable(char *info)
+void	configure_variable(char *content)
 {
 	int		i;
 	char	*name;
 
 	i = 0;
-	while (info[i] && info[i] != '=')
+	while (content[i] && content[i] != '=')
 		i++;
-	if (info[i] != '=')
+	if (content[i] != '=')
 	{
-		name = ft_substr(info, 0, i);
-		ft_update_exp(ms()->export, name, info);
+		name = ft_substr(content, 0, i);
+		ft_update_exp(ms()->export, name, content);
 		free(name);
 		return ;
 	}
-	name = ft_substr(info, 0, i);
-	ft_update_env(ms()->env, name, info);
-	ft_update_exp(ms()->export, name, info);
+	name = ft_substr(content, 0, i);
+	ft_update_env(ms()->env, name, content);
+	ft_update_exp(ms()->export, name, content);
 	free(name);
 }
 
