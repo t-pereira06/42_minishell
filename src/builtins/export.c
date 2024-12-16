@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/15 23:50:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 00:02:34 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
 }
 
 /**
- * Print the exported environment variables in ascii name order.
+ * Print the exported environment variables that
+ * are already in ascii name order.
  *
  * @param lst The list of exported environment variables.
  */
@@ -94,6 +95,20 @@ void	configure_variable(char *content)
 	free(name);
 }
 
+/**
+ * Executes the `export` command logic in a child process.
+ *
+ * Handles displaying the export list, validating syntax, and checking for 
+ * unsupported options. Frees resources and exits with the appropriate status.
+ * 
+ * - If an unsupported option is detected, the process exits with status 2.
+ * 
+ * - If the syntax validation fails or succeeds, the process exits with the
+ *   corresponding exit status.
+ * 
+ * @note This function is designed to run in a child process, freeing resources 
+ *       and terminating the process with the appropriate exit status.
+ */
 void	exec_export_child(void)
 {
 	if (ft_dpcount(ms()->query) == 1)
@@ -114,6 +129,13 @@ void	exec_export_child(void)
 	exit(g_exit_status);
 }
 
+/**
+ * Manages the parent process behavior for the `export` command.
+ *
+ * Waits for the child process to finish abd updates the global exit status, 
+ * If successful, and the count variable is greater than 1, 
+ * it adds variables to the export and env list from the provided arguments.
+ */
 void	exec_export(void)
 {
 	int		count;
