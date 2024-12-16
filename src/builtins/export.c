@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:04:20 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/16 00:02:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:37:56 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,33 @@ void	ft_update_exp(t_list *exp, char *var_upd, char *updt_info)
  *
  * @param lst The list of exported environment variables.
  */
-void	show_list(void)
+void	show_list_export(void)
 {
 	int		i;
 	char	**copy;
 	char	**formatted_str;
+	char	*quotless_str;
 
 	i = -1;
 	copy = ft_envcpy(ms()->export);
 	while (++i < ft_lstsize(ms()->export))
 	{
 		formatted_str = ft_split(copy[i], '=');
+		quotless_str = ft_strtrim(formatted_str[1], "\"");
 		printf("declare -x ");
-		printf("%s=", formatted_str[0]);
-		printf("%c", '\"');
-		printf("%s\"\n", formatted_str[1]);
+		if (!formatted_str[1])
+			printf("%s\n", formatted_str[0]);
+		else
+		{
+			printf("%s=", formatted_str[0]);
+			printf("%c", '\"');
+			printf("%s\"\n", quotless_str);
+		}
+		free(quotless_str);
 		ft_free_split(formatted_str);
 	}
 	ft_free_split(copy);
 }
-
 
 /**
  * Update the environment variables in the minishell structure.
@@ -98,21 +105,21 @@ void	configure_variable(char *content)
 /**
  * Executes the `export` command logic in a child process.
  *
- * Handles displaying the export list, validating syntax, and checking for 
+ * Handles displaying the export list, validating syntax, and checking for
  * unsupported options. Frees resources and exits with the appropriate status.
- * 
+ *
  * - If an unsupported option is detected, the process exits with status 2.
- * 
+ *
  * - If the syntax validation fails or succeeds, the process exits with the
  *   corresponding exit status.
- * 
- * @note This function is designed to run in a child process, freeing resources 
+ *
+ * @note This function is designed to run in a child process, freeing resources
  *       and terminating the process with the appropriate exit status.
  */
 void	exec_export_child(void)
 {
 	if (ft_dpcount(ms()->query) == 1)
-		show_list();
+		show_list_export();
 	else if (ft_dpcount(ms()->query) > 1)
 	{
 		if (ms()->query[1][0] == '-')
@@ -132,8 +139,8 @@ void	exec_export_child(void)
 /**
  * Manages the parent process behavior for the `export` command.
  *
- * Waits for the child process to finish abd updates the global exit status, 
- * If successful, and the count variable is greater than 1, 
+ * Waits for the child process to finish abd updates the global exit status,
+ * If successful, and the count variable is greater than 1,
  * it adds variables to the export and env list from the provided arguments.
  */
 void	exec_export(void)

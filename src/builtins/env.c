@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:04:00 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 00:03:48 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:51:16 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 /**
  * Updates or adds an environment variable in the linked list.
  *
- * This function iterates through the linked list `env` to find the environment variable
- * specified by `var_upd`. If the variable exists, its associated value (`info`) is updated
- * with the new information provided in `updt_info`. If the variable doesn't exist, a new 
- * environment variable is created and added to the end of the list with the given information.
+ * This function iterates through the linked list `env` to find the environment
+ * variable specified by `var_upd`. If the variable exists, its associated
+ * value (`info`) is updated with the new information provided in `updt_info`.
+ * If the variable doesn't exist, a new environment variable is created and
+ * added to the end of the list with the given information.
  *
  * @param env The linked list of environment variables to update.
  * @param var_upd The name of the environment variable to update.
- * @param updt_info The new value to assign to the specified environment variable.
+ * @param updt_info The new value to assign to the specified
+ * environment variable.
  */
 void	ft_update_env(t_list *env, char *var_upd, char *updt_info)
 {
@@ -47,38 +49,35 @@ void	ft_update_env(t_list *env, char *var_upd, char *updt_info)
 /**
  * Displays the environment variables.
  *
- * This function processes the environment variables linked list pointed to by `ms()->env`,
- * printing each variable's name and its associated value (if present) to the standard output.
- * It handles cases where the environment variable info includes an '=' character.
- * If the function is called with an argument longer than 3 characters, it prints an error message
- * "no options allowed" and returns without performing the environment listing.
+ * This function processes the environment variables linked list pointed to
+ * by `ms()->env`, printing each variable's name and its associated value
+ * (if present) to the standard output. It handles cases where the environment
+ * variable info includes an '=' character.
+ * If the function is called with an argument longer than 3 characters,
+ * it prints an error message "no options allowed" and returns without
+ * performing the environment listing.
  *
  * @param query The command arguments (should be NULL for this function).
  */
-void	ft_env(char **query)
+void	exec_env_child(void)
 {
-	t_list	*temp;
-	t_env	*vars;
+	int		i;
+	char	**copy;
 
-	if (ft_strlen(ms()->args[0]) > 3)
+	i = -1;
+	copy = ft_envcpy(ms()->env);
+	if (ft_dpcount(ms()->query) != 1)
 	{
-		printf("no options allowed");
-		return ;
+		printf("minishell: env: no options allowed\n");
+		ft_free_split(copy);
+		g_exit_status = 1;
+		free_child(NULL, 1);
+		exit(g_exit_status);
 	}
-	temp = ms()->env;
-	while (temp->next)
-	{
-		vars = (t_env *)temp->content;
-		printf("%s", vars->name);
-		if (vars->info)
-		{
-			while (*vars->info != '=')
-				vars->info++;
-			printf("%s\n", vars->info);
-		}
-		temp = temp->next;
-	}
-	free_child(query, 0);
+	while (++i < ft_lstsize(ms()->env))
+		printf("%s\n", copy[i]);
+	ft_free_split(copy);
+	free_child(NULL, 0);
 	g_exit_status = 0;
 	exit (0);
 }

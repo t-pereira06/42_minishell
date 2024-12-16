@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 20:21:58 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/15 23:57:05 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:59:05 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * Prepares and returns a sorted linked list of environment variables for export.
  *
- * This function first sorts the given environment variable array alphabetically 
- * using the `check_alpha` function. Then, it initializes a linked list 
+ * This function first sorts the given environment variable array alphabetically
+ * using the `check_alpha` function. Then, it initializes a linked list
  * representation of the environment variables using the `init_env` function.
  *
  * @param env The array of environment variables to process.
@@ -35,8 +35,8 @@ t_list	*get_export(char **env)
  * Sorts an array of strings alphabetically.
  *
  * This function iterates through the given array of environment variables
- * and sorts them in ascending lexicographical order. It uses the 
- * ft_strncmp function to compare strings and the ft_swap function 
+ * and sorts them in ascending lexicographical order. It uses the
+ * ft_strncmp function to compare strings and the ft_swap function
  * to swap the positions of two strings when necessary.
  *
  * @param env The array of strings (environment variables) to sort.
@@ -67,7 +67,6 @@ char	**check_alpha(char **env)
 	return (env);
 }
 
-
 /**
  * Determines the length of the longer of two strings.
  *
@@ -77,7 +76,8 @@ char	**check_alpha(char **env)
  *
  * @param s1 The first string to compare.
  * @param s2 The second string to compare.
- * @return The length of the longer string, or the length of s1 if they are equal.
+ * @return The length of the longer string, or the length of s1 if
+ * they are equal.
  */
 int	check_bigger(char *s1, char *s2)
 {

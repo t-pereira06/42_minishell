@@ -6,38 +6,37 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:26:07 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:47:11 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int	do_builtin_child(char **query)
+int	do_builtin_child(void)
 {
-	//(void)query;
-	if (!(ft_strncmp(query[0], "cd", 2)))
+	if (match_strings("cd", ms()->query[0]))
 		exec_cd_child();
-	else if (!(ft_strncmp(query[0], "export", 6)))
+	else if (match_strings("export", ms()->query[0]))
 		exec_export_child();
-	else if (!(ft_strncmp(query[0], "unset", 5)))
+	else if (match_strings("unset", ms()->query[0]))
 		exec_unset_child();
-	/* if (!(ft_strncmp(query[0], "echo", 4)))
+	else if (match_strings("pwd", ms()->query[0]))
+		exec_pwd_child();
+	else if (match_strings("env", ms()->query[0]))
+		exec_env_child();
+	/* if (match_strings("echo", ms()->query[0]))
 		ft_echo(query);
-	else if (!(ft_strncmp(query[0], "env", 3)))
-		ft_env(query);
-	else if (!(ft_strncmp(query[0], "pwd", 3)))
-		ft_pwd();
-	else if (!(ft_strncmp(query[0], "exit", 4)))
+	else if (match_strings("exit", ms()->query[0]))
 		ft_exit(); */
 	return (0);
 }
 
 int exec_parent_builtins(void)
 {
-    ms()->query = splitter(ms()->args[0], ' ');
-    if (!ms()->query)
+	ms()->query = splitter(ms()->args[0], ' ');
+	if (!ms()->query)
 		return (0);
-    //it will also have the expander on this function
+	//it will also have the expander on this function
 	//check_expand_quotes(ms()->args, ms);
 	if (match_strings("cd", ms()->query[0]))
 		exec_cd();
@@ -45,10 +44,8 @@ int exec_parent_builtins(void)
 		exec_export();
 	else if (match_strings("unset", ms()->query[0]))
 		exec_unset();
-	/* else if (match_strings("export", ms()->query[0]))
-		exec_export();
-	else if (match_strings("exit", ms()->query[0]))
+	/*else if (match_strings("exit", ms()->query[0]))
 		exec_exit(); */
 	return (0);
-    //still underwork
+	//still underwork
 }

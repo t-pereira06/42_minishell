@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/15 23:50:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:58:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct s_expander
 t_minishell	*ms(void);
 
 //check_builtins.c
-int			do_builtin_child(char **query);
+int			do_builtin_child(void);
 int			exec_parent_builtins(void);
 
 //exec_redirects.c
@@ -204,7 +204,7 @@ int			match_strings(char *s1, char *s2);
 //cd.c
 int			cd_error_handler(void);
 void		change_env_exp_var(char *env_var);
-void		ft_cd(char *arg);
+void		ft_cd(char *arg, char **query);
 void		exec_cd_child(void);
 void		exec_cd(void);
 
@@ -213,7 +213,7 @@ void		ft_echo(char **query);
 
 //env.c
 void		ft_update_env(t_list *env, char *var_upd, char *updt_info);
-void		ft_env(char **query);
+void		exec_env_child(void);
 
 //exit.c
 int			ft_exit(void);
@@ -224,14 +224,13 @@ int			valid_syntax(void);
 
 //export.c
 void		ft_update_exp(t_list *exp, char *var_upd, char *updt_info);
-void		add_to_list(void);
-//void		show_list(void);
+void		show_list_export(void);
 void		configure_variable(char *content);
 void		exec_export_child(void);
 void		exec_export(void);
 
 //pwd.c
-void		ft_pwd(void);
+void		exec_pwd_child(void);
 
 //unset.c
 void		free_node(t_list *lst);

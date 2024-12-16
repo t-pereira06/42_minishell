@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 00:10:05 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:00:58 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
  * Handles error checking for the `cd` command.
  *
  * - Checks for invalid options and print the error.
- * 
+ *
  * - Verifies if the "OLDPWD" environment variable is set when
  *   using the`-` option.
- * 
+ *
  * - Checks if the directory specified by `ms()->query[1]` exists.
- *  
+ *
  * - Returns 0 if there are no errors, or 1 if an error is encountered,
  *   printing an appropriate error message.
  *
@@ -94,21 +94,19 @@ void	change_env_exp_var(char *env_var)
  * @param arg The argument provided with the `cd` command
  * (e.g., "-" for previous directory, "~" for home directory).
  */
-void	ft_cd(char *arg)
+void	ft_cd(char *arg, char **query)
 {
 	if (arg && !ft_strcmp(arg, "-"))
 	{
 		ft_putstr_fd(get_env_info(&ms()->env, "OLDPWD"), STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		free(ms()->query[1]);
-		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
-		//ft_memcpy(ms()->query[1], get_env_info(&ms()->env, "OLDPWD"), ft_strlen(get_env_info(&ms()->env, "OLDPWD")));
+		free(query[1]);
+		query[1] = ft_strdup(get_env_info(&ms()->env, "OLDPWD"));
 	}
 	else if (arg && (!ft_strcmp(arg, "~") || !ft_strcmp(arg, "--")))
 	{
-		free(ms()->query[1]);
-		ms()->query[1] = ft_strdup(get_env_info(&ms()->env, "HOME"));
-		//ft_memcpy(ms()->query[1], get_env_info(&ms()->env, "HOME"), ft_strlen(get_env_info(&ms()->env, "HOME")));
+		free(query[1]);
+		query[1] = ft_strdup(get_env_info(&ms()->env, "HOME"));
 	}
 	change_env_exp_var("OLDPWD");
 	if (!arg)
@@ -154,7 +152,7 @@ void	exec_cd_child(void)
  *
  * Waits for the child process to complete, updates the global exit status,
  * and if successful, changes the directory based on the number of arguments.
- * - If no additional arguments are provided (`count == 1`), the function 
+ * - If no additional arguments are provided (`count == 1`), the function
  * 	 attempts to change to the home directory.
  * - If one additional argument is provided (`count == 2`), the function
  *   attempts to change to the specified directory.
@@ -171,8 +169,8 @@ void	exec_cd(void)
 	if (g_exit_status == 0)
 	{
 		if (count == 1)
-			ft_cd(NULL);
+			ft_cd(NULL, ms()->query);
 		else if (count == 2)
-			ft_cd(ms()->query[1]);
+			ft_cd(ms()->query[1], ms()->query);
 	}
 }

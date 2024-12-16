@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:18:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:59:23 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	unexpected_tokens(char *input)
 	char	**query;
 	//int		i;
 	//char	quote;
-
 	//i = -1;
 	//quote = 0;
 	query = splitter(input, ' ');

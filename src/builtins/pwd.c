@@ -6,24 +6,28 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:20:56 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/10 15:30:12 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 14:11:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-void	ft_pwd(void)
+void	exec_pwd_child(void)
 {
 	char	*temp;
 
-	if (ft_strlen(ms()->args[0]) > 4)
-	{
-		printf("no options allowed");
-		free_child(NULL, 1);
-	}
 	temp = getcwd(0, 0);
+	if (ft_dpcount(ms()->query) != 1 && ft_chrcmp(ms()->query[1][0], '-'))
+	{
+		printf("minishell: pwd: no options allowed\n");
+		free(temp);
+		g_exit_status = 2;
+		free_child(NULL, 0);
+		exit(g_exit_status);
+	}
 	printf("%s\n", temp);
-	free_child(NULL, 0);
+	free(temp);
 	g_exit_status = 0;
-	exit (0);
+	free_child(NULL, 0);
+	exit (g_exit_status);
 }
