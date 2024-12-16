@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 15:00:58 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:04:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	cd_error_handler(void)
 
 /**
  * Updates the specified environment variable (`env_var`) in `ms()->env`
- * with the current working directory.
+ * and `ms()->export`with the current working directory.
  * Constructs a string in the format "env_var=cwd", updates the environment list,
  * and frees the allocated memory for the working directoryand the constructed
  * string.
@@ -75,8 +75,7 @@ void	change_env_exp_var(char *env_var)
 	var = ft_strcjoin(env_var, '=');
 	temp = ft_strjoin(var, cwd);
 	ft_update_env(ms()->env, env_var, temp);
-	//export here
-	//ft_update_exp(ms()->export, "env_var", temp);
+	ft_update_exp(ms()->export, env_var, temp);
 	free(cwd);
 	free(var);
 	free(temp);
