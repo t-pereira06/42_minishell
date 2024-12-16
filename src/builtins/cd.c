@@ -3,15 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/10 15:25:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 00:10:05 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+/**
+ * Handles error checking for the `cd` command.
+ *
+ * - Checks for invalid options and print the error.
+ * 
+ * - Verifies if the "OLDPWD" environment variable is set when
+ *   using the`-` option.
+ * 
+ * - Checks if the directory specified by `ms()->query[1]` exists.
+ *  
+ * - Returns 0 if there are no errors, or 1 if an error is encountered,
+ *   printing an appropriate error message.
+ *
+ * @return 0 if the path is valid and no errors were found, otherwise 1.
+ */
 int	cd_error_handler(void)
 {
 	struct stat	statbuf;
@@ -41,6 +56,15 @@ int	cd_error_handler(void)
 	return (0);
 }
 
+/**
+ * Updates the specified environment variable (`env_var`) in `ms()->env`
+ * with the current working directory.
+ * Constructs a string in the format "env_var=cwd", updates the environment list,
+ * and frees the allocated memory for the working directoryand the constructed
+ * string.
+ *
+ * @param env_var The name of the environment variable to update.
+ */
 void	change_env_exp_var(char *env_var)
 {
 	char	*cwd;
@@ -58,6 +82,18 @@ void	change_env_exp_var(char *env_var)
 	free(temp);
 }
 
+/**
+ * Changes the current working directory based on the given argument.
+ *
+ * - If the argument is "-" (dash), it changes to the directory stored in the
+ *   "OLDPWD" environment variable and updates the query with the new "OLDPWD".
+ * - If the argument is "~" or "--", it changes to the "HOME" directory.
+ * - Updates the "OLDPWD" and "PWD" environment variables accordingly
+ *   after changing the directory.
+ *
+ * @param arg The argument provided with the `cd` command
+ * (e.g., "-" for previous directory, "~" for home directory).
+ */
 void	ft_cd(char *arg)
 {
 	if (arg && !ft_strcmp(arg, "-"))
@@ -82,6 +118,16 @@ void	ft_cd(char *arg)
 	change_env_exp_var("PWD");
 }
 
+/**
+ * Handles the behavior of the `cd` command in a child process.
+ *
+ * - If only one argument is provided, the function simply frees resources and exits.
+ * - If more than two arguments are provided, it outputs an error message
+ *   "too many arguments".
+ * - For valid argument scenarios, it handles potential errors using
+ *   the `cd_error_handler`.
+ * After processing, it frees resources and exits with the appropriate exit status.
+ */
 void	exec_cd_child(void)
 {
 	if (ft_dpcount(ms()->query) == 1)
@@ -103,6 +149,16 @@ void	exec_cd_child(void)
 	}
 }
 
+/**
+ * Executes the `cd` command in the shell.
+ *
+ * Waits for the child process to complete, updates the global exit status,
+ * and if successful, changes the directory based on the number of arguments.
+ * - If no additional arguments are provided (`count == 1`), the function 
+ * 	 attempts to change to the home directory.
+ * - If one additional argument is provided (`count == 2`), the function
+ *   attempts to change to the specified directory.
+ */
 void	exec_cd(void)
 {
 	int		count;
