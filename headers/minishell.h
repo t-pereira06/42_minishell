@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/16 14:58:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:58:03 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,20 @@ typedef struct s_minishell
 	bool	heredoc;
 	char	*prompt;
 	char	*input;
+
 	/* redirect use only */
 	char	*operator;
 	char	*temp;
 	char	**temp_query;
 	/* -------------- */
+
 	char	**query;
 	char	**args;
 	char	**paths;
+	
+	/* echo use only */
+	bool	echo_option;
+	/* -------------- */
 }				t_minishell;
 
 typedef struct s_env
@@ -209,7 +215,10 @@ void		exec_cd_child(void);
 void		exec_cd(void);
 
 //echo.c
-void		ft_echo(char **query);
+//void		ft_echo(char **query);
+int			check_echo_option(void);
+void		print_echo(int start_pos);
+void		exec_echo_child(void);
 
 //env.c
 void		ft_update_env(t_list *env, char *var_upd, char *updt_info);

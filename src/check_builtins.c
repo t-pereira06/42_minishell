@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/16 14:47:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:55:11 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	do_builtin_child(void)
 		exec_pwd_child();
 	else if (match_strings("env", ms()->query[0]))
 		exec_env_child();
-	/* if (match_strings("echo", ms()->query[0]))
-		ft_echo(query);
-	else if (match_strings("exit", ms()->query[0]))
+	if (match_strings("echo", ms()->query[0]))
+		exec_echo_child();
+	/* else if (match_strings("exit", ms()->query[0]))
 		ft_exit(); */
 	return (0);
 }
