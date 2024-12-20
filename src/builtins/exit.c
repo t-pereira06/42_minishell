@@ -3,25 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/10 15:30:04 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:49:26 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
-int	ft_exit(void)
+void	convert_number_exit(void)
 {
-	ft_putstr_fd(ms()->args[0], STDERR_FILENO);
-	if (ft_strlen(ms()->args[0]) > 5)
+	int	nbr_size;
+
+	nbr_size = 0;
+	nbr_size = ft_nbrlen(ft_atoll(ms()->query[1]));
+	if (ft_chrcmp(ms()->query[1][0], '+'))
+		nbr_size++;
+	if ((int)ft_strlen(ms()->query[1]) != nbr_size)
 	{
-		printf("no options allowed");
-		free_child(NULL, 1);
+		numeric_error(ms()->query[1]);
+		g_exit_status = 2;
+		free_child(NULL, 0);
+		exit (g_exit_status);
+	}
+	g_exit_status = (ft_atoi(ms()->query[1]) % 256);
+	free_child(NULL, 0);
+	exit (g_exit_status);
+}
+
+void	numeric_error(char *str)
+{
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	ft_putstr_fd(str, STDOUT_FILENO);
+	ft_putstr_fd(": numeric argument required\n", STDOUT_FILENO);
+}
+
+void	exec_exit_child(void)
+{
+	int	i;
+
+	i = 0;
+	while (ms()->query[++i])
+	{
+		if (!ft_isnumeric(ms()->query[i]))
+		{
+			numeric_error(ms()->query[i]);
+			g_exit_status = 2;
+			free_child(NULL, 0);
+			exit (g_exit_status);
+		}
+	}
+	if (ft_dpcount(ms()->query) == 1)
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		g_exit_status = 0;
+	}
+	else if (ft_dpcount(ms()->query) == 2)
+		convert_number_exit();
+	else
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		ft_putstr_fd("minishell: exit: too many arguments\n", STDOUT_FILENO);
+		g_exit_status = 1;
 	}
 	free_child(NULL, 0);
-	g_exit_status = 0;
-	exit (0);
-	//still working on this one
+	exit (g_exit_status);
+}
+
+void	exec_exit(void)
+{
+	int		count;
+	int		child_status;
+
+	count = ft_dpcount(ms()->query);
+	wait(&child_status);
+	if (WIFEXITED(child_status))
+		g_exit_status = WEXITSTATUS(child_status);
+	if (g_exit_status != 1 || (g_exit_status == 1 && count == 2))
+	{
+		free_program(1);
+		exit (g_exit_status);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:20:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/15 23:56:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:35:23 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdbool.h>
 
 /*-----------------------CONVERSIONS-----------------------*/
+
 int			ft_atoi(const char *str);
 long		ft_atol(const char *str);
 long long	ft_atoll(const char *str);
@@ -31,6 +32,7 @@ int			ft_toupper(int c);
 char		*ft_utoa(unsigned long long n);
 
 /*-------------------------NUMBERS-------------------------*/
+
 int			ft_nbrlen(long long nbr);
 
 /*---------------------------MEM---------------------------*/
@@ -55,6 +57,7 @@ int			ft_isnumeric(const char *str);
 int			ft_getlength(unsigned long long n, int base);
 
 /*-------------------------STRINGS-------------------------*/
+
 char		**ft_split(char const *s, char c);
 void		ft_free_split(char **split);
 char		*ft_strchr(const char *str, int c);

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/19 16:19:35 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:41:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,6 @@ void		exec_cd_child(void);
 void		exec_cd(void);
 
 //echo.c
-//void		ft_echo(char **query);
 int			check_echo_option(void);
 void		print_echo(int start_pos);
 void		exec_echo_child(void);
@@ -225,7 +224,10 @@ void		ft_update_env(t_list *env, char *var_upd, char *updt_info);
 void		exec_env_child(void);
 
 //exit.c
-int			ft_exit(void);
+void		convert_number_exit(void);
+void		numeric_error(char *str);
+void		exec_exit_child(void);
+void		exec_exit(void);
 
 //export_utils.c
 int			ft_isalnum_extra(char c);

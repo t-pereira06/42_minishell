@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/19 15:55:11 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:04:41 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	do_builtin_child(void)
 		exec_env_child();
 	if (match_strings("echo", ms()->query[0]))
 		exec_echo_child();
-	/* else if (match_strings("exit", ms()->query[0]))
-		ft_exit(); */
+	else if (match_strings("exit", ms()->query[0]))
+		exec_exit_child();
 	return (0);
 }
 
@@ -44,8 +44,7 @@ int exec_parent_builtins(void)
 		exec_export();
 	else if (match_strings("unset", ms()->query[0]))
 		exec_unset();
-	/*else if (match_strings("exit", ms()->query[0]))
-		exec_exit(); */
+	else if (match_strings("exit", ms()->query[0]))
+		exec_exit();
 	return (0);
-	//still underwork
 }

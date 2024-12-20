@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/16 14:31:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:04:39 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	exec_pipes(void)
  */
 void	single_cmd(char *cmd)
 {
-	//char	**query;
 	ms()->pid[0] = fork();
 	if (!ms()->pid[0])
 	{
@@ -137,10 +136,9 @@ void	execute(void)
 	else
 	{
 		cmd = add_whitespaces(ms()->args[0]);
-		//ms()->query = handle_query(cmd);
 		single_cmd(cmd);
-		exec_parent_builtins();
 		free(cmd);
+		exec_parent_builtins();
 	}
 	get_exit_status();
 	free_program(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:04:33 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	free_program(int i)
 	if (ms()->args)
 		ft_free_split(ms()->args);
 	if (i == 1)
+	{
+		ft_free_lst(ms()->export);
 		ft_free_lst(ms()->env);
+	}
 }
 
 /**

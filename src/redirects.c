@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:25:49 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:02:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	**erase_redir(char **query, int pos, int size, int j)
  */
 char	**check_redir(char *input, int i, int err)
 {
-	//char	**query;
 	ms()->temp_query = splitter(input, ' ');
 	free(input);
 	while (ms()->temp_query[++i])
