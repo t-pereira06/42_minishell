@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/20 15:41:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/25 22:38:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,9 @@ void		single_cmd(char *cmd);
 void		execute(void);
 
 //expand.c
+int			var_len(char *str);
+char		*get_variable(char *str, int pos, int size);
+char		*check_variable(char *str, int pos, int in);
 void		check_expand_quotes(char **query);
 
 //free.c
