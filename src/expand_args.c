@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/25 23:15:08 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/25 23:48:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*check_variable(char *str, int pos, int in)
 	char	*final_str;
 
 	quote = 0;
+	pos = -1;
 	while (str[++pos])
 	{
 		quote = get_quote(str[pos], quote);
