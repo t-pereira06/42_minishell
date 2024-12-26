@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 03:11:39 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 13:25:46 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ char	*join_final_strings(char *final_str, char *final_expand)
 	return (final_str);
 }
 
+/* char	*get_quote_string(char *str, int pos)
+{
+
+} */
+
 char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 {
 	//missing when trying to expand $?
@@ -40,6 +45,7 @@ char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 	final_str = trim_before_dsign(str);
 	while (str[++pos])
 	{
+		//needs some change when inside quotes
 		quote = get_quote(str[pos], quote);
 		if (str[pos] == '$' && quote != '\'')
 		{
@@ -50,13 +56,12 @@ char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 				free(final_expand);
 			}
 			final_expand = join_variable(helper, var_str);
-			free(helper);
 			free(var_str);
 		}
 	}
-	free(str);
 	final_str = join_final_strings(final_str, final_expand);
-	return(final_str);
+	free(str);
+	return (final_str);
 }
 
 void	check_expand_quotes(char **query)
