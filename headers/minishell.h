@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 02:59:06 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 03:11:20 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,12 @@ void		execute(void);
 //expand_args_2.c
 int			var_len(char *str);
 char		*get_variable(char *str, int pos, int size);
-void		check_expand_quotes(char **query);
+char		*join_variable(char *before_var, char *var_str);
+char		*trim_before_dsign(char *str);
 
 //expand_args.c
-char		*check_variable(char *str, int pos);
+char		*join_final_strings(char *final_str, char *final_expand);
+char		*check_variable(char *str, int pos, char *helper, char *final_expand);
 void		check_expand_quotes(char **query);
 
 //free.c

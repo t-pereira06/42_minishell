@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 02:57:44 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 03:11:01 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,24 @@ char	*join_variable(char *before_var, char *var_str)
 			final_str = ft_strdup(var_str);
 		}
 		return (final_str);
+	}
+	return (NULL);
+}
+
+char	*trim_before_dsign(char *str)
+{
+	int		pos;
+	char	quote;
+
+	pos = -1;
+	quote = 0;
+	while (str[++pos])
+	{
+		quote = get_quote(str[pos], quote);
+		if (str[pos] == '$' && quote != '\'')
+		{
+			return (ft_substr(str, 0, pos));
+		}
 	}
 	return (NULL);
 }
