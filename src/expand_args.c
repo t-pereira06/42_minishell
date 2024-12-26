@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 14:31:02 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:37:01 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*get_quote_string(char *str, int pos)
 
 char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 {
-	//missing when trying to expand $?
 	char	quote;
 	char	*var_str;
 	char	*final_str;

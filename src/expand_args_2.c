@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 14:24:54 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:52:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,25 @@ int	var_len(char *str, char c)
 	return (len);
 }
 
+char	*get_es_string(char *var_name)
+{
+	char	*temp;
+	char	*new_str;
+	char	*str_es;
+
+	temp = ft_substr(var_name, 1, ft_strlen(var_name));
+	if (temp)
+	{
+		str_es = ft_itoa(g_exit_status);
+		new_str = ft_strjoin(str_es, temp);
+		free(temp);
+		free(str_es);
+		return (new_str);
+	}
+	new_str = ft_itoa(g_exit_status);
+	return (new_str);
+}
+
 char	*get_variable(char *str, int pos, int size)
 {
 	char	*var_info;
@@ -44,8 +63,11 @@ char	*get_variable(char *str, int pos, int size)
 	}
 	else
 	{
-		if (match_strings(var_name, "?"))
-			return (free(var_name), ft_itoa(g_exit_status));
+		if (ft_chrcmp(var_name[0], '?'))
+		{
+			var_info = get_es_string(var_name);
+			return (free(var_name), var_info);
+		}
 		free(var_name);
 		return (var_info);
 	}

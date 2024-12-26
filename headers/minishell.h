@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 13:27:08 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:52:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void		execute(void);
 
 //expand_args_2.c
 int			var_len(char *str, char c);
+char		*get_es_string(char *var_name);
 char		*get_variable(char *str, int pos, int size);
 char		*join_variable(char *before_var, char *var_str);
 char		*trim_before_dsign(char *str);
