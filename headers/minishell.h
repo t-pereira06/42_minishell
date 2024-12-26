@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 14:52:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:54:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void		exec_pipes(void);
 void		single_cmd(char *cmd);
 void		execute(void);
 
+//expand_args_utils.c
+char    	*get_var_wout_quote(char *str, int pos, char *final_expand);
+char    	*get_var_w_quote(char *str, int pos, char *final_expand);
+char    	*get_ohter_characters(char *str, int pos, char *final_expand);
+
 //expand_args_2.c
 int			var_len(char *str, char c);
 char		*get_es_string(char *var_name);
@@ -117,7 +122,9 @@ char		*trim_before_dsign(char *str);
 
 //expand_args.c
 char		*join_final_strings(char *final_str, char *final_expand);
-char		*check_variable(char *str, int pos, char *helper, char *final_expand);
+char		*get_quote_string(char *str, int pos);
+//char		*check_variable(char *str, int pos, char *helper, char *final_expand);
+char		*check_variable(char *str, int pos, char *final_expand);
 void		check_expand_quotes(char **query);
 
 //free.c
