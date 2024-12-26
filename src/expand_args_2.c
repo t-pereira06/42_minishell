@@ -6,13 +6,13 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 13:25:29 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 13:59:20 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-int	var_len(char *str)
+int	var_len(char *str, char c)
 {
 	int	pos;
 	int	len;
@@ -21,7 +21,7 @@ int	var_len(char *str)
 	len = 0;
 	while (str[++pos])
 	{
-		if (ft_chrcmp(str[pos], '$'))
+		if (ft_chrcmp(str[pos], c))
 			return (len);
 		len++;
 	}
@@ -63,6 +63,7 @@ char	*join_variable(char *before_var, char *var_str)
 			free(final_str);
 			final_str = ft_strdup(var_str);
 		}
+		free(before_var);
 		return (final_str);
 	}
 	if (before_var)
@@ -81,9 +82,9 @@ char	*trim_before_dsign(char *str)
 	{
 		quote = get_quote(str[pos], quote);
 		if (str[pos] == '$' && quote != '\'')
-		{
 			return (ft_substr(str, 0, pos));
-		}
+		if (str[pos] == '$' && quote == '\'')
+			return (ft_substr(str, 0, pos));
 	}
 	return (NULL);
 }

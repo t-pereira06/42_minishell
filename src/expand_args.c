@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 13:25:46 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:00:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ char	*join_final_strings(char *final_str, char *final_expand)
 {
 	char	*helper;
 	
-	helper = ft_strdup(final_str);
-	free(final_str);
+	helper = 0;
+	if (final_str)
+	{
+		helper = ft_strdup(final_str);
+		free(final_str);
+	}
 	if (helper)
 		final_str = ft_strjoin(helper, final_expand);
 	else
@@ -27,10 +31,16 @@ char	*join_final_strings(char *final_str, char *final_expand)
 	return (final_str);
 }
 
-/* char	*get_quote_string(char *str, int pos)
+char	*get_quote_string(char *str, int pos)
 {
+	char	*temp;
+	int		len;
 
-} */
+	temp = 0;
+	len = var_len(&str[pos + 1], '\'');
+	temp = ft_substr(str, pos, len + 1);
+	return (temp);
+}
 
 char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 {
@@ -45,11 +55,21 @@ char	*check_variable(char *str, int pos, char *helper, char *final_expand)
 	final_str = trim_before_dsign(str);
 	while (str[++pos])
 	{
-		//needs some change when inside quotes
 		quote = get_quote(str[pos], quote);
 		if (str[pos] == '$' && quote != '\'')
 		{
-			var_str = get_variable(str, pos + 1, var_len(&str[pos + 1]));
+			var_str = get_variable(str, pos + 1, var_len(&str[pos + 1], '$'));
+			if (final_expand)
+			{
+				helper = ft_strdup(final_expand);
+				free(final_expand);
+			}
+			final_expand = join_variable(helper, var_str);
+			free(var_str);
+		}
+		else if (str[pos] == '$' && quote == '\'')
+		{
+			var_str = get_quote_string(str, pos);
 			if (final_expand)
 			{
 				helper = ft_strdup(final_expand);
