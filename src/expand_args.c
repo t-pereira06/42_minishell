@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 14:00:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:31:02 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ char	*join_final_strings(char *final_str, char *final_expand)
 		helper = ft_strdup(final_str);
 		free(final_str);
 	}
-	if (helper)
+	if (helper && final_expand)
 		final_str = ft_strjoin(helper, final_expand);
-	else
+	else if (!helper && final_expand)
 		final_str = ft_strdup(final_expand);
+	else
+		final_str = ft_strdup(helper);
 	free(helper);
 	free(final_expand);
 	return (final_str);

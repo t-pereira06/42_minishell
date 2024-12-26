@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 13:59:20 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:24:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*get_variable(char *str, int pos, int size)
 	}
 	else
 	{
+		if (match_strings(var_name, "?"))
+			return (free(var_name), ft_itoa(g_exit_status));
 		free(var_name);
 		return (var_info);
 	}

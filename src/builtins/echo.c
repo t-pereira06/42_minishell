@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:04:51 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/19 16:21:27 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 14:25:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	print_echo(int start_pos)
 	i = start_pos;
 	while (ms()->query[i])
 	{
-		if (match_strings(ms()->query[i], "$?"))
-			ft_putnbr_fd(g_exit_status, STDOUT_FILENO);
-		else
-			ft_putstr_fd(ms()->query[i], STDOUT_FILENO);
+		ft_putstr_fd(ms()->query[i], STDOUT_FILENO);
 		if (ms()->query[i + 1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
