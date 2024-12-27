@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:15:19 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:18:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*get_command(char *cmd, int i)
  */
 void	no_command_err(char *command)
 {
-	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(command, STDOUT_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	free_child(NULL, 0);
 	g_exit_status = 127;

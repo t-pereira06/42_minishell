@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:27:48 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 12:03:13 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,11 +140,14 @@ char		**check_alpha(char **env);
 void		ft_swap(char **s1, char **s2);
 int			check_bigger(char *s1, char *s2);
 
-//heredoc.c
-void		heredoc_sigint(int signum);
+//heredoc_utils.c
 void		err_heredoc(char **query);
 void		err_eof(char *str);
 char		*expand_var_heredoc(char *buffer);
+
+//heredoc.c
+void		signals_heredoc(void);
+void		heredoc_sigint(int signum);
 void		helper_heredoc(char **input, char *lim);
 
 //input_errors.c
@@ -237,10 +240,14 @@ void		exec_echo_child(void);
 void		ft_update_env(t_list *env, char *var_upd, char *updt_info);
 void		exec_env_child(void);
 
-//exit.c
+//exit_utils.c
 void		print_exit_error(void);
 void		convert_number_exit(void);
 void		numeric_error(char *str);
+void		print_many_args(void);
+void		print_non_numeric_arg(char *str);
+
+//exit.c
 void		exec_exit_child(void);
 void		exec_exit(void);
 

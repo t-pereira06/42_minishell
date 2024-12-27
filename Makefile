@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/26 18:51:15 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/27 12:05:54 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	src/main.c \
 		src/free.c \
 		src/get_env.c \
 		src/get_export.c \
+		src/heredoc_utils.c \
 		src/heredoc.c \
 		src/input_errors.c \
 		src/input_handling.c \
@@ -49,6 +50,7 @@ SRC =	src/main.c \
 		src/builtins/cd.c \
 		src/builtins/echo.c \
 		src/builtins/env.c \
+		src/builtins/exit_utils.c \
 		src/builtins/exit.c \
 		src/builtins/export_utils.c \
 		src/builtins/export.c \
