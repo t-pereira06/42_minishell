@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 12:03:13 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:54:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,9 @@ int			exec_parent_builtins(void);
 
 //exec_redirects.c
 void		change_fds(void);
+int			handle_file_acess_errors(char *str);
+
+//exec_redirects.c
 int			do_input(char **query);
 int			do_output(char **query);
 int			do_heredoc(char **query, char **next);
@@ -148,7 +151,7 @@ char		*expand_var_heredoc(char *buffer);
 //heredoc.c
 void		signals_heredoc(void);
 void		heredoc_sigint(int signum);
-void		helper_heredoc(char **input, char *lim);
+void		helper_heredoc(char **query, char *delimiter, int file, char *buffer);
 
 //input_errors.c
 int			handle_op(char *input, int i, int return_val);

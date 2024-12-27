@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/27 12:05:54 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/27 14:49:17 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =	src/main.c \
 		src/ms.c \
 		src/exec_utils.c \
 		src/check_builtins.c \
+		src/exec_redirects_utils.c \
 		src/exec_redirects.c \
 		src/exec.c \
 		src/expand_args_utils.c \

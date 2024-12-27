@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/20 16:04:41 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:43:29 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ int	do_builtin_child(void)
 	return (0);
 }
 
-int exec_parent_builtins(void)
+int	exec_parent_builtins(void)
 {
 	ms()->query = splitter(ms()->args[0], ' ');
 	if (!ms()->query)
 		return (0);
-	//it will also have the expander on this function
-	//check_expand_quotes(ms()->args, ms);
+	check_expand_quotes(ms()->query);
 	if (match_strings("cd", ms()->query[0]))
 		exec_cd();
 	else if (match_strings("export", ms()->query[0]))

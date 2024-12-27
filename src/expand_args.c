@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:15:56 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:36:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*check_variable(char *str, int pos, char *final_expand)
 			final_expand = get_var_wout_quote(str, pos, final_expand);
 			pos += var_len(&str[pos + 1], '$');
 		}
-		else if (str[pos] == '$' && str[pos + 1] && (quote == '\'' || quote == '\"'))
+		else if (str[pos] == '$' && str[pos + 1] && (quote == '\''))
 		{
 			final_expand = get_var_w_quote(str, pos, final_expand);
 			pos += var_len(&str[pos + 1], '$');
@@ -80,7 +80,6 @@ void	check_expand_quotes(char **query)
 	{
 		if (ft_strrchr(query[i], '$'))
 		{
-			//temp = ft_strtrim(query[i], "\"");
 			temp = ft_strdup(query[i]);
 			free(query[i]);
 			query[i] = check_variable(temp, -1, 0);
@@ -94,5 +93,4 @@ void	check_expand_quotes(char **query)
 			query[i] = remove_quotes(query[i]);
 		i++;
 	}
-
 }

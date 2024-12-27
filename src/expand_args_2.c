@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:24:58 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:34:29 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ char	*get_variable(char *str, int pos, int size)
 	var_info = get_env_info(&ms()->env, var_name);
 	if (var_info)
 	{
-		var_info = ft_substr(get_env_info(&ms()->env, var_name), 0 ,
-			ft_strlen(get_env_info(&ms()->env, var_name)));
+		var_info = ft_substr(get_env_info(&ms()->env, var_name), 0,
+				ft_strlen(get_env_info(&ms()->env, var_name)));
 		free(var_name);
 		return (var_info);
 	}

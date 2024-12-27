@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:54:20 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:33:18 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ void	heredoc_sigint(int signum)
 	free_child_heredoc();
 }
 
-void	helper_heredoc(char **query, char *delimiter)
+void	helper_heredoc(char **query, char *delimiter, int file, char *buffer)
 {
-	int		file;
-	char	*buffer;
-
 	signals_heredoc();
 	file = open(".heredoc", O_CREAT
 			| O_WRONLY | O_TRUNC, S_IWUSR | S_IRUSR);
