@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:54:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:56:42 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,8 @@ char		*expand_var_heredoc(char *buffer);
 //heredoc.c
 void		signals_heredoc(void);
 void		heredoc_sigint(int signum);
-void		helper_heredoc(char **query, char *delimiter, int file, char *buffer);
+void		helper_heredoc(char **query, char *delimiter,
+				int file, char *buffer);
 
 //input_errors.c
 int			handle_op(char *input, int i, int return_val);
@@ -173,7 +174,7 @@ int			print_token_err(char *error, char metachar, int dup);
 
 //input_utils_2.c
 int			verify_asterisc(int pos);
-int		print_redir_errors(char **query, int i);
+int			print_redir_errors(char **query, int i);
 
 //input_utils.c
 int			check_op(char *operator, char *input, int a);
