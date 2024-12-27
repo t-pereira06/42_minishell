@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/12 22:33:18 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:18:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	check_op(char *operator, char *input, int a)
 			return (0);
 	}
 	else if (match_strings(operator, "||") || match_strings(operator, "<>")
-		|| match_strings(operator, "<<<") || match_strings(operator, ">|"))
+		|| match_strings(operator, "<<<") || match_strings(operator, ">|")
+		|| match_strings(operator, ">>>"))
 		return (print_op_err(ERR_OP, operator));
-	/* else
-		return (print_syntax_err(ERR_TOKEN, operator)); */
 	return (0);
 }
 
@@ -133,8 +132,10 @@ int	check_pipe(char *string, char**query, int a, int quote)
 int	unexpected_redirect(char **query)
 {
 	int	i;
+	int	return_code;
 
 	i = -1;
+	return_code = 0;
 	while (query[++i])
 	{
 		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
@@ -143,17 +144,9 @@ int	unexpected_redirect(char **query)
 			if (ft_strchr(query[i], '|'))
 				if (check_pipe(query[i], query, i, 0))
 					return (print_token_err(ERR_TOKEN, '|', 0));
-			if (match_strings(query[i], "|") && !query[i + 1])
-				return (print_token_err(ERR_TOKEN, '|', 0));
-			else if (match_strings(query[i], "||") && !query[i + 1])
-				return (print_token_err(ERR_TOKEN, '|', 0));
-			else if (match_strings(query[i], ">|"))
-				return (print_op_err(ERR_OP, ">|"));
-			else if ((match_strings(query[i], ">>")
-					|| match_strings(query[i], "<<")
-					|| match_strings(query[i], ">")
-					|| match_strings(query[i], "<")) && !query[i + 1])
-				return (print_op_err(ERR_TOKEN, "newline"));
+			return_code = print_redir_errors(query, i);
+			if (return_code != 0)
+				return (return_code);
 		}
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:21:03 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:30:12 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ void	err_eof(char *str)
 	ft_putstr_fd("')\n", STDERR_FILENO);
 }
 
+char	*expand_var_heredoc(char *buffer)
+{
+	char	*temp;
+
+	temp = ft_strtrim(buffer, "\"");
+	free(buffer);
+	buffer = check_variable(temp, -1, 0);
+	return (buffer);
+}
+
 void	helper_heredoc(char **query, char *delimiter)
 {
 	int		file;
@@ -60,9 +70,8 @@ void	helper_heredoc(char **query, char *delimiter)
 		}
 		if (!ft_strncmp(delimiter, buffer, ft_strlen(delimiter) + 1))
 			break ;
-			/* expander here */
-		/* if (ft_strrchr(buffer, '$'))
-			buffer = expander(buffer); */
+		if (ft_strrchr(buffer, '$'))
+			buffer = expand_var_heredoc(buffer);
 		ft_putendl_fd(buffer, file);
 		free(buffer);
 	}

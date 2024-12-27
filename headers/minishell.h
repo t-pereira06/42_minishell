@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 18:54:57 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:27:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define REDIRECT "><"
 # define NOHANDLE "&;(){}*\\"
 
-# define ERR_TOKEN "minishell: syntax error near unexpected token '"
+# define ERR_TOKEN "minishell: syntax error near unexpected token `"
 # define ERR_OP "minishell: no support for operator '"
 # define ERR_PIPE "minishell: pipe: error creating pipe\n"
 
@@ -53,11 +53,9 @@ typedef struct s_minishell
 	char	*temp;
 	char	**temp_query;
 	/* -------------- */
-
 	char	**query;
 	char	**args;
 	char	**paths;
-	
 	/* echo use only */
 	bool	echo_option;
 	/* -------------- */
@@ -98,7 +96,7 @@ int			do_append(char **query);
 void		get_exit_status(void);
 void		free_program(int i);
 char		*get_command(char *cmd, int i);
-void		no_command_err(char *command, char **query);
+void		no_command_err(char *command);
 void		free_child(char **cmd_query, int i);
 
 //exec.c
@@ -109,9 +107,9 @@ void		single_cmd(char *cmd);
 void		execute(void);
 
 //expand_args_utils.c
-char    	*get_var_wout_quote(char *str, int pos, char *final_expand);
-char    	*get_var_w_quote(char *str, int pos, char *final_expand);
-char    	*get_ohter_characters(char *str, int pos, char *final_expand);
+char		*get_var_wout_quote(char *str, int pos, char *final_expand);
+char		*get_var_w_quote(char *str, int pos, char *final_expand);
+char		*get_ohter_characters(char *str, int pos, char *final_expand);
 
 //expand_args_2.c
 int			var_len(char *str, char c);
@@ -123,7 +121,6 @@ char		*trim_before_dsign(char *str);
 //expand_args.c
 char		*join_final_strings(char *final_str, char *final_expand);
 char		*get_quote_string(char *str, int pos);
-//char		*check_variable(char *str, int pos, char *helper, char *final_expand);
 char		*check_variable(char *str, int pos, char *final_expand);
 void		check_expand_quotes(char **query);
 
@@ -147,6 +144,7 @@ int			check_bigger(char *s1, char *s2);
 void		heredoc_sigint(int signum);
 void		err_heredoc(char **query);
 void		err_eof(char *str);
+char		*expand_var_heredoc(char *buffer);
 void		helper_heredoc(char **input, char *lim);
 
 //input_errors.c
@@ -169,9 +167,9 @@ int			print_token_err(char *error, char metachar, int dup);
 
 //input_utils_2.c
 int			verify_asterisc(int pos);
+int		print_redir_errors(char **query, int i);
 
 //input_utils.c
-int			verify_asterisc(int pos);
 int			check_op(char *operator, char *input, int a);
 int			helper_operator(char *input, int a);
 int			search_quote(char *query);
@@ -240,6 +238,7 @@ void		ft_update_env(t_list *env, char *var_upd, char *updt_info);
 void		exec_env_child(void);
 
 //exit.c
+void		print_exit_error(void);
 void		convert_number_exit(void);
 void		numeric_error(char *str);
 void		exec_exit_child(void);

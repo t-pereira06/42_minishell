@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:06:10 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 16:48:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:01:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,14 @@ void	ft_cd(char *arg, char **query)
 /**
  * Handles the behavior of the `cd` command in a child process.
  *
- * - If only one argument is provided, the function simply frees resources and exits.
+ * - If only one argument is provided, the function simply frees
+ *   resources and exits.
  * - If more than two arguments are provided, it outputs an error message
  *   "too many arguments".
  * - For valid argument scenarios, it handles potential errors using
  *   the `cd_error_handler`.
- * After processing, it frees resources and exits with the appropriate exit status.
+ * After processing, it frees resources and exits with the appropriate
+ * exit status.
  */
 void	exec_cd_child(void)
 {

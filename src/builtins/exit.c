@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/20 15:49:26 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:01:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
+
+void	print_exit_error(void)
+{
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	ft_putstr_fd("minishell: exit: too many arguments\n", STDOUT_FILENO);
+	g_exit_status = 1;
+}
 
 void	convert_number_exit(void)
 {
@@ -62,11 +69,7 @@ void	exec_exit_child(void)
 	else if (ft_dpcount(ms()->query) == 2)
 		convert_number_exit();
 	else
-	{
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		ft_putstr_fd("minishell: exit: too many arguments\n", STDOUT_FILENO);
-		g_exit_status = 1;
-	}
+		print_exit_error();
 	free_child(NULL, 0);
 	exit (g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 10:41:33 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:30:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	exec_command(char **query)
 	char	*command;
 
 	if (!query[0])
-		free_child(query, 1);
+		free_child(NULL, 1);
 	if (do_builtin_child())
 		return ;
 	command = get_command(query[0], 0);
 	if (!command)
-		no_command_err(query[0], query);
+		no_command_err(query[0]);
 	execve(command, query, ft_envcpy(ms()->env));
 }
 
@@ -49,8 +49,6 @@ void	exec_command(char **query)
  */
 void	exec_command_pipe(char *command, int n_pid)
 {
-	//char	**query;
-
 	if (ms()->heredoc == true)
 		wait (0);
 	ms()->pid[n_pid] = fork();

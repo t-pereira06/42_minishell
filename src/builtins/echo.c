@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:04:51 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/26 14:25:49 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 10:59:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	check_echo_option(void)
 	if (!ms()->query[1])
 		return (ft_putstr_fd("\n", STDOUT_FILENO), 0);
 	else if (match_strings(ms()->query[1], "-n") && !ms()->query[2])
-		return 0;
+		return (0);
 	else if (match_strings(ms()->query[1], "-n"))
 		return (ms()->echo_option = true, 1);
-	return 1;
+	return (1);
 }
 
 void	print_echo(int start_pos)
