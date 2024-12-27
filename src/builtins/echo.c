@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 17:04:51 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/27 10:59:31 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:46:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_echo_option(void)
 {
 	if (!ms()->query[1])
-		return (ft_putstr_fd("\n", STDOUT_FILENO), 0);
+		return (ft_putstr_fd("\n", ms()->out_fd), 0);
 	else if (match_strings(ms()->query[1], "-n") && !ms()->query[2])
 		return (0);
 	else if (match_strings(ms()->query[1], "-n"))
@@ -30,13 +30,13 @@ void	print_echo(int start_pos)
 	i = start_pos;
 	while (ms()->query[i])
 	{
-		ft_putstr_fd(ms()->query[i], STDOUT_FILENO);
+		ft_putstr_fd(ms()->query[i], ms()->out_fd);
 		if (ms()->query[i + 1])
-			ft_putchar_fd(' ', STDOUT_FILENO);
+			ft_putchar_fd(' ', ms()->out_fd);
 		i++;
 	}
 	if (!ms()->echo_option)
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr_fd("\n", ms()->out_fd);
 }
 
 void	exec_echo_child(void)

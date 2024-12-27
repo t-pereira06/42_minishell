@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:40:21 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 10:58:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:24:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*get_var_wout_quote(char *str, int pos, char *final_expand)
 	var_str = 0;
 	helper = 0;
 	var_str = get_variable(str, pos + 1, var_len(&str[pos + 1], '$'));
+	if (match_strings(str, "\"$\""))
+		var_str = ft_strdup("$\0");
 	if (final_expand)
 	{
 		helper = ft_strdup(final_expand);

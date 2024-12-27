@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:52:35 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 17:44:33 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:24:58 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	var_len(char *str, char c)
 	len = 0;
 	while (str[++pos])
 	{
-		if (ft_chrcmp(str[pos], c) || ft_chrcmp(str[pos], ' '))
+		if (ft_chrcmp(str[pos], c) || ft_chrcmp(str[pos], ' ')
+			|| ft_chrcmp(str[pos], '\"') || ft_chrcmp(str[pos], '\''))
 			return (len);
 		len++;
 	}
