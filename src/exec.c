@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/20 16:04:39 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 10:41:33 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exec_command(char **query)
  */
 void	exec_command_pipe(char *command, int n_pid)
 {
-	char	**query;
+	//char	**query;
 
 	if (ms()->heredoc == true)
 		wait (0);
@@ -57,11 +57,10 @@ void	exec_command_pipe(char *command, int n_pid)
 	if (!ms()->pid[n_pid])
 	{
 		signal_default();
-		query = check_redir(command, -1, -1);
+		ms()->query = check_redir(command, -1, -1);
 		manage_pipeline_io(n_pid);
-		//still need to do expand
-		check_expand_quotes(query);
-		exec_command(query);
+		check_expand_quotes(ms()->query);
+		exec_command(ms()->query);
 	}
 }
 
@@ -106,7 +105,6 @@ void	single_cmd(char *cmd)
 	{
 		signal_default();
 		ms()->query = check_redir(cmd, -1, -1);
-		//still need to do expand
 		check_expand_quotes(ms()->query);
 		exec_command(ms()->query);
 	}
