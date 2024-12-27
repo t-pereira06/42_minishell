@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/03 16:20:56 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 14:11:36 by tsodre-p         ###   ########.fr       */
+/*   Created: 2024/12/02 20:21:09 by tsodre-p          #+#    #+#             */
+/*   Updated: 2024/12/09 14:16:31 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishell.h"
+#include "../headers/libft.h"
 
-void	exec_pwd_child(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*temp;
+	size_t	i;
 
-	temp = getcwd(0, 0);
-	if (ft_dpcount(ms()->query) != 1 && ft_chrcmp(ms()->query[1][0], '-'))
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		printf("minishell: pwd: no options allowed\n");
-		free(temp);
-		g_exit_status = 2;
-		free_child(NULL, 0);
-		exit(g_exit_status);
+		if (s1[i] != s2[i])
+			return (((unsigned char *)s1)[i] - ((unsigned char *)s2)[i]);
+		i++;
 	}
-	printf("%s\n", temp);
-	free(temp);
-	g_exit_status = 0;
-	free_child(NULL, 0);
-	exit (g_exit_status);
+	return (0);
 }

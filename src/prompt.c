@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:34:32 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/14 14:30:26 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/11/05 12:21:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,17 +69,16 @@ static char	*gd_utils(bool check, char *cwd, char *prompt, int length)
  * Retrieves the current directory and generates the prompt string
  * based on the directory and prompt prefix.
  *
- * @param ms      Pointer to the minishell structure.
  * @param prompt  Prompt string prefix.
  * @return        The generated prompt string.
  */
-static char	*get_directory(t_minishell *ms, char *prompt)
+static char	*get_directory(char *prompt)
 {
 	char	*cwd;
 	size_t	length;
 
 	cwd = getcwd(0, 0);
-	length = ft_strlen(get_env_info(&ms->env, "HOME"));
+	length = ft_strlen(get_env_info(&ms()->env, "HOME"));
 	if (length > ft_strlen(cwd))
 		cwd = gd_utils(false, cwd, prompt, length);
 	else
@@ -90,12 +89,11 @@ static char	*get_directory(t_minishell *ms, char *prompt)
 /**
  * Generates the prompt string based on the user and current directory.
  *
- * @param ms  Pointer to the minishell structure.
  * @param i   Index variable for string traversal.
  * @param j   Index variable for string traversal.
  * @return    The generated prompt string.
  */
-char	*get_prompt(t_minishell *ms, int i, int j)
+char	*get_prompt(int i, int j)
 {
 	char	*prompt;
 	char	*user;
@@ -117,7 +115,7 @@ char	*get_prompt(t_minishell *ms, int i, int j)
 	free(user);
 	prompt = ft_strjoin(temp, ":");
 	free(temp);
-	temp = get_directory(ms, prompt);
+	temp = get_directory(prompt);
 	free(prompt);
 	return (temp);
 }

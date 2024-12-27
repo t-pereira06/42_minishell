@@ -6,56 +6,11 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/15 14:58:16 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:59:23 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
-
-/**
- * Checks for invalid syntax in the input string.
- *
- * @param input The input string to check.
- * @return 0 if the syntax is valid, 1 otherwise.
- */
-int	check_invalid_syntax(char *input)
-{
-	if (input[1] && input[0] == '|' && input[1] != '|')
-		return (error_token(UNTOKEN, '|', 0));
-	else if (input[1] && input[0] == '|' && input[1] == '|')
-		return (error_token(UNTOKEN, '|', 1));
-	if (input[ft_strlen(input) - 1] == '|')
-	{
-		ft_putstr_fd("minishell: no support for pipe prompt\n", STDERR_FILENO);
-		return (1);
-	}
-	else if (ft_strrchr(REDIRECT, input[ft_strlen(input) - 1]))
-		return (error_operator(UNTOKEN, "newline"));
-	return (0);
-}
-
-int	check_operator(char *operator)
-{
-	/*
-		if(check_strcmp(oeprator, "<<"))
-			fine
-		else
-			not good
-
-	if (i + 1 < (int)ft_strlen(input)
-			&& input[i] == '|' && input[i + 1] == '|' && !quote)
-			return (error_operator(NOSUPPORT, "||"));
-		else if (ft_strrchr(NOHANDLE, input[i]) && !quote)
-			return (error_token(NOSUPPORT, input[i], 0));
-		else if (input[i] == '<' && input[i + 1] == '>' && !quote)
-			return (error_operator(NOSUPPORT, "<>"));
-		else if (i + 2 < (int)ft_strlen(input)
-			&& input[i] == '<' && input[i + 1] == '<'
-			&& input[i + 2] == '<' && !quote)
-			return (error_operator(NOSUPPORT, "<<<")); */
-	(void)operator;
-	return (0);
-}
 
 /**
  * Checks for unsupported operators and tokens in the input string.
@@ -63,76 +18,54 @@ int	check_operator(char *operator)
  * @param input The input string to check.
  * @return 0 if all operators and tokens are supported, 1 otherwise.
  */
-int	check_supported_op(char *input)
+int	handle_op(char *input, int i, int j)
 {
-	int		i;
 	char	quote;
-	char	*operator;
-	int		return_val;
 
-	i = -1;
 	quote = 0;
-	operator = NULL;
-	return_val = 0;
 	while (input[++i])
 	{
-		/* make a function to get the part of the input string and compare it
-		to the supported operators */
 		quote = get_quote(input[i], quote);
-		/* if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
-			operator = ft_strjoin("/", operator);
-		else if (ft_strlen(operator) != 0)
+		if (ft_strchr("<>|&;(){}*\\", input[i]) && !quote)
 		{
-			printf("Parsed operator: %s", operator);
-			return_val = check_operator(operator);
-			free(operator);
-			return (return_val);
-		} */
-		if (i + 1 < (int)ft_strlen(input)
-			&& input[i] == '|' && input[i + 1] == '|' && !quote)
-			return (error_operator(NOSUPPORT, "||"));
-		else if (ft_strrchr(NOHANDLE, input[i]) && !quote)
-			return (error_token(NOSUPPORT, input[i], 0));
-		else if (input[i] == '<' && input[i + 1] == '>' && !quote)
-			return (error_operator(NOSUPPORT, "<>"));
-		else if (i + 2 < (int)ft_strlen(input)
-			&& input[i] == '<' && input[i + 1] == '<'
-			&& input[i + 2] == '<' && !quote)
-			return (error_operator(NOSUPPORT, "<<<"));
+			if (j == 0)
+				ms()->operator = ft_strdup("\0");
+			ms()->temp = ft_strdup(ms()->operator);
+			free(ms()->operator);
+			ms()->operator = ft_strcjoin(ms()->temp, input[i]);
+			free(ms()->temp);
+			j = 1;
+		}
+		else if (j == 1 && ft_strlen(ms()->operator) != 0)
+		{
+			if (helper_operator(&input[i + 1], i - 1))
+				return (1);
+			j = 0;
+		}
 	}
+	helper_free_op(j);
 	return (unexpected_tokens(input));
 }
 
 /**
- * Checks if quotes in the given input string are properly balanced.
+ * Checks for unexpected tokens and redirects in the input string.
  *
- * @param input A pointer to the input string to be checked.
- * @return Returns 0 if quotes are balanced or absent, 1 if there is
- * an unclosed quote.
+ * @param input The input string to check.
+ * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
  */
-int	check_quotes(char *input)
+int	unexpected_tokens(char *input)
 {
-	char	quote;
-
-	quote = 0;
-	while (*input && !quote)
-	{
-		if (ft_strrchr("\"\'", *input))
-			quote = *input;
-		input++;
-	}
-	while (*input && quote)
-	{
-		if (*input && *input == quote)
-			quote = 0;
-		input++;
-	}
-	if (*input)
-		return (check_quotes(input));
-	else if (!quote)
-		return (0);
-	else
-		return (1);
+	char	**query;
+	//int		i;
+	//char	quote;
+	//i = -1;
+	//quote = 0;
+	query = splitter(input, ' ');
+	if (unexpected_redirect(query))
+		return (helper_free_dp(query), 1);
+	if (query)
+		helper_free_dp(query);
+	return (0);
 }
 
 /**
@@ -143,6 +76,9 @@ int	check_quotes(char *input)
  */
 int	check_valid_input(char *input)
 {
+	char	*temp;
+	char	*temp2;
+
 	if (!input || input[0] == '\0')
 		return (0);
 	if (check_quotes(input))
@@ -150,9 +86,13 @@ int	check_valid_input(char *input)
 		ft_putstr_fd("minishell: unclosed quotes\n", STDERR_FILENO);
 		return (0);
 	}
-	if (check_supported_op(input))
-		return (0);
-	if (check_invalid_syntax(input))
-		return (0);
+	temp2 = ft_strdup(input);
+	temp = ft_strdup(temp2);
+	free(temp2);
+	temp2 = ft_strcjoin(temp, ' ');
+	free(temp);
+	if (handle_op(temp2, -1, 0))
+		return (free(temp2), 0);
+	free(temp2);
 	return (1);
 }

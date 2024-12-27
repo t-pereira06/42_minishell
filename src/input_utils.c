@@ -6,91 +6,118 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/14 12:28:15 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 11:18:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
 /**
- * Updates the current state of quotation marks in a string.
+ * Checks the validity of an operator in the minishell structure.
  *
- * @param c The current character being evaluated.
- * @param quote The current state of quotation marks.
+ * @param operator A string representing the operator to validate.
  *
- * @return Returns the updated state of quotation marks based on the
- * character evaluation.
+ * @return Returns 0 if the operator is valid and supported.
+ *         If the operator is recognized but unsupported, it returns the result
+ *         of `print_op_err`, indicating an unsupported operator error.
+ *         For unrecognized operators, it returns the result of
+ *         `print_syntax_err`, indicating a syntax error with the
+ *         provided operator.
  */
-char	get_quote(char c, char quote)
+int	check_op(char *operator, char *input, int a)
 {
-	if (ft_strrchr("\"\'", c) && !quote)
-		return (c);
-	else if (ft_strrchr("\"\'", c) && quote == c)
+	int	i;
+	int	j;
+
+	i = -1;
+	j = 0;
+	while (operator[++i])
+		if (ft_strchr("&;(){}\\", operator[i]) || verify_asterisc(a))
+			return (print_op_err(ERR_OP, operator));
+	if (match_strings(operator, "<") || match_strings(operator, ">")
+		|| match_strings(operator, "<<") || match_strings(operator, ">>")
+		|| match_strings(operator, "|"))
+	{
+		while (input[j] == ' ')
+			j++;
+		if ((input[j] == '<' || input[j] == '>') && a != 0)
+			return (print_op_err(ERR_TOKEN, "newline"));
+		else
+			return (0);
+	}
+	else if (match_strings(operator, "||") || match_strings(operator, "<>")
+		|| match_strings(operator, "<<<") || match_strings(operator, ">|")
+		|| match_strings(operator, ">>>"))
+		return (print_op_err(ERR_OP, operator));
+	return (0);
+}
+
+/**
+ * Validates and resets the operator in the minishell structure.
+ *
+ * @param ms Pointer to the minishell structure containing the current operator.
+ *
+ * @return Returns 1 if the operator requires further handling (as indicated
+ * by `check_op`), or 0 if no further handling is required. In all cases,
+ * the function frees `ms->operator` and resets it to an empty string if
+ * not needed.
+ */
+int	helper_operator(char *input, int a)
+{
+	int	return_val;
+
+	return_val = check_op(ms()->operator, input, a);
+	free(ms()->operator);
+	if (return_val == 1)
+		return (1);
+	else
+	{
+		ms()->operator = "\0";
 		return (0);
-	return (quote);
+	}
 }
 
-/**
- * Prints an error message indicating an invalid operator.
- *
- * @param error The error message to be displayed.
- * @param operator The invalid operator causing the error.
- * @return Returns 1.
- */
-int	error_operator(char *error, char *operator)
-{
-	ft_putstr_fd(error, STDERR_FILENO);
-	ft_putstr_fd(operator, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	return (1);
-}
-
-/**
- * Prints an error message indicating an unexpected token.
- *
- * @param error The error message to be displayed.
- * @param metachar The unexpected token causing the error.
- * @param dup Flag indicating whether the token should be duplicated in the
- * error message.
- * @return Returns 1.
- */
-int	error_token(char *error, char metachar, int dup)
-{
-	ft_putstr_fd(error, STDERR_FILENO);
-	ft_putchar_fd(metachar, STDERR_FILENO);
-	if (dup == 1)
-		ft_putchar_fd(metachar, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-	return (1);
-}
-
-/**
- * Checks for unexpected tokens and redirects in the input string.
- *
- * @param input The input string to check.
- * @return 0 if no unexpected tokens or redirects are found, 1 otherwise.
- */
-int	unexpected_tokens(char *input)
+int	search_quote(char *query)
 {
 	int		i;
 	char	quote;
+	//int		j;
+	i = 0;
+	//j = 0;
+	quote = 0;
+	while (query[++i])
+	{
+		quote = get_quote(query[i], quote);
+		if (quote == query[i])
+			return (1);
+	}
+	return (0);
+}
+
+int	check_pipe(char *string, char**query, int a, int quote)
+{
+	int	i;
 
 	i = -1;
-	quote = 0;
-	while (input[++i])
+	if (helper_check_pipe(query, a))
+		return (1);
+	else if (ft_strchr(string, '|') && ft_strlen(string) > 1 && !query[a + 1])
 	{
-		quote = get_quote(input[i], quote);
-		if (input[i] == '|' && input[i + 1] == ' ' && !quote)
+		while (string[++i])
 		{
-			i++;
-			while (input[i] && input[i] == ' ')
-				i++;
-			if (input[i] && input[i] == ' ')
-				return (error_token(UNTOKEN, '|', 0));
+			quote = get_quote(string[i], quote);
+			if (string[i] == '|' && !quote)
+			{
+				if (a == 0)
+				{
+					if ((i == 0 || !string[i - 1])
+						|| (i + 1 >= (int)ft_strlen(string) || !string[i + 1]))
+						return (1);
+				}
+				if (string[i - 1] && ft_strchr("<>", string[i - 1]))
+					return (1);
+			}
 		}
-		else if (ft_strrchr(REDIRECT, input[i]) && !quote)
-			if (unexpected_redirect(input, &i))
-				return (1);
 	}
 	return (0);
 }
@@ -102,25 +129,25 @@ int	unexpected_tokens(char *input)
  * @param i Pointer to the current position in the input string.
  * @return Returns 1 if an error occurs, 0 otherwise.
  */
-int	unexpected_redirect(char *input, int *i)
+int	unexpected_redirect(char **query)
 {
-	if (input[*i] == input[*i + 1])
-		(*i)++;
-	(*i)++;
-	if (input[*i] == ' ')
-		while (input[*i] && input[*i] == ' ')
-			(*i)++;
-	if (input[*i] == '|')
-		return (error_token(UNTOKEN, '|', 0));
-	else if (input[*i - 1] == '>' && input[*i] == '|')
-		return (error_operator(NOSUPPORT, ">|"));
-	else if (ft_strrchr(REDIRECT, input[*i]) && !input[*i])
-		return (error_operator(UNTOKEN, "newline"));
-	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] != input[*i + 1])
-		return (error_token(UNTOKEN, input[*i], 0));
-	else if (ft_strrchr(REDIRECT, input[*i]) && input[*i] == input[*i + 1])
-		return (error_token(UNTOKEN, input[*i + 1], 1));
+	int	i;
+	int	return_code;
+
+	i = -1;
+	return_code = 0;
+	while (query[++i])
+	{
+		if (ft_strchr(query[i], '<') || ft_strchr(query[i], '>')
+			|| ft_strchr(query[i], '|'))
+		{
+			if (ft_strchr(query[i], '|'))
+				if (check_pipe(query[i], query, i, 0))
+					return (print_token_err(ERR_TOKEN, '|', 0));
+			return_code = print_redir_errors(query, i);
+			if (return_code != 0)
+				return (return_code);
+		}
+	}
 	return (0);
-	/* em vez disto fazer apenas, se o operador for diferente dos operadores
-	suportados, mandar so a mensagem a dizer que nao e suportado */
 }

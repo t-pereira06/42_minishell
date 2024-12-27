@@ -6,35 +6,105 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/16 13:32:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/27 14:44:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
-void	exec_command(t_minishell *ms, char **query)
+/**
+ * Executes a command by handling builtins and invoking the external command.
+ *
+ * This function first checks if the command is a builtin and executes it if so.
+ * If not, it attempts to locate the command and execute it using `execve`.
+ * If the command cannot be found, an error is raised.
+ *
+ * @param query The parsed command arguments, where `query[0]` is the
+ * command to execute.
+ */
+void	exec_command(char **query)
 {
 	char	*command;
 
 	if (!query[0])
-			free_child(ms, query, 1);
-	if (do_builtin(ms, query))
+		free_child(NULL, 1);
+	if (do_builtin_child())
 		return ;
-	command = get_command(query[0], ms, 0);
-	//printf("%s\n", query[0]);
-	execve(command, query, ft_envcpy(ms->env));
+	command = get_command(query[0], 0);
+	if (!command)
+		no_command_err(query[0]);
+	execve(command, query, ft_envcpy(ms()->env));
 }
 
-void	single_cmd(t_minishell *ms, char* cmd)
+/**
+ * Executes a command in a pipeline after handling redirections and I/O.
+ *
+ * This function forks a process to execute a command in the pipeline.
+ * It handles redirections, manages input/output redirections for the
+ * pipeline, and expands variables/quotes before executing the command.
+ *
+ * @param command The command to be executed in the pipeline.
+ * @param n_pid The index of the current process in the pipeline,
+ * used to manage I/O.
+ */
+void	exec_command_pipe(char *command, int n_pid)
 {
-	char	**query;
-
-	ms->pid[0] = fork();
-	if (!ms->pid[0])
+	if (ms()->heredoc == true)
+		wait (0);
+	ms()->pid[n_pid] = fork();
+	if (!ms()->pid[n_pid])
 	{
 		signal_default();
-		query = check_redir(ms, cmd);
-		exec_command(ms, query);
+		ms()->query = check_redir(command, -1, -1);
+		manage_pipeline_io(n_pid);
+		check_expand_quotes(ms()->query);
+		exec_command(ms()->query);
+	}
+}
+
+/**
+ * Executes commands in a pipeline.
+ *
+ * This function iterates over each command in the pipeline,
+ * adds necessary whitespace, executes the command using `exec_command_pipe`,
+ * and frees allocated memory.
+ * It also ensures that the pipe file descriptors are closed after execution.
+ *
+ */
+void	exec_pipes(void)
+{
+	char	*command;
+	int		i;
+
+	i = -1;
+	while (ms()->args[++i])
+	{
+		command = add_whitespaces(ms()->args[i]);
+		//check_heredoc(ms(), i);
+		exec_command_pipe(command, i);
+		free(command);
+	}
+	close_pipes_fd(0);
+}
+
+/**
+ * Executes a single command by forking a new process.
+ *
+ * This function forks the current process and, in the child process,
+ * processes the command by checking for redirections, expanding variables
+ * and executing the command.
+ *
+ * @param cmd The command string to be executed.
+ */
+void	single_cmd(char *cmd)
+{
+	ms()->pid[0] = fork();
+	if (!ms()->pid[0])
+	{
+		signal_default();
+		ms()->query = check_redir(cmd, -1, -1);
+		check_expand_quotes(ms()->query);
+		exec_command(ms()->query);
 	}
 }
 
@@ -44,16 +114,28 @@ void	single_cmd(t_minishell *ms, char* cmd)
  *
  * @param ms The `t_minishell` structure containing relevant data.
  */
-void	execute(t_minishell *ms)
+void	execute(void)
 {
 	char	*cmd;
 
-	cmd = add_whitespaces(ms->args[0]);
-	//ms->query = handle_query(ms, cmd);
-	single_cmd(ms, cmd);
-	free(cmd);
-	//do_builtin(ms);
-	//ft_free_split(ms->query);
-	get_exit_status(ms);
-	free_program(ms, 0);
+	if (ms()->n_pipe != 0)
+	{
+		ms()->pipe_fd = ft_calloc(ms()->n_pipe * 2, sizeof(int));
+		if (!ms()->pipe_fd)
+		{
+			ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
+			free_child(NULL, 1);
+		}
+		do_pipex();
+		exec_pipes();
+	}
+	else
+	{
+		cmd = add_whitespaces(ms()->args[0]);
+		single_cmd(cmd);
+		free(cmd);
+		exec_parent_builtins();
+	}
+	get_exit_status();
+	free_program(0);
 }

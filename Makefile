@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/10/16 13:33:33 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/27 14:49:17 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,23 +20,43 @@ LIBFTDIR = ./libft/
 HEADERDIR = ./headers/
 
 SRC =	src/main.c \
+		src/ms.c \
 		src/exec_utils.c \
 		src/check_builtins.c \
+		src/exec_redirects_utils.c \
+		src/exec_redirects.c \
 		src/exec.c \
+		src/expand_args_utils.c \
+		src/expand_args_2.c \
+		src/expand_args.c \
 		src/free.c \
 		src/get_env.c \
+		src/get_export.c \
+		src/heredoc_utils.c \
+		src/heredoc.c \
 		src/input_errors.c \
 		src/input_handling.c \
+		src/input_helpers.c \
+		src/input_prterr.c \
+		src/input_utils_2.c \
 		src/input_utils.c \
 		src/parsing.c \
+		src/pipes.c \
 		src/prompt.c \
+		src/quotes.c \
 		src/redirects.c \
 		src/signals.c \
 		src/splitter.c \
 		src/utils.c \
+		src/builtins/cd.c \
 		src/builtins/echo.c \
 		src/builtins/env.c \
-		src/builtins/cd.c \
+		src/builtins/exit_utils.c \
+		src/builtins/exit.c \
+		src/builtins/export_utils.c \
+		src/builtins/export.c \
+		src/builtins/pwd.c \
+		src/builtins/unset.c \
 
 #----------COMMANDS----------#
 
@@ -75,7 +95,8 @@ $(NAME):	$(OBJ) $(LIBFT)
 
 clean:
 			@$(RM) $(OBJ:%=bin/%) $(OBJ_CHECKER)
-			@rm -r bin/src
+			@if [ -d "bin/src" ]; then rm -rf bin/src; fi
+			@if [ -d "bin" ]; then rm -rf bin; fi
 			@cd $(LIBFTDIR) && $(MAKE) -s clean
 
 fclean:		clean

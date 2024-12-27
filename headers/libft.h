@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:20:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/10/02 11:20:27 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:18:01 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdbool.h>
 
 /*-----------------------CONVERSIONS-----------------------*/
+
 int			ft_atoi(const char *str);
 long		ft_atol(const char *str);
 long long	ft_atoll(const char *str);
@@ -31,6 +32,7 @@ int			ft_toupper(int c);
 char		*ft_utoa(unsigned long long n);
 
 /*-------------------------NUMBERS-------------------------*/
+
 int			ft_nbrlen(long long nbr);
 
 /*---------------------------MEM---------------------------*/
@@ -55,22 +57,28 @@ int			ft_isnumeric(const char *str);
 int			ft_getlength(unsigned long long n, int base);
 
 /*-------------------------STRINGS-------------------------*/
+
 char		**ft_split(char const *s, char c);
 void		ft_free_split(char **split);
 char		*ft_strchr(const char *str, int c);
 char		*ft_strdup(const char *str);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strcjoin(char const *s1, char c);
 size_t		ft_strlcat(char *dest, const char *src, size_t size);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+int			ft_strcmp(char *s1, char *s2);
+int			ft_chrcmp(char first, char second);
 int			ft_strncmp(char *s1, char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t n);
 char		*ft_strrchr(const char *str, int c);
 char		*ft_strtrim(char const *str, char const *set);
 char		*ft_substr(char const *str, unsigned int start, size_t len);
 int			ft_wordcount(const char *str, char c);
+int			ft_dpcount(char **dp);
+void		ft_swap(char **s1, char **s2);
 
 /*---------------------------PUT---------------------------*/
 

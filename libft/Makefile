@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 08:46:18 by pealexan          #+#    #+#              #
-#    Updated: 2023/06/20 10:53:38 by marvin           ###   ########.fr        #
+#    Updated: 2024/12/26 18:17:42 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,13 @@ SRC =	ft_abs.c \
 	ft_strdup.c \
 	ft_striteri.c \
 	ft_strjoin.c \
+	ft_strcjoin.c \
 	ft_strlcat.c \
 	ft_strlcpy.c \
 	ft_strlen.c \
 	ft_strmapi.c \
+	ft_strcmp.c \
+	ft_chrcmp.c \
 	ft_strncmp.c \
 	ft_strnstr.c \
 	ft_strrchr.c \
@@ -89,7 +92,9 @@ SRC =	ft_abs.c \
 	ft_putstr.c \
 	ft_putunsignednbr.c \
 	ft_wordcount.c \
+	ft_dpcount.c \
 	ft_free_split.c \
+	ft_swap.c \
 
 #--------COMMANDS--------#
 CC = cc
