@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:36:51 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:56:37 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,21 @@ char	*check_variable(char *str, int pos, char *final_expand)
 void	check_expand_quotes(char **query)
 {
 	int		i;
+	int		count_before;
 	char	*temp;
 
 	i = 0;
+	count_before = 0;
 	while (query[i])
 	{
 		if (ft_strrchr(query[i], '$'))
 		{
+			count_before = ft_dpcount(query);
 			temp = ft_strdup(query[i]);
 			free(query[i]);
 			query[i] = check_variable(temp, -1, 0);
+			if (!query[i])
+				remove_null_var(query, count_before, -1);
 		}
 		i++;
 	}

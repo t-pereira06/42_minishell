@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:40:21 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:24:51 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:57:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,32 @@ char	*get_ohter_characters(char *str, int pos, char *final_expand)
 		free(temp);
 	}
 	return (final_expand);
+}
+
+void	remove_null_var(char **query, int count_before, int j)
+{
+	int		a;
+	char	**temp_query;
+
+	a = 0;
+	temp_query = ft_dpdup(query, count_before);
+	while (++j < count_before)
+	{
+		free(query[j]);
+		query[j] = NULL;
+	}
+	j = 0;
+	while (j < count_before)
+	{
+		if (temp_query[j] != NULL)
+		{
+			query[a] = ft_strdup(temp_query[j]);
+			a++;
+		}
+		j++;
+	}
+	j = -1;
+	while (++j < count_before)
+		free(temp_query[j]);
+	free(temp_query);
 }

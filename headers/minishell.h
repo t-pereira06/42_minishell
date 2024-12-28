@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:56:42 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:57:03 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void		execute(void);
 char		*get_var_wout_quote(char *str, int pos, char *final_expand);
 char		*get_var_w_quote(char *str, int pos, char *final_expand);
 char		*get_ohter_characters(char *str, int pos, char *final_expand);
+void		remove_null_var(char **query, int count_before, int j);
 
 //expand_args_2.c
 int			var_len(char *str, char c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 14:44:43 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:13:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	exec_command(char **query)
 	char	*command;
 
 	if (!query[0])
-		free_child(NULL, 1);
+	{
+		free_child(NULL, 0);
+		exit (0);
+	}
 	if (do_builtin_child())
 		return ;
 	command = get_command(query[0], 0);

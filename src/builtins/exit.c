@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/27 12:20:09 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:25:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ void	exec_exit_child(void)
 
 void	exec_exit(void)
 {
-	int		count;
 	int		child_status;
 
-	count = ft_dpcount(ms()->query);
 	wait(&child_status);
 	if (WIFEXITED(child_status))
 		g_exit_status = WEXITSTATUS(child_status);

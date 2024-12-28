@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:34:32 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/11/05 12:21:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 16:37:39 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ static char	*gd_utils(bool check, char *cwd, char *prompt, int length)
 	}
 }
 
+char	*prompt_wout_home(char *cwd, char *prompt)
+{
+	char	*temp;
+	
+	temp = ft_strdup(cwd);
+	free(cwd);
+	cwd = ft_strjoin(temp, "$ ");
+	free(temp);
+	temp = ft_strjoin(prompt, cwd);
+	free(cwd);
+	return (temp);
+}
+
 /**
  * Retrieves the current directory and generates the prompt string
  * based on the directory and prompt prefix.
@@ -78,6 +91,8 @@ static char	*get_directory(char *prompt)
 	size_t	length;
 
 	cwd = getcwd(0, 0);
+	if (get_env_info(&ms()->env, "HOME") == NULL)
+		return (prompt_wout_home(cwd, prompt));
 	length = ft_strlen(get_env_info(&ms()->env, "HOME"));
 	if (length > ft_strlen(cwd))
 		cwd = gd_utils(false, cwd, prompt, length);

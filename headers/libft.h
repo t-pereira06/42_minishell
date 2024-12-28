@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:20:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/26 18:18:01 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/28 18:59:06 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,11 @@ char		*ft_strrchr(const char *str, int c);
 char		*ft_strtrim(char const *str, char const *set);
 char		*ft_substr(char const *str, unsigned int start, size_t len);
 int			ft_wordcount(const char *str, char c);
-int			ft_dpcount(char **dp);
 void		ft_swap(char **s1, char **s2);
+
+/*---------------------------ARRAY OF STRINGS---------------------------*/
+int			ft_dpcount(char **dp);
+char		**ft_dpdup(char **dp, int size);
 
 /*---------------------------PUT---------------------------*/
 
