@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/29 01:15:59 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:27:45 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	check_expand_quotes(char **query)
 			free(query[i]);
 			query[i] = check_variable(temp, -1, 0);
 			if (!query[i])
-					remove_null_var(query, count_before, -1);
+			{
+				remove_null_var(query, count_before, -1);
+				i--;
+			}
 		}
 		i++;
 	}
