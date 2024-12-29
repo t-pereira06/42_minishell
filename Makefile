@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/27 14:49:17 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/29 01:04:48 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ HEADERDIR = ./headers/
 
 SRC =	src/main.c \
 		src/ms.c \
+		src/exec_utils_2.c \
 		src/exec_utils.c \
 		src/check_builtins.c \
 		src/exec_redirects_utils.c \

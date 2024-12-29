@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/28 18:57:03 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:05:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <limits.h>
+# include <dirent.h>
 
 # define REDIRECT "><"
 # define NOHANDLE "&;(){}*\\"
@@ -94,6 +95,10 @@ int			do_input(char **query);
 int			do_output(char **query);
 int			do_heredoc(char **query, char **next);
 int			do_append(char **query);
+
+//exec_utils_2.c
+void		check_dir(char *str);
+int			check_if_dir_file(char *str);
 
 //exec_utils.c
 void		get_exit_status(void);
