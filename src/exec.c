@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 15:49:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:46:19 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	exec_command_pipe(char *command, int n_pid)
 		signal_default();
 		ms()->query = check_redir(command, -1, -1);
 		manage_pipeline_io(n_pid);
-		//check_expand_quotes(ms()->query);
 		exec_command(ms()->query);
 	}
 }
@@ -108,7 +107,6 @@ void	single_cmd(char *cmd)
 	{
 		signal_default();
 		ms()->query = check_redir(cmd, -1, -1);
-		//check_expand_quotes(ms()->query);
 		exec_command(ms()->query);
 	}
 }

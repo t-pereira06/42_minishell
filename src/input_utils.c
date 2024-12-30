@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:52:51 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:51:14 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_op(char *operator, char *input, int a)
 	{
 		while (input[j] == ' ')
 			j++;
-		if ((input[j] == '<') && a != 0)
+		if ((input[j] == '<' || input[j] == '>') && a == 0)
 			return (print_op_err(ERR_TOKEN, "newline"));
 		else
 			return (0);
@@ -140,8 +140,9 @@ int	check_pipe(char *string, char**query, int a, int quote)
 						|| (i + 1 >= (int)ft_strlen(string) || !string[i + 1]))
 						return (1);
 				}
-				if (string[i - 1] && ft_strchr("<>", string[i - 1]))
-					return (1);
+				if (i > 0)
+					if (string[i - 1] && ft_strchr("<>", string[i - 1]))
+						return (1);
 			}
 		}
 	}
