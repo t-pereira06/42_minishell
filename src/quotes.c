@@ -6,12 +6,22 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:38:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 15:42:23 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:35:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+/**
+ * Calculates the length of a string excluding any quotes.
+ *
+ * This function iterates through the string and counts the number of
+ * characters, skipping over quoted characters, effectively excluding content
+ * inside quotes.
+ *
+ * @param arg The input string.
+ * @return The length of the string without quotes.
+ */
 int	len_quoteless(char *arg)
 {
 	int		i;
@@ -38,6 +48,16 @@ int	len_quoteless(char *arg)
 	return (len);
 }
 
+/**
+ * Checks for and toggles quotes in the string.
+ *
+ * This function identifies whether the current character in the string opens
+ * or closes a quote and updates the provided `quote` variable accordingly.
+ *
+ * @param arg The input string.
+ * @param i The current index in the string.
+ * @param quote The current quote type (single or double).
+ */
 void	find_quote(char *arg, int *i, char *quote)
 {
 	if (ft_strchr("\"\'", arg[*i]) && !*quote)
@@ -46,6 +66,16 @@ void	find_quote(char *arg, int *i, char *quote)
 		*quote = 0;
 }
 
+/**
+ * Removes quotes from a string.
+ *
+ * This function removes both single and double quotes from the string,
+ * preserving the content inside the quotes. It returns a new string
+ * without any quotes.
+ *
+ * @param arg The input string with quotes.
+ * @return A new string with quotes removed.
+ */
 char	*remove_quotes(char *arg)
 {
 	char	*res;

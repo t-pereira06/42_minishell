@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:17:47 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:34:27 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:31:29 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,6 @@
  * the exit status between different components of the minishell program.
  */
 int	g_exit_status = 0;
-
-/**
- * Frees the memory allocated for the minishell structure.
- *
- * @param ms The minishell structure to free.
- */
-void	free_all(void)
-{
-	if (ms()->env)
-		ft_free_lst(ms()->env);
-	if (ms()->export)
-		ft_free_lst(ms()->export);
-	if (ms()->input)
-		free(ms()->input);
-}
 
 int	main(int ac, char **av, char **env)
 {

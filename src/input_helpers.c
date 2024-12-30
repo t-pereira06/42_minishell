@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_helpers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 15:39:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:05:04 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:27:54 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ void	helper_free_op(int j)
 	}
 }
 
+/**
+ * Frees the memory allocated for a double pointer (array of strings).
+ *
+ * This function takes a double pointer (e.g., an array of strings),
+ * iterates through each string in the array, frees the memory for each string,
+ * and then frees the array itself.
+ * This function ensures that all memory used by the array and its
+ * elements is properly freed.
+ *
+ * @param dp A double pointer (array of strings) that needs to be freed.
+ */
+
 void	helper_free_dp(char **dp)
 {
 	int	i;
@@ -43,6 +55,16 @@ void	helper_free_dp(char **dp)
 	free(dp);
 }
 
+/**
+ * Checks for invalid pipe usage in the command query.
+ *
+ * This function ensures that a pipe (`|`) is not incorrectly placed
+ * (e.g., at the start, end, or after redirection symbols).
+ *
+ * @param query The array of command arguments.
+ * @param a The current index in the array.
+ * @return 1 if invalid pipe usage is found, otherwise 0.
+ */
 int	helper_check_pipe(char **query, int a)
 {
 	if (match_strings(query[0], "|")

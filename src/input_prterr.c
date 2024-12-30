@@ -12,6 +12,16 @@
 
 #include "../headers/minishell.h"
 
+/**
+ * Prints a syntax error message for an invalid character.
+ *
+ * This function outputs an error message indicating a syntax issue with
+ * a specific character in the command string.
+ *
+ * @param error The error message prefix.
+ * @param str The string containing the invalid character.
+ * @return 1, indicating an error has occurred.
+ */
 int	print_syntax_err(char *error, char *str)
 {
 	ft_putstr_fd(error, STDERR_FILENO);

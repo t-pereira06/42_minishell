@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:29:44 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/10 15:53:10 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:15:37 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+/**
+ * Checks if a character is alphanumeric or an underscore.
+ *
+ * @param c The character to check.
+ * @return 1 if the character is alphabetic, numeric, or an underscore,
+ *         otherwise 0.
+ */
 int	ft_isalnum_extra(char c)
 {
 	if (ft_isalpha(c) || ft_isdigit(c) || c == '_')
@@ -19,6 +26,11 @@ int	ft_isalnum_extra(char c)
 	return (0);
 }
 
+/**
+ * Prints an error message for an invalid identifier in the `export` command.
+ *
+ * @param str_query The invalid identifier to include in the error message.
+ */
 void	export_err(char *str_query)
 {
 	ft_putstr_fd("minishell: export: '", STDERR_FILENO);
@@ -26,6 +38,13 @@ void	export_err(char *str_query)
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
+/**
+ * Validates the syntax of the `export` command arguments.
+ *
+ * Ensures each argument starts with an alphabetic character or underscore,
+ * and contains only alphanumeric characters or underscores before an equal sign.
+ * Prints an error and returns 1 if an invalid identifier is found, 0 otherwise.
+ */
 int	valid_syntax(void)
 {
 	int	i;

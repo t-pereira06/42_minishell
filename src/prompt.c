@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:34:32 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/28 16:37:39 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:34:38 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,20 @@ static char	*gd_utils(bool check, char *cwd, char *prompt, int length)
 	}
 }
 
+/**
+ * Joins the prompt when there variable $HOME does not exist.
+ *
+ * This function modifies the prompt when user's home directory does
+ * not exist, and then appends the modified directory path to the prompt.
+ *
+ * @param cwd The current working directory.
+ * @param prompt The current prompt string.
+ * @return The updated prompt string with the current directory appended.
+ */
 char	*prompt_wout_home(char *cwd, char *prompt)
 {
 	char	*temp;
-	
+
 	temp = ft_strdup(cwd);
 	free(cwd);
 	cwd = ft_strjoin(temp, "$ ");

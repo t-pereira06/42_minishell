@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:38:56 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+/**
+ * Sets up custom signal handlers for heredoc operations.
+ */
 void	sigint_heredoc(void)
 {
 	signal(SIGINT, heredoc_sigint);
@@ -51,6 +54,9 @@ void	handler_sigint(int sig)
 	}
 }
 
+/**
+ * Sets up custom signal handlers for the minishell program.
+ */
 void	signal_handling(void)
 {
 	signal(SIGINT, handler);

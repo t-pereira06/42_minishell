@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 13:53:27 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/10 15:30:30 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:16:26 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+/**
+ * Frees the memory allocated for an environment variable node.
+ *
+ * @param lst The list node containing the environment variable to free.
+ */
 void	free_node(t_list *lst)
 {
 	free(((t_env *)(lst->content))->name);
@@ -19,6 +24,15 @@ void	free_node(t_list *lst)
 	free((t_env *)lst->content);
 }
 
+/**
+ * Removes a specified environment variable from the list.
+ *
+ * Searches for the variable `unset_var` in the list and removes it if found,
+ * freeing the associated memory.
+ *
+ * @param lst The list from which to remove the variable.
+ * @param unset_var The name of the environment variable to remove.
+ */
 void	do_unset(t_list *lst, char *unset_var)
 {
 	t_list	*temp;
@@ -47,6 +61,12 @@ void	do_unset(t_list *lst, char *unset_var)
 	}
 }
 
+/**
+ * Executes the `unset` command in a child process.
+ *
+ * Checks for invalid options, handles the removal of environment variables,
+ * and exits with the appropriate status.
+ */
 void	exec_unset_child(void)
 {
 	if (ft_dpcount(ms()->query) == 1)
@@ -71,6 +91,12 @@ void	exec_unset_child(void)
 	}
 }
 
+/**
+ * Executes the `unset` command in the parent process.
+ *
+ * Waits for the child process, updates the exit status, and removes environment
+ * variables from both the `env` and `export` lists if specified.
+ */
 void	exec_unset(void)
 {
 	int		count;

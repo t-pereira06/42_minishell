@@ -6,12 +6,19 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 17:10:19 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/28 16:25:51 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:15:08 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+/**
+ * Executes the `exit` command in a child process.
+ *
+ * Handles cases with too many arguments, non-numeric arguments, or a
+ * single numeric argument. Validates input, sets the appropriate exit
+ * status, frees resources, and terminates the process.
+ */
 void	exec_exit_child(void)
 {
 	int	i;
@@ -33,6 +40,12 @@ void	exec_exit_child(void)
 	exit (g_exit_status);
 }
 
+/**
+ * Executes the `exit` command in the parent process.
+ *
+ * Waits for the child process to terminate, retrieves its exit status,
+ * frees resources, and exits the program with the appropriate exit status.
+ */
 void	exec_exit(void)
 {
 	int		child_status;

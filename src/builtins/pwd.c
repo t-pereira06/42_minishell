@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 16:20:56 by davioliv          #+#    #+#             */
-/*   Updated: 2024/12/16 14:11:36 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:15:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishell.h"
 
+/**
+ * Executes the `pwd` command in a child process.
+ *
+ * Checks if invalid options are provided. If valid, prints the current working
+ * directory. Frees resources and exits with the appropriate exit status.
+ */
 void	exec_pwd_child(void)
 {
 	char	*temp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:23:19 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:18:54 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:52:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_op(char *operator, char *input, int a)
 	{
 		while (input[j] == ' ')
 			j++;
-		if ((input[j] == '<' || input[j] == '>') && a != 0)
+		if ((input[j] == '<') && a != 0)
 			return (print_op_err(ERR_TOKEN, "newline"));
 		else
 			return (0);
@@ -77,13 +77,21 @@ int	helper_operator(char *input, int a)
 	}
 }
 
+/**
+ * Checks for unmatched quotes in the query string.
+ *
+ * This function scans through the query string and verifies whether
+ * there are any unmatched quotes (single or double quotes) present.
+ *
+ * @param query The query string to be checked.
+ * @return 1 if an unmatched quote is found; otherwise, 0.
+ */
 int	search_quote(char *query)
 {
 	int		i;
 	char	quote;
-	//int		j;
+
 	i = 0;
-	//j = 0;
 	quote = 0;
 	while (query[++i])
 	{
@@ -94,6 +102,24 @@ int	search_quote(char *query)
 	return (0);
 }
 
+/**
+ * Validates pipe syntax and checks for errors in the query string.
+ *
+ * This function checks if there are any improper usages of the pipe(`|`) symbol,
+ * such as:
+ *
+ * - Pipe at the start or end of the string.
+ *
+ * - Missing arguments after a pipe.
+ *
+ * - Pipe being placed directly after a redirection operator.
+ *
+ * @param string The string to be checked for pipe syntax.
+ * @param query The array of query arguments.
+ * @param a The current index in the query array.
+ * @param quote A variable tracking the current quote state.
+ * @return 1 if an error is found; otherwise, 0.
+ */
 int	check_pipe(char *string, char**query, int a, int quote)
 {
 	int	i;

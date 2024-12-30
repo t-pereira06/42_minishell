@@ -6,12 +6,23 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 14:32:14 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:21:34 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+/**
+ * Joins two strings (`final_str` and `final_expand`) into one final string.
+ *
+ * This function first checks if either of the input strings is non-`NULL` and
+ * appropriately joins them. It ensures memory management by freeing the
+ * original strings when no longer needed.
+ *
+ * @param final_str The first string to join.
+ * @param final_expand The second string to join.
+ * @return A new string containing the concatenated result.
+ */
 char	*join_final_strings(char *final_str, char *final_expand)
 {
 	char	*helper;
@@ -33,6 +44,16 @@ char	*join_final_strings(char *final_str, char *final_expand)
 	return (final_str);
 }
 
+/**
+ * Extracts a quoted string from the given position in the input string.
+ *
+ * This function finds the portion of the string enclosed in single quotes (`'`)
+ * starting from the given position, and returns it as a new substring.
+ *
+ * @param str The string containing the quoted text.
+ * @param pos The position in the string where the quote begins.
+ * @return A substring containing the quoted string.
+ */
 char	*get_quote_string(char *str, int pos)
 {
 	char	*temp;
@@ -44,6 +65,18 @@ char	*get_quote_string(char *str, int pos)
 	return (temp);
 }
 
+/**
+ * Processes a string to expand any variables and handle quotes.
+ *
+ * This function scans the input string for variables (denoted by `$`) and expands
+ * them. It handles cases where variables are within quotes and builds the final
+ * expanded string (`final_expand`). It returns the fully expanded string.
+ *
+ * @param str The string to process for variables.
+ * @param pos The current position within the string.
+ * @param final_expand The previously expanded string, or `NULL`.
+ * @return The updated, fully expanded string.
+ */
 char	*check_variable(char *str, int pos, char *final_expand)
 {
 	char	quote;
@@ -70,6 +103,15 @@ char	*check_variable(char *str, int pos, char *final_expand)
 	return (final_expand);
 }
 
+/**
+ * Expands variables and removes quotes from the query strings.
+ *
+ * This function processes each string in the `query` array. It handles variable
+ * expansion (for `$`) and removes quotes (both single and double quotes) from
+ * the strings. It updates the `query` array in place.
+ *
+ * @param query The array of query strings to modify.
+ */
 void	check_expand_quotes(char **query)
 {
 	int		i;

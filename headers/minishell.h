@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 15:48:00 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:31:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		check_expand_quotes(char **query);
 //free.c
 void		ft_free_lst(t_list *lst);
 void		free_child_heredoc(void);
+void		free_all(void);
 
 //get_env.c
 t_list		*init_env(char **env);
