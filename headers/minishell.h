@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/29 01:05:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:48:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <limits.h>
 # include <dirent.h>
+# include <errno.h>
 
 # define REDIRECT "><"
 # define NOHANDLE "&;(){}*\\"
@@ -228,7 +229,7 @@ char		**splitter(char *s, char c);
 
 //utils.c
 char		*get_env_info(t_list **env, char *name);
-char		*add_whitespaces(char *str);
+char		*add_whitespaces(char *str, int i, int j);
 size_t		ft_cmdlen(char *str);
 int			match_strings(char *s1, char *s2);
 

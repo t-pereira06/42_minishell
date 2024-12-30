@@ -6,7 +6,7 @@
 #    By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/02 11:24:16 by tsodre-p          #+#    #+#              #
-#    Updated: 2024/12/29 01:04:48 by tsodre-p         ###   ########.fr        #
+#    Updated: 2024/12/30 15:49:06 by tsodre-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC =	src/main.c \
 		src/input_prterr.c \
 		src/input_utils_2.c \
 		src/input_utils.c \
-		src/parsing.c \
 		src/pipes.c \
 		src/prompt.c \
 		src/quotes.c \

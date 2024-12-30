@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/28 17:34:03 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 14:46:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	do_builtin_child(void)
 {
+	//ms()->temp_query = splitter(input, ' ');
+	//free(input);
+	//check_expand_quotes(ms()->temp_query);
 	if (match_strings("cd", ms()->query[0]))
 		exec_cd_child();
 	else if (match_strings("export", ms()->query[0]))

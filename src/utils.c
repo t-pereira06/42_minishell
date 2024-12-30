@@ -50,15 +50,11 @@ char	*get_env_info(t_list **env, char *name)
  * @return Returns a new string with whitespaces added around
  * redirection characters.
  */
-char	*add_whitespaces(char *str)
+char	*add_whitespaces(char *str, int i, int j)
 {
 	char	*res;
 	char	quote;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	quote = 0;
 	res = ft_calloc(ft_cmdlen(str) + 1, sizeof(char));
 	while (str[i])
@@ -71,6 +67,7 @@ char	*add_whitespaces(char *str)
 			if (str[i] == str[i - 1])
 				res[j++] = str[i++];
 			res[j++] = ' ';
+			quote = get_quote(str[i], quote);
 		}
 		res[j++] = str[i++];
 	}

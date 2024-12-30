@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/20 16:02:57 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:00:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	**check_redir(char *input, int i, int err)
 {
 	ms()->temp_query = splitter(input, ' ');
 	free(input);
+	check_expand_quotes(ms()->temp_query);
 	while (ms()->temp_query[++i])
 	{
 		if (match_strings(ms()->temp_query[i], "<"))

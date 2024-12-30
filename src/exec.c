@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/29 01:18:47 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:49:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	exec_command_pipe(char *command, int n_pid)
 		signal_default();
 		ms()->query = check_redir(command, -1, -1);
 		manage_pipeline_io(n_pid);
-		check_expand_quotes(ms()->query);
+		//check_expand_quotes(ms()->query);
 		exec_command(ms()->query);
 	}
 }
@@ -84,7 +84,7 @@ void	exec_pipes(void)
 	i = -1;
 	while (ms()->args[++i])
 	{
-		command = add_whitespaces(ms()->args[i]);
+		command = add_whitespaces(ms()->args[i], 0, 0);
 		//check_heredoc(ms(), i);
 		exec_command_pipe(command, i);
 		free(command);
@@ -108,7 +108,7 @@ void	single_cmd(char *cmd)
 	{
 		signal_default();
 		ms()->query = check_redir(cmd, -1, -1);
-		check_expand_quotes(ms()->query);
+		//check_expand_quotes(ms()->query);
 		exec_command(ms()->query);
 	}
 }
@@ -136,7 +136,7 @@ void	execute(void)
 	}
 	else
 	{
-		cmd = add_whitespaces(ms()->args[0]);
+		cmd = add_whitespaces(ms()->args[0], 0, 0);
 		single_cmd(cmd);
 		free(cmd);
 		if (ms()->query)
