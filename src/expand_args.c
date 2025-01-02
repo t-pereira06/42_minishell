@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:21:34 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 16:06:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	check_expand_quotes(char **query)
 	while (query[i])
 	{
 		if (ft_strrchr(query[i], '\'') || ft_strrchr(query[i], '\"'))
-			query[i] = remove_quotes(query[i]);
+			query[i] = trim_quotes(query[i]);
 		i++;
 	}
 }

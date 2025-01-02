@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 12:20:50 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:25:48 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 17:58:39 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	check_valid_input(char *input)
 
 	if (!input || input[0] == '\0')
 		return (0);
-	if (check_quotes(input))
+	if (are_quotes_balanced(input))
 	{
 		ft_putstr_fd("minishell: unclosed quotes\n", STDERR_FILENO);
 		return (0);

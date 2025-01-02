@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:38:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:35:49 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:01:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	find_quote(char *arg, int *i, char *quote)
  * @param arg The input string with quotes.
  * @return A new string with quotes removed.
  */
-char	*remove_quotes(char *arg)
+char	*trim_quotes(char *arg)
 {
 	char	*res;
 	char	quote;
@@ -105,35 +105,32 @@ char	*remove_quotes(char *arg)
 }
 
 /**
- * Checks if quotes in the given input string are properly balanced.
+ * Checks if the quotes in the given input string are properly paired.
+ *
+ * This function scans the input string and ensures that each opening quote
+ * (either single or double) has a corresponding closing quote.
+ *
+ * It returns 0  if the quotes are balanced or if there are no quotes,
+ * and 1 if there is an unclosed quote at the end of the string.
  *
  * @param input A pointer to the input string to be checked.
  * @return Returns 0 if quotes are balanced or absent, 1 if there is
  * an unclosed quote.
  */
-int	check_quotes(char *input)
+int	are_quotes_balanced(char *input)
 {
 	char	quote;
 
 	quote = 0;
-	while (*input && !quote)
+	while (*input)
 	{
-		if (ft_strrchr("\"\'", *input))
+		if (!quote && ft_strrchr("\"\'", *input))
 			quote = *input;
-		input++;
-	}
-	while (*input && quote)
-	{
-		if (*input && *input == quote)
+		else if (quote && *input == quote)
 			quote = 0;
 		input++;
 	}
-	if (*input)
-		return (check_quotes(input));
-	else if (!quote)
-		return (0);
-	else
-		return (1);
+	return (quote);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:17:24 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:07:50 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	do_builtin_child(void)
 		exec_export_child();
 	else if (match_strings("unset", ms()->query[0]))
 		exec_unset_child();
+	else if (match_strings("exit", ms()->query[0]))
+		exec_exit_child();
 	else if (match_strings("pwd", ms()->query[0]))
 		exec_pwd_child();
 	else if (match_strings("env", ms()->query[0]))
 		exec_env_child();
-	if (match_strings("echo", ms()->query[0]))
+	else if (match_strings("echo", ms()->query[0]))
 		exec_echo_child();
-	else if (match_strings("exit", ms()->query[0]))
-		exec_exit_child();
 	return (0);
 }
 
@@ -51,9 +51,9 @@ int	do_builtin_child(void)
 int	exec_parent_builtins(void)
 {
 	ms()->query = splitter(ms()->args[0], ' ');
-	if (!ms()->query)
-		return (0);
 	check_expand_quotes(ms()->query);
+	if (!ms()->query[0])
+		return (0);
 	if (match_strings("cd", ms()->query[0]))
 		exec_cd();
 	else if (match_strings("export", ms()->query[0]))

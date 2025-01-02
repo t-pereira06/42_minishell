@@ -50,29 +50,30 @@ char	*get_env_info(t_list **env, char *name)
  * @return Returns a new string with whitespaces added around
  * redirection characters.
  */
-char	*add_whitespaces(char *str, int i, int j)
+char	*format_input(char *arg, int i, int j)
 {
-	char	*res;
+	char	*temp;
 	char	quote;
 
 	quote = 0;
-	res = ft_calloc(ft_cmdlen(str) + 1, sizeof(char));
-	while (str[i])
+	temp = ft_calloc(get_spaced_length(arg) + 1, sizeof(char));
+	while (arg[i])
 	{
-		quote = get_quote(str[i], quote);
-		if (!quote && ft_strchr("><", str[i]))
+		quote = get_quote(arg[i], quote);
+		if (!quote && (arg[i] == '>' || arg[i] == '<'))
 		{
-			res[j++] = ' ';
-			res[j++] = str[i++];
-			if (str[i] == str[i - 1])
-				res[j++] = str[i++];
-			res[j++] = ' ';
-			quote = get_quote(str[i], quote);
+			temp[j++] = ' ';
+			temp[j++] = arg[i];
+			if (arg[i + 1] == arg[i])
+				temp[j++] = arg[++i];
+			temp[j++] = ' ';
 		}
-		res[j++] = str[i++];
+		else
+			temp[j++] = arg[i];
+		i++;
 	}
-	res[j] = '\0';
-	return (res);
+	temp[j] = '\0';
+	return (temp);
 }
 
 /**
@@ -84,27 +85,23 @@ char	*add_whitespaces(char *str, int i, int j)
  * @return Returns the length of the string until the first
  * whitespace character.
  */
-size_t	ft_cmdlen(char *str)
+size_t	get_spaced_length(char *arg)
 {
-	int	len;
-	int	i;
+	size_t	cmd_len;
+	int		i;
 
-	i = 0;
-	len = 0;
-	if (!str)
+	cmd_len = 0;
+	i = -1;
+	if (!arg)
 		return (0);
-	while (str[i])
+	while (arg[++i])
 	{
-		if (ft_strchr("><", str[i]))
-		{
-			len += 3;
-			i++;
-			continue ;
-		}
-		len++;
-		i++;
+		if (arg[i] == '>' || arg[i] == '<')
+			cmd_len += 3;
+		else
+			cmd_len++;
 	}
-	return (len);
+	return (cmd_len);
 }
 
 /**

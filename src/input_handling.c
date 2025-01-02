@@ -3,15 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/27 11:19:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:11:22 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishell.h"
 
+void	adjust_exec_paths(char **paths)
+{
+	char	*temp;
+	int		i;
+
+	i = -1;
+	while (paths[++i])
+	{
+		temp = ft_strdup(paths[i]);
+		free(paths[i]);
+		paths[i] = ft_strjoin(temp, "/");
+		free(temp);
+	}
+}
 /**
  * The function initializes the t_minishell structure with the provided input.
  *
@@ -20,16 +34,18 @@
  */
 static void	start_program(char *input)
 {
-	ms()->heredoc = false;
 	ms()->n_cmd = ft_wordcounter(input, '|');
-	ms()->n_pipe = ms()->n_cmd - 1;
 	ms()->args = splitter(input, '|');
+	ms()->exec_paths = ft_split(get_env_info(&ms()->env, "PATH"), ':');
+	if (ms()->exec_paths)
+		adjust_exec_paths(ms()->exec_paths);
+	ms()->query = 0;
+	ms()->pid = ft_calloc(ms()->n_cmd, sizeof(pid_t));
+	ms()->n_pipe = ms()->n_cmd - 1;
 	ms()->in_fd = STDIN_FILENO;
 	ms()->out_fd = STDOUT_FILENO;
 	ms()->pipe_fd = 0;
-	ms()->pid = ft_calloc(ms()->n_cmd, sizeof(pid_t));
-	ms()->paths = ft_split(get_env_info(&ms()->env, "PATH"), ':');
-	ms()->query = 0;
+	ms()->heredoc = false;
 }
 
 /**

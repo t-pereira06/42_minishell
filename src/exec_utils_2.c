@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 01:04:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:18:30 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:36:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@ void	check_dir(char *str)
 /**
  * Checks if the provided path refers to a valid file or directory.
  *
- * If the path is a directory, it calls `check_dir`. Then, it checks if the file
- * exists and if the user has write permissions. If there are issues with access,
- * it prints an appropriate error message and terminates the process with an exit
- * status of 126 or 127.
+ * If the path is a directory, it calls `check_dir`. Then, it checks if the
+ * file exists and if the user has write permissions.
+ *
+ * If there are issues with access,
+ * it prints an appropriate error message and terminates the process
+ * with an exit status of 126 or 127.
  *
  * @param str The path to check.
  * @return 0 if successful, or exits with an error code if validation fails.
@@ -75,4 +77,23 @@ int		check_if_dir_file(char *str)
 		}
 	}
 	return (0);
+}
+
+/**
+ * Handles the error when there is no PATH to search.
+ *
+ * If the PATH variable does not exist, prints an error message indicating
+ * that it cannot find the file to execute, sets the exit status to 127
+ * and terminates the process.
+ *
+ * @param command The command that was not found.
+ */
+void	no_path_err(char *command)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	g_exit_status = 127;
+	free_child(NULL, 0);
+	exit (g_exit_status);
 }

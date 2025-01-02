@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 10:47:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:31:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:44:25 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	free_child_heredoc(void)
 	if (ms()->pipe_fd)
 		free(ms()->pipe_fd);
 	unlink(".heredoc");
-	if (ms()->paths)
-		ft_free_split(ms()->paths);
+	if (ms()->exec_paths)
+		ft_free_split(ms()->exec_paths);
 	if (ms()->query)
 		ft_free_split(ms()->query);
 	if (ms()->args)
