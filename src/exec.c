@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:28:23 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 18:46:19 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:31:47 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	exec_command(char **query)
 		return ;
 	if (check_if_dir_file(query[0]))
 		return ;
-	command = get_command(query[0], 0);
+	command = find_executable_path(query[0], 0);
 	if (!command)
-		no_command_err(query[0]);
+		no_cmd_err(query[0]);
 	execve(command, query, ft_envcpy(ms()->env));
 }
 
@@ -83,8 +83,7 @@ void	exec_pipes(void)
 	i = -1;
 	while (ms()->args[++i])
 	{
-		command = add_whitespaces(ms()->args[i], 0, 0);
-		//check_heredoc(ms(), i);
+		command = format_input(ms()->args[i], 0, 0);
 		exec_command_pipe(command, i);
 		free(command);
 	}
@@ -134,11 +133,10 @@ void	execute(void)
 	}
 	else
 	{
-		cmd = add_whitespaces(ms()->args[0], 0, 0);
+		cmd = format_input(ms()->args[0], 0, 0);
 		single_cmd(cmd);
 		free(cmd);
-		if (ms()->query)
-			exec_parent_builtins();
+		exec_parent_builtins();
 	}
 	get_exit_status();
 	free_program(0);

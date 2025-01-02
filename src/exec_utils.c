@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:31:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 18:40:39 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:25:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	free_program(int i)
 	unlink(".heredoc");
 	if (ms()->query)
 		ft_free_split(ms()->query);
-	if (ms()->paths)
-		ft_free_split(ms()->paths);
 	if (ms()->args)
 		ft_free_split(ms()->args);
+	if (ms()->exec_paths)
+		ft_free_split(ms()->exec_paths);
 	if (i == 1)
 	{
 		ft_free_lst(ms()->export);
@@ -71,28 +71,21 @@ void	free_program(int i)
  * @param i    Index variable for string traversal.
  * @return     The full path of the command executable, or NULL if not found.
  */
-char	*get_command(char *cmd, int i)
+char	*find_executable_path(char *cmd, int i)
 {
-	char	*temp;
 	char	*command;
 
 	if (!cmd)
 		return (0);
 	if (!get_env_info(&ms()->env, "PATH"))
-		return ("NO_PATH_AVAILABLE");
+		no_path_err(cmd);
 	if (!access(cmd, X_OK))
 		return (cmd);
-	while (ms()->paths[i])
+	while (ms()->exec_paths[i])
 	{
-		temp = ft_strdup(ms()->paths[i]);
-		command = ft_strjoin(temp, "/");
-		free(temp);
-		temp = ft_strdup(command);
-		free(command);
-		command = ft_strjoin(temp, cmd);
+		command = ft_strjoin(ms()->exec_paths[i], cmd);
 		if (!access(command, F_OK))
 			return (command);
-		free(temp);
 		free(command);
 		i++;
 	}
@@ -106,12 +99,12 @@ char	*get_command(char *cmd, int i)
  * @param cmd_args The arguments associated with the command.
  * @param ms The pointer to the minishell structure.
  */
-void	no_command_err(char *command)
+void	no_cmd_err(char *command)
 {
 	ft_putstr_fd(command, STDERR_FILENO);
 	ft_putstr_fd(": command not found\n", STDERR_FILENO);
-	free_child(NULL, 0);
 	g_exit_status = 127;
+	free_child(NULL, 0);
 	exit (g_exit_status);
 }
 
@@ -129,8 +122,8 @@ void	free_child(char **cmd_query, int i)
 	if (ms()->pipe_fd)
 		free(ms()->pipe_fd);
 	unlink(".heredoc");
-	if (ms()->paths)
-		ft_free_split(ms()->paths);
+	if (ms()->exec_paths)
+		ft_free_split(ms()->exec_paths);
 	if (ms()->query)
 		ft_free_split(ms()->query);
 	if (ms()->args)

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:31:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:26:17 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,28 @@ typedef struct s_minishell
 {
 	t_list	*env;
 	t_list	*export;
+	/*  pipes use only   */
 	int		n_cmd;
 	int		n_pipe;
 	int		in_fd;
 	int		out_fd;
-	int		counter;
 	int		*pipe_fd;
+	/* ----------------- */
 	pid_t	*pid;
 	bool	heredoc;
 	char	*prompt;
 	char	*input;
-
 	/* redirect use only */
 	char	*operator;
 	char	*temp;
 	char	**temp_query;
-	/* -------------- */
+	/* ----------------- */
 	char	**query;
 	char	**args;
-	char	**paths;
-	/* echo use only */
+	char	**exec_paths;
+	/*   echo use only   */
 	bool	echo_option;
-	/* -------------- */
+	/* ----------------- */
 }				t_minishell;
 
 typedef struct s_env
@@ -69,14 +69,14 @@ typedef struct s_env
 	char	*info;
 }				t_env;
 
-typedef struct s_expander
+/* typedef struct s_expander
 {
 	int		index;
 	int		len;
 	int		offset;
 	int		quote;
 	t_list	*temp;
-}				t_expander;
+}				t_expander; */
 
 /* ------------------- Source ------------------- */
 
@@ -100,12 +100,13 @@ int			do_append(char **query);
 //exec_utils_2.c
 void		check_dir(char *str);
 int			check_if_dir_file(char *str);
+void		no_path_err(char *command);
 
 //exec_utils.c
 void		get_exit_status(void);
 void		free_program(int i);
-char		*get_command(char *cmd, int i);
-void		no_command_err(char *command);
+char		*find_executable_path(char *cmd, int i);
+void		no_cmd_err(char *command);
 void		free_child(char **cmd_query, int i);
 
 //exec.c
@@ -192,7 +193,7 @@ int			check_pipe(char *string, char**query, int a, int quote);
 int			unexpected_redirect(char **query);
 
 //parsing.c
-char		*get_command(char *cmd, int i);
+char		*find_executable_path(char *cmd, int i);
 void		parse_query(char **cmd_query);
 
 //pipes.c
@@ -207,8 +208,8 @@ char		*get_prompt(int i, int j);
 //quotes.c
 int			len_quoteless(char *arg);
 void		find_quote(char *arg, int *i, char *quote);
-char		*remove_quotes(char *arg);
-int			check_quotes(char *input);
+char		*trim_quotes(char *arg);
+int			are_quotes_balanced(char *input);
 char		get_quote(char c, char quote);
 
 //redirects.c
@@ -230,8 +231,8 @@ char		**splitter(char *s, char c);
 
 //utils.c
 char		*get_env_info(t_list **env, char *name);
-char		*add_whitespaces(char *str, int i, int j);
-size_t		ft_cmdlen(char *str);
+char		*format_input(char *arg, int i, int j);
+size_t		get_spaced_length(char *arg);
 int			match_strings(char *s1, char *s2);
 
 /* ------------------- Built-ins ------------------- */

@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 01:04:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:18:30 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 20:25:57 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ int		check_if_dir_file(char *str)
 		}
 	}
 	return (0);
+}
+
+void	no_path_err(char *command)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(command, STDERR_FILENO);
+	ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	g_exit_status = 127;
+	free_child(NULL, 0);
+	exit (g_exit_status);
 }
