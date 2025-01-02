@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 01:04:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 20:36:53 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:03:41 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		check_if_dir_file(char *str)
 			free_child(NULL, 0);
 			exit (g_exit_status);
 		}
-		if (access(str, W_OK) != 0 && access(str, F_OK) == 0)
+		if (access(str, R_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(str, STDERR_FILENO);
