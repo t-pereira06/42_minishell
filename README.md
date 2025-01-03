@@ -69,3 +69,4 @@ foreground pipeline.
   * ```exit``` with no options
 
 # Grade:
+![Screenshot from 2025-01-03 19-22-33](https://github.com/user-attachments/assets/bbd3f4ec-2d1d-4e0d-b12f-804749a7145f)
