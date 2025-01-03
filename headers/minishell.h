@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/03 09:30:08 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:58:00 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ char		*get_directory(char *prompt);
 char		*get_prompt(int i, int j);
 
 //quotes.c
-int			len_quoteless(char *arg);
+int			length_wout_quotes(char *arg);
 void		find_quote(char *arg, int *i, char *quote);
 char		*trim_quotes(char *arg);
 int			are_quotes_balanced(char *input);

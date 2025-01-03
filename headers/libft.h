@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:20:25 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/28 18:59:06 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:54:52 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char		*ft_strtrim(char const *str, char const *set);
 char		*ft_substr(char const *str, unsigned int start, size_t len);
 int			ft_wordcount(const char *str, char c);
 void		ft_swap(char **s1, char **s2);
+int			ft_isquote(int c);
 
 /*---------------------------ARRAY OF STRINGS---------------------------*/
 int			ft_dpcount(char **dp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:38:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 18:01:47 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 10:00:07 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,29 @@
  * @param arg The input string.
  * @return The length of the string without quotes.
  */
-int	len_quoteless(char *arg)
+int	length_wout_quotes(char *arg)
 {
+	char	quote;
 	int		i;
 	int		len;
-	char	quote;
 
-	i = -1;
-	quote = 0;
+	i = 0;
 	len = 0;
-	while (arg[++i])
+	quote = 0;
+	while (arg[i])
 	{
-		if (ft_strchr("\"\'", arg[i]) && !quote)
+		if (ft_isquote(arg[i]))
 		{
-			quote = arg[i];
-			len--;
+			if (!quote)
+				quote = arg[i];
+			else if (quote == arg[i])
+				quote = 0;
+			else
+				len++;
 		}
-		else if (ft_strchr("\"\'", arg[i]) && quote == arg[i])
-		{
-			len--;
-			quote = 0;
-		}
-		len++;
+		else
+			len++;
+		i++;
 	}
 	return (len);
 }
@@ -86,12 +87,12 @@ char	*trim_quotes(char *arg)
 	i = -1;
 	j = 0;
 	quote = 0;
-	if (len_quoteless(arg) <= 0)
+	if (length_wout_quotes(arg) <= 0)
 	{
 		free(arg);
 		return (ft_strdup(""));
 	}
-	res = ft_calloc(len_quoteless(arg) + 1, sizeof(char));
+	res = ft_calloc(length_wout_quotes(arg) + 1, sizeof(char));
 	while (arg[++i])
 	{
 		find_quote(arg, &i, &quote);
