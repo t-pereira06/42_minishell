@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:31:55 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 20:11:22 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:24:43 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	adjust_exec_paths(char **paths)
 		free(temp);
 	}
 }
+
 /**
  * The function initializes the t_minishell structure with the provided input.
  *

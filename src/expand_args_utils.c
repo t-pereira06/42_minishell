@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:40:21 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:20:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:22:51 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
  *
  * This function extracts the variable starting at a given position, checks for
  * specific conditions like `"$"`, and joins the variable's value with any
- * previously expanded string (`final_expand`). The result is returned as a new string.
+ * previously expanded string (`final_expand`). The result is returned as
+ * a new string.
  *
  * @param str The string containing the variable.
  * @param pos The position where the variable starts.
@@ -47,9 +48,11 @@ char	*get_var_wout_quote(char *str, int pos, char *final_expand)
 /**
  * Retrieves the value of a variable with quotes and expands it.
  *
- * This function extracts a quoted string (if any) starting at a given position
- * and joins it with any previously expanded string (`final_expand`). The result is
- * returned as a new string.
+ * This function extracts a quoted string (if any) starting at a given
+ * position and joins it with any previously expanded string
+ * (`final_expand`).
+ *
+ * The result is returned as a new string.
  *
  * @param str The string containing the variable.
  * @param pos The position where the quoted string starts.

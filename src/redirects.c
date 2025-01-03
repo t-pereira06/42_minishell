@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:38 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:37:52 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:21:49 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**check_redir(char *input, int i, int err)
 {
 	ms()->temp_query = splitter(input, ' ');
 	free(input);
-	check_expand_quotes(ms()->temp_query);
+	check_expand_quotes(ms()->temp_query, 0, 0);
 	while (ms()->temp_query[++i])
 	{
 		if (match_strings(ms()->temp_query[i], "<"))

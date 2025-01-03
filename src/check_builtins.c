@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:55:04 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 20:07:50 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:21:37 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	do_builtin_child(void)
 int	exec_parent_builtins(void)
 {
 	ms()->query = splitter(ms()->args[0], ' ');
-	check_expand_quotes(ms()->query);
+	check_expand_quotes(ms()->query, 0, 0);
 	if (!ms()->query[0])
 		return (0);
 	if (match_strings("cd", ms()->query[0]))

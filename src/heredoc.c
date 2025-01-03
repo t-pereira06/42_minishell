@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:45:22 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:25:37 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:23:17 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ void	heredoc_sigint(int signum)
  *
  * This function manages the process of reading input for a heredoc.
  * It sets up the signal handling for the heredoc process, opens the `.heredoc`
- * file for writing, and continuously prompts the user for input using `readline`.
+ * file for writing, and continuously prompts the user for
+ * input using `readline`.
+ *
  * The input is written to the file until the user enters the delimiter
  * (the string marking the end of the heredoc).
+ *
  * If any `$`-prefixed variables are found in the input, they are expanded using
  * `expand_var_heredoc`.
+ *
  * If EOF (end-of-file) is reached, the `err_eof` function is called to
  * handle the error.
  */

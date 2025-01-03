@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 01:04:06 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 21:03:41 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:19:36 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  */
 void	check_dir(char *str)
 {
-	DIR *dir;
+	DIR	*dir;
 
 	dir = opendir(str);
 	if (dir)
@@ -52,7 +52,7 @@ void	check_dir(char *str)
  * @param str The path to check.
  * @return 0 if successful, or exits with an error code if validation fails.
  */
-int		check_if_dir_file(char *str)
+int	check_if_dir_file(char *str)
 {
 	if ((str[0] == '.' && str[1] == '/') || str[0] == '/')
 	{

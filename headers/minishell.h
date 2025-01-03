@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/03 08:26:48 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:30:08 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,6 @@ typedef struct s_env
 	char	*info;
 }				t_env;
 
-/* typedef struct s_expander
-{
-	int		index;
-	int		len;
-	int		offset;
-	int		quote;
-	t_list	*temp;
-}				t_expander; */
-
 /* ------------------- Source ------------------- */
 
 //ms.c
@@ -133,7 +124,7 @@ char		*trim_before_dsign(char *str);
 char		*join_final_strings(char *final_str, char *final_expand);
 char		*get_quote_string(char *str, int pos);
 char		*check_variable(char *str, int pos, char *final_expand);
-void		check_expand_quotes(char **query);
+void		check_expand_quotes(char **query, int i, int count_before);
 
 //free.c
 void		ft_free_lst(t_list *lst);
@@ -242,8 +233,11 @@ int			match_strings(char *s1, char *s2);
 
 /* ------------------- Built-ins ------------------- */
 
-//cd.c
+//cd_utils.c
+int			cd_error_helper(void);
 int			cd_error_handler(void);
+
+//cd.c
 void		change_env_exp_var(char *env_var);
 void		ft_cd(char *arg, char **query);
 void		exec_cd_child(void);

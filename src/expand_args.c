@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:44:02 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 16:06:57 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 09:21:53 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ char	*get_quote_string(char *str, int pos)
 /**
  * Processes a string to expand any variables and handle quotes.
  *
- * This function scans the input string for variables (denoted by `$`) and expands
- * them. It handles cases where variables are within quotes and builds the final
+ * This function scans the input string for variables (denoted by `$`)
+ * and expands them.
+ *
+ * It handles cases where variables are within quotes and builds the final
  * expanded string (`final_expand`). It returns the fully expanded string.
  *
  * @param str The string to process for variables.
@@ -112,14 +114,10 @@ char	*check_variable(char *str, int pos, char *final_expand)
  *
  * @param query The array of query strings to modify.
  */
-void	check_expand_quotes(char **query)
+void	check_expand_quotes(char **query, int i, int count_before)
 {
-	int		i;
-	int		count_before;
 	char	*temp;
 
-	i = 0;
-	count_before = 0;
 	while (query[i])
 	{
 		if (ft_strrchr(query[i], '$'))
