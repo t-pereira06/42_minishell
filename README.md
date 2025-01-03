@@ -13,7 +13,7 @@ $ ./minishell
 ```
 After that, a prompt will be presented:
 
-![Screenshot from 2023-07-05 09-50-41](https://github.com/t-pereira06/42_minishell/assets/118270669/07d2c940-06ff-4940-b0fe-78bccb00c269)
+![Screenshot from 2025-01-03 19-24-38](https://github.com/user-attachments/assets/30e61cbf-9f7c-4bbd-bf90-f23b2ae316b2)
 
 ## Rules Of The Project
 Your shell should:
