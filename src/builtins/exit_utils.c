@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: tsodre-p <tsodre-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:57:30 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:14:13 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 11:08:09 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	convert_number_exit(void)
  */
 void	numeric_error(char *str)
 {
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	ft_putstr_fd("exit", STDOUT_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 }
