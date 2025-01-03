@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:13 by tsodre-p          #+#    #+#             */
-/*   Updated: 2025/01/02 20:26:17 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 08:26:48 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,10 @@ void		manage_pipeline_io(int n_pid);
 void		do_pipex(void);
 
 //prompt.c
+void		get_env(char **user, char **temp);
+char		*gd_utils(bool check, char *cwd, char *prompt, int length);
+char		*prompt_wout_home(char *cwd, char *prompt);
+char		*get_directory(char *prompt);
 char		*get_prompt(int i, int j);
 
 //quotes.c
@@ -227,7 +231,8 @@ void		signal_default(void);
 //splitter.c
 int			ft_wordcounter(char *str, char c);
 int			ft_wordlen(char *str, char c);
-char		**splitter(char *s, char c);
+char		*get_word(char *str, char c, char **words);
+char		**splitter(char *str, char c);
 
 //utils.c
 char		*get_env_info(t_list **env, char *name);

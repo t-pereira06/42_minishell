@@ -6,7 +6,7 @@
 /*   By: tsodre-p <tsodre-p@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:34:32 by tsodre-p          #+#    #+#             */
-/*   Updated: 2024/12/30 17:34:38 by tsodre-p         ###   ########.fr       */
+/*   Updated: 2025/01/03 08:28:19 by tsodre-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param temp  Pointer to store the value of the "SESSION_MANAGER"
  * environment variable.
  */
-static void	get_env(char **user, char **temp)
+void	get_env(char **user, char **temp)
 {
 	*user = getenv("USER");
 	*temp = getenv("SESSION_MANAGER");
@@ -37,7 +37,7 @@ static void	get_env(char **user, char **temp)
  * @param length  Length of the shortened current working directory.
  * @return        The generated prompt string.
  */
-static char	*gd_utils(bool check, char *cwd, char *prompt, int length)
+char	*gd_utils(bool check, char *cwd, char *prompt, int length)
 {
 	char	*temp;
 
@@ -95,7 +95,7 @@ char	*prompt_wout_home(char *cwd, char *prompt)
  * @param prompt  Prompt string prefix.
  * @return        The generated prompt string.
  */
-static char	*get_directory(char *prompt)
+char	*get_directory(char *prompt)
 {
 	char	*cwd;
 	size_t	length;

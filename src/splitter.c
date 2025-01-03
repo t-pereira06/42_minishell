@@ -80,18 +80,18 @@ int	ft_wordlen(char *str, char c)
  * @return Returns a pointer to the remaining portion of the string after
  * the extracted word.
  */
-static char	*get_word(char *s, char c, char **words)
+char	*get_word(char *str, char c, char **words)
 {
 	char	quote;
 
 	quote = 0;
-	*words = ft_substr(s, 0, ft_wordlen(s, c));
-	while ((*s && *s != c) || (*s && quote))
+	*words = ft_substr(str, 0, ft_wordlen(str, c));
+	while ((*str && *str != c) || (*str && quote))
 	{
-		quote = get_quote(*s, quote);
-		s++;
+		quote = get_quote(*str, quote);
+		str++;
 	}
-	return (s);
+	return (str);
 }
 
 /**
@@ -105,26 +105,26 @@ static char	*get_word(char *s, char c, char **words)
  *
  * @return Returns an array of strings resulting from the split operation.
  */
-char	**splitter(char *s, char c)
+char	**splitter(char *str, char c)
 {
-	char	**split;
-	int		wc;
+	char	**strings;
 	int		i;
+	int		wdcount;
 
 	i = 0;
-	if (!s)
+	if (!str)
 		return (0);
-	wc = ft_wordcounter(s, c);
-	split = ft_calloc(wc + 1, sizeof(char *));
-	if (!split)
+	wdcount = ft_wordcounter(str, c);
+	strings = ft_calloc(wdcount + 1, sizeof(char *));
+	if (!strings)
 		return (0);
-	while (*s)
+	while (*str)
 	{
-		while (*s && *s == c)
-			s++;
-		if (*s)
-			s = get_word(s, c, &split[i++]);
+		while (*str && *str == c)
+			str++;
+		if (*str)
+			str = get_word(str, c, &strings[i++]);
 	}
-	split[i] = 0;
-	return (split);
+	strings[i] = 0;
+	return (strings);
 }
