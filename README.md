@@ -12,7 +12,6 @@ To execute the program:
 $ ./minishell
 ```
 After that, a prompt will be presented:
-
 ![Screenshot from 2025-01-03 19-24-38](https://github.com/user-attachments/assets/30e61cbf-9f7c-4bbd-bf90-f23b2ae316b2)
 
 ## Rules Of The Project
